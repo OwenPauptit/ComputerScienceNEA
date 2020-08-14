@@ -10,9 +10,8 @@ namespace NEA.Models
 {
     public class ClassAssignment
     {
-        [ForeignKey("Classroom")]
-        [StringLength(10, MinimumLength = 6)]
-        public string ClassID { get; set; }
+        
+        public string ClassroomID { get; set; }
         public int SimulationID { get; set; }
 
         [DataType(DataType.Date)]

@@ -5,6 +5,45 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200814130003_ForeignKeyClassroom.cs" />
+    <Compile Remove="Migrations\20200814130003_ForeignKeyClassroom.Designer.cs" />
+    <Compile Remove="Migrations\20200814130340_ForeignKeyClassroom.cs" />
+    <Compile Remove="Migrations\20200814130340_ForeignKeyClassroom.Designer.cs" />
+    <Compile Remove="Migrations\20200814130754_ClassroomIDPK.cs" />
+    <Compile Remove="Migrations\20200814130754_ClassroomIDPK.Designer.cs" />
+    <Compile Remove="Migrations\20200814131015_ClassroomPK.cs" />
+    <Compile Remove="Migrations\20200814131015_ClassroomPK.Designer.cs" />
+    <Compile Remove="Migrations\20200814131318_FKandPKfix.cs" />
+    <Compile Remove="Migrations\20200814131318_FKandPKfix.Designer.cs" />
+    <Compile Remove="Migrations\20200814131558_fixingFKs.cs" />
+    <Compile Remove="Migrations\20200814131558_fixingFKs.Designer.cs" />
+    <Compile Remove="Migrations\20200814131843_FixingFks.cs" />
+    <Compile Remove="Migrations\20200814131843_FixingFks.Designer.cs" />
+    <Compile Remove="Migrations\20200814132923_FixingFKs.cs" />
+    <Compile Remove="Migrations\20200814132923_FixingFKs.Designer.cs" />
+    <Compile Remove="Migrations\20200814133630_FixingFks.cs" />
+    <Compile Remove="Migrations\20200814133630_FixingFks.Designer.cs" />
+    <Compile Remove="Migrations\20200814133732_FixingFKs.cs" />
+    <Compile Remove="Migrations\20200814133732_FixingFKs.Designer.cs" />
+    <Compile Remove="Migrations\20200814134018_FixingFKs.cs" />
+    <Compile Remove="Migrations\20200814134018_FixingFKs.Designer.cs" />
+    <Compile Remove="Migrations\20200814134235_FixingFKs.cs" />
+    <Compile Remove="Migrations\20200814134235_FixingFKs.Designer.cs" />
+    <Compile Remove="Migrations\20200814134443_FixingFKs.cs" />
+    <Compile Remove="Migrations\20200814134443_FixingFKs.Designer.cs" />
+    <Compile Remove="Migrations\20200814135105_PleaseWork.cs" />
+    <Compile Remove="Migrations\20200814135105_PleaseWork.Designer.cs" />
+    <Compile Remove="Migrations\20200814135456_FixingFKs.cs" />
+    <Compile Remove="Migrations\20200814135456_FixingFKs.Designer.cs" />
+    <Compile Remove="Migrations\20200814135722_FixingEverything.cs" />
+    <Compile Remove="Migrations\20200814135722_FixingEverything.Designer.cs" />
+    <Compile Remove="Migrations\20200814135818_FixingEverything.cs" />
+    <Compile Remove="Migrations\20200814135818_FixingEverything.Designer.cs" />
+    <Compile Remove="Migrations\20200814142147_FixingThings.cs" />
+    <Compile Remove="Migrations\20200814142147_FixingThings.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />

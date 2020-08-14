@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using NEA.Models;
 
 namespace NEA.Areas.Identity.Data
 {
@@ -14,5 +15,8 @@ namespace NEA.Areas.Identity.Data
 
         [PersonalData]
         public string LastName { get; set; }
+
+        public ICollection<StudentAssignment> StudentAssignments { get; set; }
+        public ICollection<Enrollment> Enrollments { get; set; }
     }
 }

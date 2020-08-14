@@ -35,11 +35,16 @@ namespace NEA.Models
             builder.Entity<StudentAssignment>().ToTable("StudentAssignment");
 
             builder.Entity<Enrollment>()
-                .HasKey(e => new { e.StudentID, e.ClassID });
+                .HasKey(e => new { e.UserId, e.ClassroomID });
             builder.Entity<ClassAssignment>()
-                .HasKey(c => new { c.ClassID, c.SimulationID });
+                .HasKey(c => new { c.ClassroomID, c.SimulationID });
             builder.Entity<StudentAssignment>()
-                .HasKey(s => new { s.StudentID, s.SimulationID });
+                .HasKey(s => new { s.UserID, s.SimulationID });
+
+            builder.Entity<Enrollment>()
+                .HasOne(e => e.NEAUser)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

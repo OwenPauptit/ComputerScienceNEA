@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NEA.Models;
 
 namespace NEA.Migrations
 {
     [DbContext(typeof(NEAContext))]
-    partial class NEAContextModelSnapshot : ModelSnapshot
+    [Migration("20200814143758_RemoveUnnecessaryProperties")]
+    partial class RemoveUnnecessaryProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -270,7 +272,7 @@ namespace NEA.Migrations
 
             modelBuilder.Entity("NEA.Models.Enrollment", b =>
                 {
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserID")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ClassroomID")
@@ -279,7 +281,7 @@ namespace NEA.Migrations
                     b.Property<string>("NEAUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("UserId", "ClassroomID");
+                    b.HasKey("UserID", "ClassroomID");
 
                     b.HasIndex("ClassroomID");
 
@@ -414,7 +416,7 @@ namespace NEA.Migrations
 
                     b.HasOne("NEA.Areas.Identity.Data.NEAUser", "NEAUser")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

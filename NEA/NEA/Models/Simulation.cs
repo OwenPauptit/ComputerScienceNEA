@@ -14,7 +14,5 @@ namespace NEA.Models
         [Required]
         public string Name { get; set; }
 
-        public ICollection<StudentAssignment> StudentAssignments { get; set; }
-        public ICollection<ClassAssignment> ClassAssignments { get; set; }
     }
 }

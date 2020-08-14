@@ -10,15 +10,12 @@ namespace NEA.Models
 {
     public class Enrollment
     {
-        
+        [ForeignKey("NEAUser")]
+        public string UserId { get; set; }
+     
+        public string ClassroomID { get; set; }
 
-        public string StudentID { get; set; }
-        
-        [ForeignKey("Classroom")]
-        [StringLength(10, MinimumLength = 6)]
-        public string ClassID { get; set; }
-
-        public NEAUser Student { get; set; }
+        public NEAUser NEAUser { get; set; }
         public Classroom Classroom { get; set; }
 
         //Need to use FluentAPI for composite key

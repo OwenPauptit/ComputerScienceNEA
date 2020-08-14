@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +10,8 @@ namespace NEA.Models
 {
     public class StudentAssignment
     {
-        public string StudentID { get; set; }
+        [ForeignKey("NEAUser")]
+        public string UserID { get; set; }
         public int SimulationID { get; set; }
 
         [Range(0,100)]
@@ -19,7 +21,7 @@ namespace NEA.Models
         public DateTime DateCompleted { get; set; }
 
 
-        public NEAUser Student { get; set; }
+        public NEAUser NEAUser { get; set; }
         public Simulation Simulation { get; set; }
 
     }

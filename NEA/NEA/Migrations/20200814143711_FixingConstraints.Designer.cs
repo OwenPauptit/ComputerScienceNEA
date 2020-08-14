@@ -10,8 +10,8 @@ using NEA.Models;
 namespace NEA.Migrations
 {
     [DbContext(typeof(NEAContext))]
-    [Migration("20200814130003_ForeignKeyClassroom")]
-    partial class ForeignKeyClassroom
+    [Migration("20200814143711_FixingConstraints")]
+    partial class FixingConstraints
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -164,9 +164,6 @@ namespace NEA.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("ClassroomClassID")
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -219,8 +216,6 @@ namespace NEA.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClassroomClassID");
-
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -234,9 +229,8 @@ namespace NEA.Migrations
 
             modelBuilder.Entity("NEA.Models.ClassAssignment", b =>
                 {
-                    b.Property<string>("ClassID")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                    b.Property<string>("ClassroomID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("SimulationID")
                         .HasColumnType("int");
@@ -247,7 +241,7 @@ namespace NEA.Migrations
                     b.Property<DateTime>("DateSet")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("ClassID", "SimulationID");
+                    b.HasKey("ClassroomID", "SimulationID");
 
                     b.HasIndex("SimulationID");
 
@@ -256,39 +250,48 @@ namespace NEA.Migrations
 
             modelBuilder.Entity("NEA.Models.Classroom", b =>
                 {
-                    b.Property<string>("ClassID")
+                    b.Property<string>("ClassroomID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<string>("TeacherID")
+                    b.Property<string>("UserID")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("ClassID");
+                    b.HasKey("ClassroomID");
 
-                    b.HasIndex("TeacherID");
+                    b.HasIndex("UserID");
 
                     b.ToTable("Classroom");
                 });
 
             modelBuilder.Entity("NEA.Models.Enrollment", b =>
                 {
-                    b.Property<string>("StudentID")
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ClassroomID")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ClassID")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("StudentID", "ClassID");
+                    b.Property<string>("Grade")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("ClassID");
+                    b.Property<string>("NEAUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserID", "ClassroomID");
+
+                    b.HasIndex("ClassroomID");
+
+                    b.HasIndex("NEAUserId");
 
                     b.ToTable("Enrollment");
                 });
@@ -311,7 +314,7 @@ namespace NEA.Migrations
 
             modelBuilder.Entity("NEA.Models.StudentAssignment", b =>
                 {
-                    b.Property<string>("StudentID")
+                    b.Property<string>("UserID")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("SimulationID")
@@ -323,7 +326,7 @@ namespace NEA.Migrations
                     b.Property<int?>("Percentage")
                         .HasColumnType("int");
 
-                    b.HasKey("StudentID", "SimulationID");
+                    b.HasKey("UserID", "SimulationID");
 
                     b.HasIndex("SimulationID");
 
@@ -381,23 +384,16 @@ namespace NEA.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("NEA.Areas.Identity.Data.NEAUser", b =>
-                {
-                    b.HasOne("NEA.Models.Classroom", null)
-                        .WithMany("Students")
-                        .HasForeignKey("ClassroomClassID");
-                });
-
             modelBuilder.Entity("NEA.Models.ClassAssignment", b =>
                 {
                     b.HasOne("NEA.Models.Classroom", "Classroom")
                         .WithMany()
-                        .HasForeignKey("ClassID")
+                        .HasForeignKey("ClassroomID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NEA.Models.Simulation", "Simulation")
-                        .WithMany("ClassAssignments")
+                        .WithMany()
                         .HasForeignKey("SimulationID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -407,7 +403,7 @@ namespace NEA.Migrations
                 {
                     b.HasOne("NEA.Areas.Identity.Data.NEAUser", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherID")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -415,29 +411,33 @@ namespace NEA.Migrations
             modelBuilder.Entity("NEA.Models.Enrollment", b =>
                 {
                     b.HasOne("NEA.Models.Classroom", "Classroom")
-                        .WithMany()
-                        .HasForeignKey("ClassID")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("ClassroomID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NEA.Areas.Identity.Data.NEAUser", "Student")
+                    b.HasOne("NEA.Areas.Identity.Data.NEAUser", null)
+                        .WithMany("Enrollments")
+                        .HasForeignKey("NEAUserId");
+
+                    b.HasOne("NEA.Areas.Identity.Data.NEAUser", "NEAUser")
                         .WithMany()
-                        .HasForeignKey("StudentID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("NEA.Models.StudentAssignment", b =>
                 {
                     b.HasOne("NEA.Models.Simulation", "Simulation")
-                        .WithMany("StudentAssignments")
+                        .WithMany()
                         .HasForeignKey("SimulationID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NEA.Areas.Identity.Data.NEAUser", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentID")
+                    b.HasOne("NEA.Areas.Identity.Data.NEAUser", "NEAUser")
+                        .WithMany("StudentAssignments")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
