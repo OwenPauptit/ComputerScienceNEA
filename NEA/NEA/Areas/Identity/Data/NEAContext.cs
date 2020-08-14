@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -15,6 +16,11 @@ namespace NEA.Models
             : base(options)
         {
         }
+        public DbSet<ClassAssignment> ClassAssignments { get; set; }
+        public DbSet<Classroom> Classrooms { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<Simulation> Simulations { get; set; }
+        public DbSet<StudentAssignment> StudentAssignments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -22,6 +28,18 @@ namespace NEA.Models
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+            builder.Entity<ClassAssignment>().ToTable("ClassAssignment");
+            builder.Entity<Classroom>().ToTable("Classroom");
+            builder.Entity<Enrollment>().ToTable("Enrollment");
+            builder.Entity<Simulation>().ToTable("Simulation");
+            builder.Entity<StudentAssignment>().ToTable("StudentAssignment");
+
+            builder.Entity<Enrollment>()
+                .HasKey(e => new { e.StudentID, e.ClassID });
+            builder.Entity<ClassAssignment>()
+                .HasKey(c => new { c.ClassID, c.SimulationID });
+            builder.Entity<StudentAssignment>()
+                .HasKey(s => new { s.StudentID, s.SimulationID });
         }
     }
 }

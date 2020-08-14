@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NEA.Models;
 
 namespace NEA.Migrations
 {
     [DbContext(typeof(NEAContext))]
-    partial class NEAContextModelSnapshot : ModelSnapshot
+    [Migration("20200814125506_InitialModels")]
+    partial class InitialModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,11 +235,13 @@ namespace NEA.Migrations
             modelBuilder.Entity("NEA.Models.ClassAssignment", b =>
                 {
                     b.Property<string>("ClassID")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("SimulationID")
                         .HasColumnType("int");
+
+                    b.Property<string>("ClassroomClassID")
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime>("DateDue")
                         .HasColumnType("datetime2");
@@ -246,6 +250,8 @@ namespace NEA.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("ClassID", "SimulationID");
+
+                    b.HasIndex("ClassroomClassID");
 
                     b.HasIndex("SimulationID");
 
@@ -281,12 +287,14 @@ namespace NEA.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ClassID")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ClassroomClassID")
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("StudentID", "ClassID");
 
-                    b.HasIndex("ClassID");
+                    b.HasIndex("ClassroomClassID");
 
                     b.ToTable("Enrollment");
                 });
@@ -390,9 +398,7 @@ namespace NEA.Migrations
                 {
                     b.HasOne("NEA.Models.Classroom", "Classroom")
                         .WithMany()
-                        .HasForeignKey("ClassID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClassroomClassID");
 
                     b.HasOne("NEA.Models.Simulation", "Simulation")
                         .WithMany("ClassAssignments")
@@ -414,9 +420,7 @@ namespace NEA.Migrations
                 {
                     b.HasOne("NEA.Models.Classroom", "Classroom")
                         .WithMany()
-                        .HasForeignKey("ClassID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClassroomClassID");
 
                     b.HasOne("NEA.Areas.Identity.Data.NEAUser", "Student")
                         .WithMany()

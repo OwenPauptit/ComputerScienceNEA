@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NEA.Areas.Identity.Data;
+using NEA.Authorization;
 
 namespace NEA.Areas.Identity.Pages.Account.Manage
 {
@@ -24,6 +25,9 @@ namespace NEA.Areas.Identity.Pages.Account.Manage
         }
 
         public string Username { get; set; }
+
+        [Display(Name = "Account Type")]
+        public string AccountType { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -52,9 +56,11 @@ namespace NEA.Areas.Identity.Pages.Account.Manage
         private async Task LoadAsync(NEAUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
+            var accountType = await _userManager.IsInRoleAsync(user,Constants.StudentRole) ? "Student" : "Teacher";
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
             Username = userName;
+            AccountType = accountType;
 
             Input = new InputModel
             {

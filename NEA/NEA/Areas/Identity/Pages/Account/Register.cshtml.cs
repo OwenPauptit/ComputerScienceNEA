@@ -8,12 +8,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NEA.Authorization;
 using NEA.Areas.Identity.Data;
+using NEA.Models;
 
 namespace NEA.Areas.Identity.Pages.Account
 {
@@ -44,11 +51,13 @@ namespace NEA.Areas.Identity.Pages.Account
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
+        public SelectList AccountTypes { get; set; }
+
         public class InputModel
         {
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name ="First Name")]
+            [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
             [Required]
@@ -71,29 +80,49 @@ namespace NEA.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Display(Name = "I am a")]
+            public string AccountType { get; set; }
+        }
+
+        private void PopulateSelectList()
+        {
+
+            AccountTypes = new SelectList(new List<string> { Constants.StudentRole, Constants.TeacherRole });
         }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            PopulateSelectList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+
+
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new NEAUser { 
+                var user = new NEAUser
+                {
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
-                    UserName = Input.Email, 
-                    Email = Input.Email 
+                    UserName = Input.Email,
+                    Email = Input.Email
                 };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+               
+                await _userManager.AddToRoleAsync(user, Input.AccountType);
+
+
                 if (result.Succeeded)
                 {
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -124,7 +153,12 @@ namespace NEA.Areas.Identity.Pages.Account
             }
 
             // If we got this far, something failed, redisplay form
+            PopulateSelectList();
             return Page();
+
         }
+
+        
+        
     }
 }
