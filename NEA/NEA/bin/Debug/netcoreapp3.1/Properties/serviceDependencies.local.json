@@ -3,6 +3,9 @@
     "mssql1": {
       "type": "mssql.local",
       "connectionId": "NEAContextConnection"
+    },
+    "secrets1": {
+      "type": "secrets.user"
     }
   }
 }

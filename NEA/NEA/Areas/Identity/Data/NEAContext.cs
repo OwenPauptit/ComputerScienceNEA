@@ -35,7 +35,7 @@ namespace NEA.Models
             builder.Entity<StudentAssignment>().ToTable("StudentAssignment");
 
             builder.Entity<Enrollment>()
-                .HasKey(e => new { e.UserId, e.ClassroomID });
+                .HasKey(e => new { e.NEAUserId, e.ClassroomID });
             builder.Entity<ClassAssignment>()
                 .HasKey(c => new { c.ClassroomID, c.SimulationID });
             builder.Entity<StudentAssignment>()

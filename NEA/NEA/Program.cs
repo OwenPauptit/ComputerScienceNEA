@@ -33,9 +33,9 @@ namespace NEA
                     // Set password with the Secret Manager tool.
                     // dotnet user-secrets set SeedUserPW <pw>
 
-                    //var testUserPw = config["SeedUserPW"];
+                    var testUserPw = config["SeedUserPW"];
 
-                    SeedData.Initialize(services).Wait();
+                    SeedData.Initialize(services, testUserPw).Wait();
                 }
                 catch (Exception ex)
                 {

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NEA.Areas.Identity.Data;
+using NEA.Authorization;
 using NEA.Models;
 
 [assembly: HostingStartup(typeof(NEA.Areas.Identity.IdentityHostingStartup))]
@@ -19,9 +20,8 @@ namespace NEA.Areas.Identity
         {
             builder.ConfigureServices((context, services) =>
             {
-                services.AddDbContext<NEAContext>(options =>
-                    options.UseSqlServer(
-                        context.Configuration.GetConnectionString("NEAContextConnection")));
+                
+
 
                 services.AddDefaultIdentity<NEAUser>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddRoles<IdentityRole>()
@@ -34,9 +34,12 @@ namespace NEA.Areas.Identity
                         .Build();
                 });
 
-                
+                services.AddSingleton<IAuthorizationHandler,
+                         ClassroomStudentAuthorizationHandler>();
 
-                
+                services.AddSingleton<IAuthorizationHandler,
+                         ClassroomTeacherAuthorizationHandler>();
+
             });
         }
     }

@@ -97,12 +97,10 @@ namespace NEA.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -139,12 +137,10 @@ namespace NEA.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -270,20 +266,15 @@ namespace NEA.Migrations
 
             modelBuilder.Entity("NEA.Models.Enrollment", b =>
                 {
-                    b.Property<string>("UserId")
+                    b.Property<string>("NEAUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ClassroomID")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("NEAUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "ClassroomID");
+                    b.HasKey("NEAUserId", "ClassroomID");
 
                     b.HasIndex("ClassroomID");
-
-                    b.HasIndex("NEAUserId");
 
                     b.ToTable("Enrollment");
                 });
@@ -408,13 +399,9 @@ namespace NEA.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NEA.Areas.Identity.Data.NEAUser", null)
-                        .WithMany("Enrollments")
-                        .HasForeignKey("NEAUserId");
-
                     b.HasOne("NEA.Areas.Identity.Data.NEAUser", "NEAUser")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("NEAUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

@@ -17,6 +17,5 @@ namespace NEA.Areas.Identity.Data
         public string LastName { get; set; }
 
         public ICollection<StudentAssignment> StudentAssignments { get; set; }
-        public ICollection<Enrollment> Enrollments { get; set; }
     }
 }

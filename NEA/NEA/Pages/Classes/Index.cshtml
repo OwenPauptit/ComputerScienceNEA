@@ -1,0 +1,62 @@
+﻿@page
+@model NEA.Pages.Classes.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassroomVM[0].Name)
+            </th>
+            @if (User.IsInRole(Authorization.Constants.StudentRole))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.ClassroomVM[0].Teacher)
+                </th>
+            }
+            else
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.ClassroomVM[0].StudentCount)
+                </th>
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ClassroomVM)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            @if (User.IsInRole(Authorization.Constants.StudentRole))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Teacher)
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentCount)
+                </td>
+            }
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -10,8 +10,8 @@ namespace NEA.Models
 {
     public class Enrollment
     {
-        [ForeignKey("NEAUser")]
-        public string UserId { get; set; }
+        
+        public string NEAUserId { get; set; }
      
         public string ClassroomID { get; set; }
 
