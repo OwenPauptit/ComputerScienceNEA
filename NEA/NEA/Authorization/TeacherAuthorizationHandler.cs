@@ -10,16 +10,15 @@ using System.Threading.Tasks;
 
 namespace NEA.Authorization
 {
-    public class StudentAuthorizationHandler : AuthorizationHandler<OperationAuthorizationRequirement, Classroom>
+    public class TeacherAuthorizationHandler : AuthorizationHandler<OperationAuthorizationRequirement, Classroom>
     {
         UserManager<NEAUser> _userManager;
 
-        public StudentAuthorizationHandler(UserManager<NEAUser>
+        public TeacherAuthorizationHandler(UserManager<NEAUser>
             userManager)
         {
             _userManager = userManager;
         }
-
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
                                    OperationAuthorizationRequirement requirement,
                                    Classroom resource)
@@ -29,25 +28,29 @@ namespace NEA.Authorization
                 return Task.CompletedTask;
             }
 
-            // If not asking to enroll, unenroll or complete an assignment, return.
-            if (requirement.Name != Constants.EnrollOperationName &&
-                requirement.Name != Constants.UnenrollOperationName &&
-                requirement.Name != Constants.CompleteAssignmentOperationName)
+            
+
+            // If not asking for CRUD (except read) permissions for a class or assignment, return 
+            if (requirement.Name != Constants.CreateClassOperationName &&
+                requirement.Name != Constants.EditClassOperationName &&
+                requirement.Name != Constants.DeleteClassOperationName &&
+                
+                requirement.Name != Constants.CreateAssignmentOperationName &&
+                requirement.Name != Constants.EditAssignmentOperationName &&
+                requirement.Name != Constants.DeleteAssignmentOperationName)
             {
                 return Task.CompletedTask;
             }
 
-            // Students can enroll, unenroll and complete assignments
-            if (context.User.IsInRole(Constants.StudentRole))
+            // Teachers can perform crud operations on classes and assignments
+            if (context.User.IsInRole(Constants.TeacherRole) && resource.UserID == _userManager.GetUserId(context.User))
             {
                 context.Succeed(requirement);
-            }
-
+            }    
+            
             return Task.CompletedTask;
 
 
         }
-
-
     }
 }

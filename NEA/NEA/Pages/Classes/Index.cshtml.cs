@@ -10,6 +10,7 @@ using NEA.Authorization;
 using NEA.Areas.Identity.Data;
 using NEA.Models;
 using Microsoft.AspNetCore.Authorization;
+using NEA.Models.ViewModels;
 
 namespace NEA.Pages.Classes
 {
@@ -24,19 +25,16 @@ namespace NEA.Pages.Classes
         }
 
         public IList<ClassroomIndexVM> ClassroomVM { get; set; }
+        public ClassroomIndexData ClassroomData { get; set; }
 
-        public class ClassroomIndexVM
-        {
-            public string ID { get; set; }
-            public string Name { get; set; }
-            public string Teacher { get; set; }
-            public int StudentCount { get; set; }
-        }
+        public string ClassID { get; set; }
+        public int SimulatorID { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string classId, int? simId)
         {
-            ClassroomVM = new List<ClassroomIndexVM>();
-            IList<Classroom> classroom;
+            ClassroomData = new ClassroomIndexData();
+            
+
 
             if (User.IsInRole(Constants.StudentRole))
             {
@@ -49,22 +47,35 @@ namespace NEA.Pages.Classes
                                       .AsNoTracking()
                                       .ToListAsync();
 
-
-                classroom = await Context.Classrooms
+                ClassroomData.Classrooms = await Context.Classrooms
                     .Include(c => c.Teacher)
+                    .Include(c => c.Enrollments)
+                        .ThenInclude(c => c.NEAUser)
+                            .ThenInclude(c => c.StudentAssignments)
+                    .Include(c => c.ClassAssignments)
+                        .ThenInclude(c => c.Simulation)
                     .Where(c => classIDs.Contains(c.ClassroomID))
+                    .AsNoTracking()
                     .ToListAsync();
+
 
             }
             else
             {
-                classroom = await Context.Classrooms
+                ClassroomData.Classrooms = await Context.Classrooms
                     .Include(c => c.Teacher)
+                    .Include(c => c.Enrollments)
+                        .ThenInclude(c => c.NEAUser)
+                            .ThenInclude(c => c.StudentAssignments)
+                    .Include(c => c.ClassAssignments)
+                        .ThenInclude(c => c.Simulation)
                     .Where(c => c.UserID == UserManager.GetUserId(User))
+                    .AsNoTracking()
                     .ToListAsync();
             }
 
-            foreach (var item in classroom)
+
+            /*foreach (var item in classroom)
             {
                 List<Enrollment> students = await Context.Enrollments
                             .Where(e => e.ClassroomID == item.ClassroomID)
@@ -72,7 +83,7 @@ namespace NEA.Pages.Classes
                             .ToListAsync();
 
                 ClassroomVM.Add(
-                    new ClassroomIndexVM
+                    new ClassroomVM
                     {
                         ID = item.ClassroomID,
                         Name = item.Name,
@@ -80,6 +91,77 @@ namespace NEA.Pages.Classes
                         StudentCount = students.Count()
                     }
                 ) ;
+            }*/
+
+            if (classId != null)
+            {
+                ClassID = classId;
+                Classroom classroom = ClassroomData.Classrooms.Where(c => c.ClassroomID == ClassID).SingleOrDefault();
+                if (classroom == null)
+                {
+                    return;
+                }
+                ClassroomData.ClassAssignments = classroom.ClassAssignments.Select(c => c);
+            }
+
+            if (simId != null)
+            {
+                SimulatorID = simId.Value;
+                ClassAssignment assignment = ClassroomData.ClassAssignments.Where(c => c.SimulationID == SimulatorID).SingleOrDefault();
+                if (assignment == null)
+                {
+                    return;
+                }
+                
+                if (User.IsInRole(Constants.StudentRole))
+                {
+                    StudentAssignment? studentAssignment = ClassroomData.Classrooms
+                        .Single(c => c.ClassroomID == ClassID)
+                            .Enrollments
+                                .Single(e => e.NEAUserId == UserManager.GetUserId(User))
+                                    .NEAUser
+                                        .StudentAssignments
+                                            .SingleOrDefault(s => s.SimulationID == SimulatorID);
+
+
+                    ClassroomData.StudentAssignments = new List<StudentAssignmentIndexVM> 
+                    {
+                        new StudentAssignmentIndexVM
+                        {
+                            StudentName = studentAssignment.NEAUser.LastName + ", " + studentAssignment.NEAUser.FirstName,
+                            Percentage = studentAssignment?.Percentage,
+                            DateCompleted = studentAssignment?.DateCompleted,
+                            SimulationID = SimulatorID
+                        } 
+                    };
+
+                }
+                else
+                {
+                    var enrollments = ClassroomData.Classrooms
+                        .Single(c => c.ClassroomID == ClassID)
+                            .Enrollments;
+
+                    var students = from e in enrollments
+                                   select e.NEAUser;
+
+                    var studentAssignments = new List<StudentAssignmentIndexVM>();
+
+                    foreach(var item in students)
+                    {
+                        var studentAssignment = item.StudentAssignments.SingleOrDefault(s => s.SimulationID == SimulatorID);
+
+                        studentAssignments.Add(new StudentAssignmentIndexVM()
+                        {
+                            StudentName = item.LastName + ", " + item.FirstName,
+                            Percentage = studentAssignment?.Percentage,
+                            DateCompleted = studentAssignment?.DateCompleted,
+                            SimulationID = SimulatorID
+                        });
+                    }
+
+                    ClassroomData.StudentAssignments = studentAssignments;
+                }
             }
         }
     }

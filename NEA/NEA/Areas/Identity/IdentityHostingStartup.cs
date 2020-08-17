@@ -34,11 +34,11 @@ namespace NEA.Areas.Identity
                         .Build();
                 });
 
-                services.AddSingleton<IAuthorizationHandler,
-                         ClassroomStudentAuthorizationHandler>();
+                services.AddScoped<IAuthorizationHandler,
+                         StudentAuthorizationHandler>();
 
-                services.AddSingleton<IAuthorizationHandler,
-                         ClassroomTeacherAuthorizationHandler>();
+                services.AddScoped<IAuthorizationHandler,
+                         TeacherAuthorizationHandler>();
 
             });
         }

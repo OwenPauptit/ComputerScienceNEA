@@ -172,18 +172,97 @@ namespace NEA.Areas.Identity.Data
                 
                 new Simulation
                 {
-                    Name = "Sim1"
+                    Name = "PAG 1.1"
                 },
 
                 new Simulation
                 {
-                    Name = "Sim2"
+                    Name = "PAG 2.2"
+                },
+
+                new Simulation
+                {
+                    Name = "PAG 3.3"
                 }
-                
                 );
 
             context.SaveChanges();
-            
+
+            context.ClassAssignments.AddRange(
+                
+                new ClassAssignment
+                {
+                    ClassroomID = context.Classrooms.Single(c => c.Name == "Physics").ClassroomID,
+                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 1.1").SimulationID,
+                    DateDue = DateTime.Parse("09-09-2020"),
+                    DateSet = DateTime.Parse("14-07-2020")
+                },
+
+                new ClassAssignment
+                {
+                    ClassroomID = context.Classrooms.Single(c => c.Name == "Physics").ClassroomID,
+                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 2.2").SimulationID,
+                    DateDue = DateTime.Parse("13-10-2020"),
+                    DateSet = DateTime.Parse("23-08-2020")
+                },
+
+                new ClassAssignment
+                {
+                    ClassroomID = context.Classrooms.Single(c => c.Name == "Physics").ClassroomID,
+                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 3.3").SimulationID,
+                    DateDue = DateTime.Parse("27-09-2020"),
+                    DateSet = DateTime.Parse("16-08-2020")
+                }
+
+                );
+
+            context.SaveChanges();
+
+            context.StudentAssignments.AddRange(
+
+                new StudentAssignment
+                {
+                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 1.1").SimulationID,
+                    UserID = context.Users.Single(u => u.UserName == "student1@nea.com").Id,
+                    Percentage = 98,
+                    DateCompleted = DateTime.Parse("06-12-2019")
+                },
+
+                new StudentAssignment
+                {
+                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 2.2").SimulationID,
+                    UserID = context.Users.Single(u => u.UserName == "student1@nea.com").Id,
+                    Percentage = 74,
+                    DateCompleted = DateTime.Parse("23-4-2020")
+                },
+
+                new StudentAssignment
+                {
+                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 3.3").SimulationID,
+                    UserID = context.Users.Single(u => u.UserName == "student1@nea.com").Id,
+                    Percentage = 87,
+                    DateCompleted = DateTime.Parse("08-08-2020")
+                },
+
+                new StudentAssignment
+                {
+                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 2.2").SimulationID,
+                    UserID = context.Users.Single(u => u.UserName == "student3@nea.com").Id,
+                    Percentage = 32,
+                    DateCompleted = DateTime.Parse("16-7-2020")
+                },
+
+                new StudentAssignment
+                {
+                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 3.3").SimulationID,
+                    UserID = context.Users.Single(u => u.UserName == "student3@nea.com").Id,
+                    Percentage = 36,
+                    DateCompleted = DateTime.Parse("16-7-2020")
+                }
+
+                );
+
+            context.SaveChanges();
         }
 
         private static async Task<IdentityResult> EnsureRole(IServiceProvider serviceProvider,

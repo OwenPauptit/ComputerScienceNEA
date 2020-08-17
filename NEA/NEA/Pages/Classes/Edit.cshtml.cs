@@ -2,25 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NEA.Areas.Identity.Data;
+using NEA.Authorization;
 using NEA.Models;
+using NEA.Models.ViewModels;
 
 namespace NEA.Pages.Classes
 {
-    public class EditModel : PageModel
+    public class EditModel : DI_BasePageModel
     {
-        private readonly NEA.Models.NEAContext _context;
-
-        public EditModel(NEA.Models.NEAContext context)
+        public EditModel(
+        NEAContext context,
+        IAuthorizationService authorizationService,
+        UserManager<NEAUser> userManager)
+        : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         [BindProperty]
-        public Classroom Classroom { get; set; }
+        public ClassroomCRUDVM ClassroomCRUDVM { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -29,14 +35,17 @@ namespace NEA.Pages.Classes
                 return NotFound();
             }
 
-            Classroom = await _context.Classrooms
+            var classroom = await Context.Classrooms
                 .Include(c => c.Teacher).FirstOrDefaultAsync(m => m.ClassroomID == id);
 
-            if (Classroom == null)
+            if (classroom == null)
             {
                 return NotFound();
             }
-           ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id");
+            ClassroomCRUDVM = new ClassroomCRUDVM();
+            ClassroomCRUDVM.Name = classroom.Name;
+            ClassroomCRUDVM.ClassroomID = classroom.ClassroomID;
+
             return Page();
         }
 
@@ -49,30 +58,47 @@ namespace NEA.Pages.Classes
                 return Page();
             }
 
-            _context.Attach(Classroom).State = EntityState.Modified;
+            var classroom = await Context.Classrooms
+                .Include(c => c.Teacher)
+                .FirstOrDefaultAsync(m => m.ClassroomID == ClassroomCRUDVM.ClassroomID);
 
-            try
+            // Ensuring User is authorized to edit the classroom
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(
+                                                        User, classroom,
+                                                        Operations.EditClass);
+            if (!isAuthorized.Succeeded)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ClassroomExists(Classroom.ClassroomID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return Forbid();
             }
 
-            return RedirectToPage("./Index");
+            classroom.Name = ClassroomCRUDVM.Name;
+
+                try
+                {
+                    await Context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ClassroomExists(classroom.ClassroomID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return RedirectToPage("./Index");
+
+            
+
+            return Page();
         }
 
         private bool ClassroomExists(string id)
         {
-            return _context.Classrooms.Any(e => e.ClassroomID == id);
+            return Context.Classrooms.Any(e => e.ClassroomID == id);
         }
     }
 }

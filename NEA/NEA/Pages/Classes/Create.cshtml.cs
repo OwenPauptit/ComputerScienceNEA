@@ -2,30 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NEA.Areas.Identity.Data;
+using NEA.Authorization;
 using NEA.Models;
+using NEA.Models.ViewModels;
 
 namespace NEA.Pages.Classes
 {
-    public class CreateModel : PageModel
+    public class CreateModel : DI_BasePageModel
     {
-        private readonly NEA.Models.NEAContext _context;
-
-        public CreateModel(NEA.Models.NEAContext context)
+        public CreateModel(
+        NEAContext context,
+        IAuthorizationService authorizationService,
+        UserManager<NEAUser> userManager)
+        : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         public IActionResult OnGet()
         {
-        ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
         [BindProperty]
-        public Classroom Classroom { get; set; }
+        public ClassroomCRUDVM ClassroomCRUDVM { get; set; }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
@@ -36,10 +41,26 @@ namespace NEA.Pages.Classes
                 return Page();
             }
 
-            _context.Classrooms.Add(Classroom);
-            await _context.SaveChangesAsync();
+            var emptyClassroom = new Classroom();
+            emptyClassroom.Name = ClassroomCRUDVM.Name;
+            emptyClassroom.UserID = UserManager.GetUserId(User);
 
-            return RedirectToPage("./Index");
+            // Ensuring User is authorized to create a new classroom
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(
+                                                        User, emptyClassroom,
+                                                        Operations.CreateClass);
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
+
+
+                Context.Classrooms.Add(emptyClassroom);
+                await Context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+
+            return Page();
+
         }
     }
 }

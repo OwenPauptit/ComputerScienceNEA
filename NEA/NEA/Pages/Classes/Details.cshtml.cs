@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using NEA.Areas.Identity.Data;
 using NEA.Models;
 
 namespace NEA.Pages.Classes
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel : DI_BasePageModel
     {
-        private readonly NEA.Models.NEAContext _context;
-
-        public DetailsModel(NEA.Models.NEAContext context)
+        public DetailsModel(
+        NEAContext context,
+        IAuthorizationService authorizationService,
+        UserManager<NEAUser> userManager)
+        : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         public Classroom Classroom { get; set; }
@@ -27,8 +31,10 @@ namespace NEA.Pages.Classes
                 return NotFound();
             }
 
-            Classroom = await _context.Classrooms
-                .Include(c => c.Teacher).FirstOrDefaultAsync(m => m.ClassroomID == id);
+            Classroom = await Context.Classrooms
+                .Include(c => c.Teacher)
+                .Include(c => c.Enrollments)
+                .FirstOrDefaultAsync(m => m.ClassroomID == id);
 
             if (Classroom == null)
             {

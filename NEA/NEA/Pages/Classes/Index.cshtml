@@ -1,62 +1,161 @@
 ﻿@page
+
 @model NEA.Pages.Classes.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Classes";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Classes</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+@if ((await AuthorizationService.AuthorizeAsync(
+User,
+new Classroom { UserID = UserManager.GetUserId(User) },
+Operations.CreateClass)).Succeeded)
+{
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ClassroomVM[0].Name)
-            </th>
+            <th>Class Name</th>
             @if (User.IsInRole(Authorization.Constants.StudentRole))
             {
-                <th>
-                    @Html.DisplayNameFor(model => model.ClassroomVM[0].Teacher)
-                </th>
+                <th>Teacher</th>
             }
             else
             {
-                <th>
-                    @Html.DisplayNameFor(model => model.ClassroomVM[0].StudentCount)
-                </th>
+                <th>Number of Students</th>
             }
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.ClassroomVM)
+        @foreach (var item in Model.ClassroomData.Classrooms)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            @if (User.IsInRole(Authorization.Constants.StudentRole))
+            var selectedRow = "";
+            if (item.ClassroomID == Model.ClassID)
             {
-                <td>
-                    @Html.DisplayFor(modelItem => item.Teacher)
-                </td>
+                selectedRow = "table-success";
             }
-            else
-            {
+
+            <tr class="@selectedRow">
                 <td>
-                    @Html.DisplayFor(modelItem => item.StudentCount)
+                    @Html.DisplayFor(modelItem => item.Name)
                 </td>
-            }
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
+                @if (User.IsInRole(Authorization.Constants.StudentRole))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Teacher.LastName)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @item.Enrollments.Count()
+                    </td>
+                }
+                <td>
+                    <a asp-page="./Index" asp-route-classId="@item.ClassroomID">Select</a> |
+
+                    @if ((await AuthorizationService.AuthorizeAsync(User, item, Operations.EditClass)).Succeeded)
+                    {
+                        <a asp-page="./Edit" asp-route-id="@item.ClassroomID">Edit</a>
+                        <text> | </text>
+                    }
+
+                    <a asp-page="./Details" asp-route-id="@item.ClassroomID">Details</a>
+
+                    @if ((await AuthorizationService.AuthorizeAsync(User, item, Operations.DeleteClass)).Succeeded)
+                    {
+                        <text> | </text>
+                        <a asp-page="./Delete" asp-route-id="@item.ClassroomID">Delete</a>
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+
+@if (Model.ClassroomData.ClassAssignments != null)
+{
+    <h3>Assignments from selected class</h3>
+
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Simulation Name</th>
+            <th>Date Set</th>
+            <th>Date Due</th>
+        </tr>
+
+        @foreach (var item in Model.ClassroomData.ClassAssignments)
+        {
+            var selectedRow = "";
+            if (item.SimulationID == Model.SimulatorID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    <a asp-page="./Index"
+                       asp-route-classId="@item.ClassroomID"
+                       asp-route-simId="@item.SimulationID">Select</a> |
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Simulation.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateSet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateDue)
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+@if (Model.ClassroomData.StudentAssignments != null)
+{
+    @if (User.IsInRole(Authorization.Constants.StudentRole))
+    {
+        <h3>Your data for selected assignment</h3>
+    }
+    else
+    {
+        <h3>Student data for selected assignment</h3>
+    }
+
+    <table class="table">
+        <tr>
+            @if (User.IsInRole(Authorization.Constants.TeacherRole))
+            {
+                <th>Name</th>
+            }
+            <th>Percentage</th>
+            <th>Date Completed</th>
+        </tr>
+
+        @foreach (var item in Model.ClassroomData.StudentAssignments)
+        {
+            <tr>
+                @if (User.IsInRole(Authorization.Constants.TeacherRole))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentName)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Percentage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCompleted)
+                </td>
+            </tr>
+        }
+    </table>
+}
