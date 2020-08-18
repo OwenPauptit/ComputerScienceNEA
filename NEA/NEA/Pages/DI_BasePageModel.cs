@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NEA.Pages.Classes
+namespace NEA.Pages
 {
     public class DI_BasePageModel : PageModel
     {

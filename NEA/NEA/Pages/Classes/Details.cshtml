@@ -26,6 +26,17 @@
         </dd>
     </dl>
 </div>
+
+@if ((await AuthorizationService.AuthorizeAsync(
+   User, Model.Classroom, Operations.Unenroll)).Succeeded)
+{
+    <a class="btn btn-xs btn-danger"
+       asp-page="/Enrollments/Delete" 
+       asp-route-classId="@Model.Classroom.ClassroomID">
+        Unenroll
+    </a>
+}
+
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Classroom.ClassroomID">Edit</a> |
     <a asp-page="./Index">Back to List</a>

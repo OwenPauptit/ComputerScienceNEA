@@ -18,6 +18,15 @@ Operations.CreateClass)).Succeeded)
         <a asp-page="Create">Create New</a>
     </p>
 }
+else if ((await AuthorizationService.AuthorizeAsync(
+User,
+new Classroom { ClassroomID = "-1" },
+Operations.Enroll)).Succeeded)
+{
+    <p>
+        <a asp-page="/Enrollments/Create">Enroll in new class</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -71,6 +80,7 @@ Operations.CreateClass)).Succeeded)
 
                     @if ((await AuthorizationService.AuthorizeAsync(User, item, Operations.DeleteClass)).Succeeded)
                     {
+
                         <text> | </text>
                         <a asp-page="./Delete" asp-route-id="@item.ClassroomID">Delete</a>
                     }

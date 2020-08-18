@@ -115,11 +115,13 @@ namespace NEA.Pages.Classes
                 
                 if (User.IsInRole(Constants.StudentRole))
                 {
-                    StudentAssignment? studentAssignment = ClassroomData.Classrooms
+                    NEAUser thisuser = ClassroomData.Classrooms
                         .Single(c => c.ClassroomID == ClassID)
                             .Enrollments
                                 .Single(e => e.NEAUserId == UserManager.GetUserId(User))
-                                    .NEAUser
+                                    .NEAUser;
+
+                    StudentAssignment? studentAssignment = thisuser
                                         .StudentAssignments
                                             .SingleOrDefault(s => s.SimulationID == SimulatorID);
 
@@ -128,7 +130,7 @@ namespace NEA.Pages.Classes
                     {
                         new StudentAssignmentIndexVM
                         {
-                            StudentName = studentAssignment.NEAUser.LastName + ", " + studentAssignment.NEAUser.FirstName,
+                            StudentName = thisuser.LastName + ", " + thisuser.FirstName,
                             Percentage = studentAssignment?.Percentage,
                             DateCompleted = studentAssignment?.DateCompleted,
                             SimulationID = SimulatorID

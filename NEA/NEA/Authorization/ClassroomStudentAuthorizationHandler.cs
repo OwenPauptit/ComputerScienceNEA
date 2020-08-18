@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace NEA.Authorization
 {
-    public class StudentAuthorizationHandler : AuthorizationHandler<OperationAuthorizationRequirement, Classroom>
+    public class ClassroomStudentAuthorizationHandler : AuthorizationHandler<OperationAuthorizationRequirement, Classroom>
     {
         UserManager<NEAUser> _userManager;
 
-        public StudentAuthorizationHandler(UserManager<NEAUser>
+        public ClassroomStudentAuthorizationHandler(UserManager<NEAUser>
             userManager)
         {
             _userManager = userManager;
@@ -29,18 +29,28 @@ namespace NEA.Authorization
                 return Task.CompletedTask;
             }
 
-            // If not asking to enroll, unenroll or complete an assignment, return.
-            if (requirement.Name != Constants.EnrollOperationName &&
-                requirement.Name != Constants.UnenrollOperationName &&
-                requirement.Name != Constants.CompleteAssignmentOperationName)
+            var enrollment = new Enrollment
             {
-                return Task.CompletedTask;
-            }
+                ClassroomID = resource.ClassroomID,
+                NEAUserId = _userManager.GetUserId(context.User)
+            };
 
-            // Students can enroll, unenroll and complete assignments
-            if (context.User.IsInRole(Constants.StudentRole))
+            // Students can enroll and unenroll
+            if (requirement.Name == Constants.EnrollOperationName &&
+                context.User.IsInRole(Constants.StudentRole))
             {
-                context.Succeed(requirement);
+                if (resource.Enrollments?.SingleOrDefault(e => e.NEAUserId == _userManager.GetUserId(context.User)) == null)
+                {
+                    context.Succeed(requirement);
+                }
+            }
+            else if (requirement.Name == Constants.UnenrollOperationName &&
+                context.User.IsInRole(Constants.StudentRole))
+            {
+                if (resource.Enrollments?.SingleOrDefault(e => e.NEAUserId == _userManager.GetUserId(context.User)) != null)
+                {
+                    context.Succeed(requirement);
+                }
             }
 
             return Task.CompletedTask;

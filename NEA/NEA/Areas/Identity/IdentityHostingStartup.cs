@@ -35,10 +35,10 @@ namespace NEA.Areas.Identity
                 });
 
                 services.AddScoped<IAuthorizationHandler,
-                         StudentAuthorizationHandler>();
+                         ClassroomStudentAuthorizationHandler>();
 
                 services.AddScoped<IAuthorizationHandler,
-                         TeacherAuthorizationHandler>();
+                         ClassroomTeacherAuthorizationHandler>();
 
             });
         }
