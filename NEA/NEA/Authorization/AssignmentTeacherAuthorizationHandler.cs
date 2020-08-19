@@ -39,9 +39,17 @@ namespace NEA.Authorization
             }
 
             // Teachers can perform crud operations on classes and assignments
-            if (context.User.IsInRole(Constants.TeacherRole) && resource.Classroom.UserID == _userManager.GetUserId(context.User))
+            if (context.User.IsInRole(Constants.TeacherRole))
             {
-                context.Succeed(requirement);
+                if (resource.Classroom == null)
+                {
+                    context.Succeed(requirement);
+                }
+                else if (resource.Classroom.UserID == _userManager.GetUserId(context.User))
+                {
+                    context.Succeed(requirement);
+
+                }
             }
 
             return Task.CompletedTask;

@@ -94,6 +94,15 @@ Operations.Enroll)).Succeeded)
 {
     <h3>Assignments from selected class</h3>
 
+    @if ((await AuthorizationService.AuthorizeAsync(User,
+        new ClassAssignment { ClassroomID = Model.ClassID },
+        Operations.CreateAssignment)).Succeeded)
+    {
+        <p>
+            <a asp-page="/Assignments/Create" asp-route-classId="@Model.ClassID">Create New</a>
+        </p>
+    }
+
     <table class="table">
         <tr>
             <th></th>
@@ -114,6 +123,27 @@ Operations.Enroll)).Succeeded)
                     <a asp-page="./Index"
                        asp-route-classId="@item.ClassroomID"
                        asp-route-simId="@item.SimulationID">Select</a> |
+
+                    @if ((await AuthorizationService.AuthorizeAsync(User, item, Operations.EditAssignment)).Succeeded)
+                    {
+                        <a asp-page="/Assignments/Edit" 
+                           asp-route-classId="@item.ClassroomID" 
+                           asp-route-simId="@item.SimulationID">Edit</a>
+                        <text> | </text>
+                    }
+
+                    <a asp-page="/Assignments/Details" 
+                       asp-route-classId="@item.ClassroomID" 
+                       asp-route-simId="@item.SimulationID">Details</a>
+
+                    @if ((await AuthorizationService.AuthorizeAsync(User, item, Operations.DeleteAssignment)).Succeeded)
+                    {
+
+                        <text> | </text>
+                        <a asp-page="/Assignments/Delete" 
+                       asp-route-classId="@item.ClassroomID" 
+                       asp-route-simId="@item.SimulationID">Delete</a>
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Simulation.Name)

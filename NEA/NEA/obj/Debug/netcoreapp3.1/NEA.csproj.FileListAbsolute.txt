@@ -192,3 +192,8 @@ C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcore
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\Classes\Index.cshtml.g.cs
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\Enrollments\Create.cshtml.g.cs
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\Enrollments\Delete.cshtml.g.cs
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\Assignments\Create.cshtml.g.cs
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\Assignments\Delete.cshtml.g.cs
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\Assignments\Details.cshtml.g.cs
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\Assignments\Edit.cshtml.g.cs
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\Assignments\Index.cshtml.g.cs
