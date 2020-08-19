@@ -178,6 +178,13 @@ Operations.Enroll)).Succeeded)
             }
             <th>Percentage</th>
             <th>Date Completed</th>
+            @if ((await AuthorizationService.AuthorizeAsync
+                (User,
+                new StudentAssignment { UserID = UserManager.GetUserId(User) },
+                Operations.CompleteAssignment)).Succeeded)
+            {
+                <th></th>
+            }
         </tr>
 
         @foreach (var item in Model.ClassroomData.StudentAssignments)
@@ -195,6 +202,18 @@ Operations.Enroll)).Succeeded)
                 <td>
                     @Html.DisplayFor(modelItem => item.DateCompleted)
                 </td>
+                @if ((await AuthorizationService.AuthorizeAsync
+                 (User,
+                 new StudentAssignment { UserID = UserManager.GetUserId(User) },
+                 Operations.CompleteAssignment)).Succeeded)
+                {
+                    <td>
+                        <a asp-page="/StudentAssignments/Create"
+                           asp-route-simId="@item.SimulationID">
+                            Complete Assignment Now
+                        </a>
+                    </td>
+                }
             </tr>
         }
     </table>
