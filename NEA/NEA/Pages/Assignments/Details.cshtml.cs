@@ -2,34 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using NEA.Areas.Identity.Data;
 using NEA.Models;
 
 namespace NEA.Pages.Assignments
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel : SimulationNamePageModel
     {
-        private readonly NEA.Models.NEAContext _context;
-
-        public DetailsModel(NEA.Models.NEAContext context)
+        public DetailsModel(
+        NEAContext context,
+        IAuthorizationService authorizationService,
+        UserManager<NEAUser> userManager)
+        : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         public ClassAssignment ClassAssignment { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(string classId, int simId)
         {
-            if (id == null)
+            if (classId == null)
             {
                 return NotFound();
             }
 
-            ClassAssignment = await _context.ClassAssignments
+            ClassAssignment = await Context.ClassAssignments
                 .Include(c => c.Classroom)
-                .Include(c => c.Simulation).FirstOrDefaultAsync(m => m.ClassroomID == id);
+                .Include(c => c.Simulation)
+                .SingleOrDefaultAsync(m => m.ClassroomID == classId && m.SimulationID == simId);
 
             if (ClassAssignment == null)
             {

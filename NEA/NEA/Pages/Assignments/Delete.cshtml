@@ -14,6 +14,18 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClassAssignment.Classroom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClassAssignment.Classroom.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClassAssignment.Simulation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClassAssignment.Simulation.Name)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ClassAssignment.DateSet)
         </dt>
         <dd class="col-sm-10">
@@ -24,18 +36,6 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ClassAssignment.DateDue)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ClassAssignment.Classroom)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ClassAssignment.Classroom.ClassroomID)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ClassAssignment.Simulation)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ClassAssignment.Simulation.Name)
         </dd>
     </dl>
     

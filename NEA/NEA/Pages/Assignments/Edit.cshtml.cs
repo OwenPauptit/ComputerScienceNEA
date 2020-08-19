@@ -2,66 +2,86 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NEA.Areas.Identity.Data;
+using NEA.Authorization;
 using NEA.Models;
+using NEA.Models.ViewModels;
 
 namespace NEA.Pages.Assignments
 {
-    public class EditModel : PageModel
+    public class EditModel : SimulationNamePageModel
     {
-        private readonly NEA.Models.NEAContext _context;
-
-        public EditModel(NEA.Models.NEAContext context)
+        public EditModel(
+        NEAContext context,
+        IAuthorizationService authorizationService,
+        UserManager<NEAUser> userManager)
+        : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
+
 
         [BindProperty]
         public ClassAssignment ClassAssignment { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(string classId, int? simID, string dateDue)
         {
-            if (id == null)
+            if (classId == null || simID == null)
             {
                 return NotFound();
             }
 
-            ClassAssignment = await _context.ClassAssignments
+            if (dateDue != null)
+            {
+                return await EditAssignment();
+
+            }
+
+            ClassAssignment = await Context.ClassAssignments
                 .Include(c => c.Classroom)
-                .Include(c => c.Simulation).FirstOrDefaultAsync(m => m.ClassroomID == id);
+                .Include(c => c.Simulation)
+                .Where(m => m.ClassroomID == classId)
+                .SingleOrDefaultAsync(m => m.SimulationID == simID);
 
             if (ClassAssignment == null)
             {
                 return NotFound();
             }
-           ViewData["ClassroomID"] = new SelectList(_context.Classrooms, "ClassroomID", "ClassroomID");
-           ViewData["SimulationID"] = new SelectList(_context.Simulations, "SimulationID", "Name");
+
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        private async Task<IActionResult> EditAssignment()
         {
-            if (!ModelState.IsValid)
+            if (ClassAssignment == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            _context.Attach(ClassAssignment).State = EntityState.Modified;
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(User, ClassAssignment, Operations.EditAssignment);
+            if(!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
+
+            ClassAssignment.DateSet = DateTime.Now;
+
+            Context.Attach(ClassAssignment).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await Context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ClassAssignmentExists(ClassAssignment.ClassroomID))
+                if (!ClassAssignmentExists(ClassAssignment.ClassroomID, ClassAssignment.SimulationID))
                 {
-                    return NotFound();
+                    return base.NotFound();
                 }
                 else
                 {
@@ -69,12 +89,28 @@ namespace NEA.Pages.Assignments
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Classes/Index");
         }
 
-        private bool ClassAssignmentExists(string id)
+
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://aka.ms/RazorPagesCRUD.
+        public async Task<IActionResult> OnPostAsync(string classID)
         {
-            return _context.ClassAssignments.Any(e => e.ClassroomID == id);
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            return await EditAssignment();
+            
+        }
+
+        private bool ClassAssignmentExists(string classId, int simId)
+        {
+            return Context.ClassAssignments
+                .Where(e => e.SimulationID == simId)
+                .Any(e => e.ClassroomID == classId);
         }
     }
 }

@@ -9,6 +9,9 @@ namespace NEA.Models.ViewModels
 {
     public class ClassAssignmentVM
     {
+
+        public string ClassName { get; set; }
+
         [Display(Name = "Simulation")]
         public int SimulationID { get; set; }
 

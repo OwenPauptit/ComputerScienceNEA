@@ -2,35 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using NEA.Areas.Identity.Data;
+using NEA.Authorization;
 using NEA.Models;
 
 namespace NEA.Pages.Assignments
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel : SimulationNamePageModel
     {
-        private readonly NEA.Models.NEAContext _context;
-
-        public DeleteModel(NEA.Models.NEAContext context)
+        public DeleteModel(
+        NEAContext context,
+        IAuthorizationService authorizationService,
+        UserManager<NEAUser> userManager)
+        : base(context, authorizationService, userManager)
         {
-            _context = context;
         }
 
         [BindProperty]
         public ClassAssignment ClassAssignment { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(string classId, int? simId)
         {
-            if (id == null)
+            if (classId == null || simId == null)
             {
                 return NotFound();
             }
 
-            ClassAssignment = await _context.ClassAssignments
+            ClassAssignment = await Context.ClassAssignments
                 .Include(c => c.Classroom)
-                .Include(c => c.Simulation).FirstOrDefaultAsync(m => m.ClassroomID == id);
+                .Include(c => c.Simulation)
+                .SingleOrDefaultAsync(m => m.ClassroomID == classId &&
+                                            m.SimulationID == simId);
 
             if (ClassAssignment == null)
             {
@@ -39,22 +46,31 @@ namespace NEA.Pages.Assignments
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public async Task<IActionResult> OnPostAsync(string classId, int? simId)
         {
-            if (id == null)
+            if (classId == null || simId == null)
             {
                 return NotFound();
             }
 
-            ClassAssignment = await _context.ClassAssignments.FindAsync(id);
+            ClassAssignment = await Context.ClassAssignments
+                .SingleOrDefaultAsync(m => m.ClassroomID == classId &&
+                                        m.SimulationID == simId);
 
             if (ClassAssignment != null)
             {
-                _context.ClassAssignments.Remove(ClassAssignment);
-                await _context.SaveChangesAsync();
+
+                var isAuthorized = await AuthorizationService.AuthorizeAsync(User, ClassAssignment, Operations.DeleteAssignment);
+                if (!isAuthorized.Succeeded)
+                {
+                    return Forbid();
+                }
+
+                Context.ClassAssignments.Remove(ClassAssignment);
+                await Context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Classes/Index");
         }
     }
 }

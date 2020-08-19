@@ -15,12 +15,7 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ClassAssignment.ClassroomID" />
-            <input type="hidden" asp-for="ClassAssignment.SimulationID" />
-            <div class="form-group">
-                <label asp-for="ClassAssignment.DateSet" class="control-label"></label>
-                <input asp-for="ClassAssignment.DateSet" class="form-control" />
-                <span asp-validation-for="ClassAssignment.DateSet" class="text-danger"></span>
-            </div>
+            <input type ="hidden" asp-for="ClassAssignment.SimulationID" />
             <div class="form-group">
                 <label asp-for="ClassAssignment.DateDue" class="control-label"></label>
                 <input asp-for="ClassAssignment.DateDue" class="form-control" />

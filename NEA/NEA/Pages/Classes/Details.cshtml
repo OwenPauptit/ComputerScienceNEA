@@ -28,16 +28,20 @@
 </div>
 
 @if ((await AuthorizationService.AuthorizeAsync(
-   User, Model.Classroom, Operations.Unenroll)).Succeeded)
+  User, Model.Classroom, Operations.Unenroll)).Succeeded)
 {
     <a class="btn btn-xs btn-danger"
-       asp-page="/Enrollments/Delete" 
+       asp-page="/Enrollments/Delete"
        asp-route-classId="@Model.Classroom.ClassroomID">
         Unenroll
     </a>
 }
 
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Classroom.ClassroomID">Edit</a> |
+    @if ((await AuthorizationService.AuthorizeAsync(User, Model.Classroom, Operations.EditClass)).Succeeded)
+    {
+        <a asp-page="./Edit" asp-route-id="@Model.Classroom.ClassroomID">Edit</a>
+        <text> | </text>
+    }
     <a asp-page="./Index">Back to List</a>
 </div>
