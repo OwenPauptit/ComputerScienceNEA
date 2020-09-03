@@ -28,13 +28,18 @@
 </div>
 
 @if ((await AuthorizationService.AuthorizeAsync(
-  User, Model.Classroom, Operations.Unenroll)).Succeeded)
+User, Model.Classroom, Operations.Unenroll)).Succeeded)
 {
     <a class="btn btn-xs btn-danger"
        asp-page="/Enrollments/Delete"
        asp-route-classId="@Model.Classroom.ClassroomID">
         Unenroll
     </a>
+}
+@if (User.IsInRole(Constants.TeacherRole))
+{
+    <input type="text" value="@(Request.Host + "/Enrollments/Create?id=" + Model.Classroom.ClassroomID) " id="copyEnrollLink" />
+    <button class="btn btn-xs btn-danger" onclick="copyEnrollLink()">Copy Enroll Link To Clipboard</button>
 }
 
 <div>
@@ -45,3 +50,13 @@
     }
     <a asp-page="./Index">Back to List</a>
 </div>
+
+<script>
+    function copyEnrollLink() {
+        var copyText = document.getElementById("copyEnrollLink");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        alert("Copied the text: " + copyText.value);
+    }
+</script>

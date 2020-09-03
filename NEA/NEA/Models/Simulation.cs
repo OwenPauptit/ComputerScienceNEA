@@ -14,5 +14,9 @@ namespace NEA.Models
         [Required]
         public string Name { get; set; }
 
+        public string PreviewImgSrc { get; set; }
+
+        public string Description { get; set; }
+
     }
 }

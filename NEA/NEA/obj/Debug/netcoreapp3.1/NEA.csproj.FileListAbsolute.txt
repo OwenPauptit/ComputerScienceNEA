@@ -198,3 +198,4 @@ C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcore
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\Assignments\Edit.cshtml.g.cs
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\StudentAssignments\Create.cshtml.g.cs
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\StudentAssignments\Edit.cshtml.g.cs
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\Simulations.cshtml.g.cs

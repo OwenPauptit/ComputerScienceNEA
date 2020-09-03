@@ -1,0 +1,43 @@
+﻿@page
+@model NEA.Pages.SimulationsModel
+@{
+    ViewData["Title"] = "Simulations";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Simulations</h1>
+
+<div class="sidebar">
+    <ul>
+        @foreach (var item in Model.Simulations)
+        {
+        <li>
+            <a asp-page="/Simulations"
+               asp-route-id="@item.SimulationID">
+                @Html.DisplayFor(modelItem => item.Name)
+            </a>
+        </li>
+        }
+    </ul>
+</div>
+
+@if (Model.SelectedSimulation != null)
+{
+<div class="main">
+
+    <br />
+
+    <h3>@Model.SelectedSimulation.Name</h3>
+
+    <br />
+
+    <img class="mx-auto" src="@Model.SelectedSimulation.PreviewImgSrc" />
+
+    <br />
+
+    <p>@Model.SelectedSimulation.Description</p>
+
+
+
+</div>
+}

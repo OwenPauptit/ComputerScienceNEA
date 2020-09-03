@@ -33,14 +33,19 @@ namespace NEA.Pages.Assignments
                 return NotFound();
             }
 
-
-            if (Context.Classrooms
+            var classroom = Context.Classrooms
                 .Include(c => c.ClassAssignments)
-                .SingleOrDefault(c => c.ClassroomID == classID) == null)
+                .SingleOrDefault(c => c.ClassroomID == classID);
+
+            if (classroom == null)
             {
                 return NotFound();
             }
 
+            ClassAssignmentVM = new ClassAssignmentVM
+            {
+                ClassName = classroom.Name
+            };
             PopulateSimulationsDropDownList();
             return Page();
         }
