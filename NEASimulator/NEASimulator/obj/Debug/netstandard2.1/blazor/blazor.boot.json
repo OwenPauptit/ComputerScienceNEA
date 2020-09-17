@@ -6,7 +6,7 @@
   "linkerEnabled": false,
   "resources": {
     "assembly": {
-      "NEASimulator.dll": "sha256-5DIZNJ3K8ing+kirtCC4OxQFGvxrqN9kRWQBej28Oc4=",
+      "NEASimulator.dll": "sha256-Ah2Zyyv5nqe1Z76+x4wGIOHR6Oz5t90uP6ayOhAgrbE=",
       "System.Net.Http.Json.dll": "sha256-WkuXkEV\/\/B1J2kYqjuSPxgHubOHALmA548PhKTed2JE=",
       "System.Buffers.dll": "sha256-ZxXy75PYbzJxNfAc\/SAP1nUYm4gt1jSaOpFnBb9m85M=",
       "mscorlib.dll": "sha256-BaZPMj95+YNe3G4ckTGD6szZFwZeA2MOHn91zTGKDeU=",
@@ -60,7 +60,7 @@
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-czNf3btAeBW\/vvID5LAfgcsNZ+GM3ssVuPaMflcg0rs="
     },
     "pdb": {
-      "NEASimulator.pdb": "sha256-M1LZqp5L5mZiJsodTWQArjud97dbe+pV4FBN0wzs0D4="
+      "NEASimulator.pdb": "sha256-sVSkK\/n5qvI5ISn3M3q5bGB9lLxn\/IRvPJpAo5IN5Mg="
     },
     "runtime": {
       "dotnet.3.2.0.js": "sha256-mPoqx7XczFHBWk3gRNn0hc9ekG1OvkKY4XiKRY5Mj5U=",

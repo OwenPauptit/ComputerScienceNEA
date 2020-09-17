@@ -1,4 +1,4 @@
-﻿@page "/Simulation"
+﻿
 @inject IJSRuntime JSRuntime;
 
 <style>
@@ -26,20 +26,26 @@
         padding-left: 10px;
         font-family: Consolas, Arial;
     }
+    .buttons {
+        position: fixed;
+        left: 15%;
+        bottom: 20px;
+    }
 </style>
 
 
 
 <div>
-
-    <button @onclick="@((args) => AddObject(args,"Ball"))">Add Ball</button>
+    <div class="buttons">
+        <!--<button @onclick="@((args) => AddObject(args,"Ball"))">Add Ball</button>
     <button @onclick="@((args) => AddObject(args,"Plank"))">Add Plank</button>
     <button @onclick="@((args) => AddObject(args,"VPlank"))">Add VPlank</button>
-    <button @onclick="@((args) => AddObject(args,"MetreStick"))">Add MetreStick</button>
-    <button @onclick="PlayPause">@(paused?"Play":"Pause")</button>
-    <button @onclick="Clear">Clear</button>
-    <button @onclick="Save">Save Current State</button>
-    <button @onclick="Reset">Return To Saved State</button>
+    <button @onclick="@((args) => AddObject(args,"MetreStick"))">Add MetreStick</button>-->
+        <button @onclick="PlayPause">@(paused?"Play":"Pause")</button>
+        <button @onclick="Clear">Clear</button>
+        <button @onclick="Save">Save Current State</button>
+        <button @onclick="Reset">Return To Saved State</button>
+    </div>
 
     <br />
 
@@ -105,7 +111,7 @@
     private System.Diagnostics.Stopwatch stopwatch;
 
 
-    private void AddObject(MouseEventArgs e, string type)
+    public void AddObject(MouseEventArgs e, string type)
     {
         NEASimulator.Interfaces.IDisplayObject obj;
         switch (type.ToUpper())
@@ -178,8 +184,8 @@
                 UpdatePhysics();
             }
             UpdatePhysics();
-            this.StateHasChanged();
         }
+        this.StateHasChanged();
     }
 
     private void UpdatePhysics()

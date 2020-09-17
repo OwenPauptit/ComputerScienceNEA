@@ -1,11 +1,80 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<style>
 
-Welcome to your new app.
+    .side-bar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        padding: 40px 30px 0px 20px;
+        background-color: brown;
+    }
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+   .side-bar ul {
+       list-style: none;
+   }
+
+   .side-bar ul li {
+       padding: 10px 0px 10px 0px;
+       border-radius: 5px;
+   }
+
+        .side-bar ul li:hover {
+            background-color: rosybrown;
+        }
+
+    .side-bar ul li  button {
+        background: none;
+        color: white;
+        border: none;
+    }
+
+    .side-bar ul li button img {
+        padding-right: 15px;
+    }
+</style>
+
+<div class="side-bar">
+    <ul>
+        @foreach (var item in available)
+        {
+            <li>
+                <button @onclick="@((args) => AddObject(args,item.Name))">
+                    <img src="@("Icon_" + item.Name + ".png")" />
+                    @item.Name
+                </button>
+            </li>
+        }
+    </ul>
+</div>
+
+<div class="main">
+    <Simulation @ref="sim" />
+</div>
 
 
 @code{
+
+    private Simulation sim;
+    private List<Models.AvailableApparatus> available = new List<Models.AvailableApparatus>();
+
+    private void AddObject(MouseEventArgs e, string type)
+    {
+        sim.AddObject(e, type);
+        sim.Rerender();
+    }
+
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            available.Add(new Models.AvailableApparatus { ImageSrc = "/RedBallPreview.png", Name = "Ball" });
+            available.Add(new Models.AvailableApparatus { ImageSrc = "/PlankPreview.png", Name = "Plank" });
+            available.Add(new Models.AvailableApparatus { ImageSrc = "/V_PlankPreview.png", Name = "VPlank" });
+            this.StateHasChanged();
+        }
+    }
 }

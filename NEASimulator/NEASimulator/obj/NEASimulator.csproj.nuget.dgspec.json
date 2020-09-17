@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\owenp\\source\\repos\\NEASimulator\\NEASimulator\\NEASimulator.csproj": {}
+    "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\NEASimulator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\owenp\\source\\repos\\NEASimulator\\NEASimulator\\NEASimulator.csproj": {
+    "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\NEASimulator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\owenp\\source\\repos\\NEASimulator\\NEASimulator\\NEASimulator.csproj",
+        "projectUniqueName": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\NEASimulator.csproj",
         "projectName": "NEASimulator",
-        "projectPath": "C:\\Users\\owenp\\source\\repos\\NEASimulator\\NEASimulator\\NEASimulator.csproj",
+        "projectPath": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\NEASimulator.csproj",
         "packagesPath": "C:\\Users\\owenp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\owenp\\source\\repos\\NEASimulator\\NEASimulator\\obj\\",
+        "outputPath": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
