@@ -42,12 +42,7 @@ namespace NEASimulator.Models.Apparatus
 
         public void ReceiveData(int portNumber, VelocityTimestampData data)
         {
-            if (portNumber < 0 || portNumber > _numPorts - 1)
-            {
-                return;
-            }
-
-            if(portNumber == 1 && PortData[0] == null)
+            if (portNumber < 0 || portNumber >= _numPorts)
             {
                 return;
             }
@@ -55,6 +50,13 @@ namespace NEASimulator.Models.Apparatus
             if (portNumber == 0)
             {
                 ResetData();
+            }
+            else if (portNumber > 0)
+            {
+                if (PortData[0] == null || PortData[portNumber] != null)
+                {
+                    return;
+                }
             }
 
             PortData[portNumber] = data;

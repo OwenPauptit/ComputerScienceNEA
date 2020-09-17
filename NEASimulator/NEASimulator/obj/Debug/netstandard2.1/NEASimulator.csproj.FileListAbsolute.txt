@@ -159,7 +159,6 @@ C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\R
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\RazorDeclaration\Pages\Counter.razor.g.cs
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\RazorDeclaration\Pages\FetchData.razor.g.cs
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\RazorDeclaration\Pages\Index.razor.g.cs
-C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\RazorDeclaration\Pages\Test.razor.g.cs
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\RazorDeclaration\Shared\MainLayout.razor.g.cs
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\RazorDeclaration\Shared\NavMenu.razor.g.cs
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\RazorDeclaration\Shared\SurveyPrompt.razor.g.cs
@@ -172,7 +171,6 @@ C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\R
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\Razor\Pages\Counter.razor.g.cs
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\Razor\Pages\FetchData.razor.g.cs
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\Razor\Pages\Index.razor.g.cs
-C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\Razor\Pages\Test.razor.g.cs
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\Razor\Shared\MainLayout.razor.g.cs
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\Razor\Shared\NavMenu.razor.g.cs
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\Razor\Shared\SurveyPrompt.razor.g.cs
@@ -180,7 +178,6 @@ C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\R
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\NEASimulator.RazorTargetAssemblyInfo.cache
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\NEASimulator.csproj.CopyComplete
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\blazor\unlinked.output
-C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\99dseBOagY3mzu5Y8Eqm8gRI_o8QbbCp7R2Ew9bQ_5E=.hash
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\ZxXy75PYbzJxNfAc-SAP1nUYm4gt1jSaOpFnBb9m85M=.hash
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\BaZPMj95_YNe3G4ckTGD6szZFwZeA2MOHn91zTGKDeU=.hash
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\TkH6yxFQlTfY8NfznePrCdYJiEVpM9Dqy4Uu4H9qk10=.hash
@@ -356,6 +353,9 @@ C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\s
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\staticwebassets\NEASimulator.StaticWebAssets.xml
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\NEASimulator.dll
 C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\NEASimulator.pdb
-C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\IKzphQvqdL0nmaE1KSb58bfLgycQ9RSINLqIMFUIYsM=.hash
-C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\JQRlCNek9bZt2-KK2p50LJ1yz69jEjRIbrYiLnHk-is=.hash
-C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\vuEQ3UuZDI89gpHXVyUPO1LNUXfNy033NYZzhT9Dqrc=.hash
+C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\RazorDeclaration\Shared\Simulation.razor.g.cs
+C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\Razor\Shared\Simulation.razor.g.cs
+C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\WkuXkEV--B1J2kYqjuSPxgHubOHALmA548PhKTed2JE=.hash
+C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\5DIZNJ3K8ing_kirtCC4OxQFGvxrqN9kRWQBej28Oc4=.hash
+C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\M1LZqp5L5mZiJsodTWQArjud97dbe_pV4FBN0wzs0D4=.hash
+C:\Users\owenp\source\repos\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\nC0uIEdY8GOmn2sp4ZR3p6xnGnOK2KlCW94df_72v9M=.hash

@@ -1,7 +1,6 @@
 ﻿@inherits LayoutComponentBase
-
 <div class="sidebar">
-    <NavMenu />
+    <NavMenu available="available"/>
 </div>
 
 <div class="main">
@@ -13,3 +12,19 @@
         @Body
     </div>
 </div>
+
+@code{
+
+    private List<Models.AvailableApparatus> available = new List<Models.AvailableApparatus>();
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            available.Add(new Models.AvailableApparatus { ImageSrc = "/RedBallPreview.png", Name = "Ball" });
+            available.Add(new Models.AvailableApparatus { ImageSrc = "/PlankPreview.png", Name = "Horizontal Plank" });
+            available.Add(new Models.AvailableApparatus { ImageSrc = "/V_PlankPreview.png", Name = "Vertical Plank" });
+        }
+    }
+}
