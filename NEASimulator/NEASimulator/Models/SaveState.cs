@@ -7,7 +7,7 @@ using NEASimulator.Models.Apparatus;
 
 namespace NEASimulator.Models
 {
-    class SaveState
+    public class SaveState
     {
         public SaveState()
         {

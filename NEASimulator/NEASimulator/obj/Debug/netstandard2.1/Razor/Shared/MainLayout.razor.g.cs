@@ -72,6 +72,13 @@ using NEASimulator.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 10 "C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEASimulator\NEASimulator\_Imports.razor"
+using NEASimulator.Components;
+
+#line default
+#line hidden
+#nullable disable
     public partial class MainLayout : LayoutComponentBase
     {
         #pragma warning disable 1998

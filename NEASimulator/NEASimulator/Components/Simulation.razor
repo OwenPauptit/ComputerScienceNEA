@@ -14,6 +14,12 @@
         padding: 10px 10px 10px 10px;
     }
 
+        .datalogger button {
+            position: absolute;
+            margin-left: -60px;
+            font-family: Consolas, Arial;
+        }
+
         .datalogger.inner {
             background: #3cb878;
             border: 2px solid #464646;
@@ -26,6 +32,7 @@
         padding-left: 10px;
         font-family: Consolas, Arial;
     }
+
     .buttons {
         position: fixed;
         left: 15%;
@@ -38,9 +45,10 @@
 <div>
     <div class="buttons">
         <!--<button @onclick="@((args) => AddObject(args,"Ball"))">Add Ball</button>
-    <button @onclick="@((args) => AddObject(args,"Plank"))">Add Plank</button>
-    <button @onclick="@((args) => AddObject(args,"VPlank"))">Add VPlank</button>
-    <button @onclick="@((args) => AddObject(args,"MetreStick"))">Add MetreStick</button>-->
+        <button @onclick="@((args) => AddObject(args,"Plank"))">Add Plank</button>
+        <button @onclick="@((args) => AddObject(args,"VPlank"))">Add VPlank</button>
+        <button @onclick="@((args) => AddObject(args,"MetreStick"))">Add MetreStick</button>-->
+
         <button @onclick="PlayPause">@(paused?"Play":"Pause")</button>
         <button @onclick="Clear">Clear</button>
         <button @onclick="Save">Save Current State</button>
@@ -49,6 +57,16 @@
 
     <br />
 
+    @foreach (var edge in currentState.Edges)
+    {
+        <svg height="1000" width="2000" style="position: absolute; left: 0; top: 0; z-index: -1">
+            <line x1="@(edge.datalogger.Position.X)"
+                  y1="@(edge.datalogger.Position.Y)"
+                  x2="@(edge.sensor.Position.X)"
+                  y2="@(edge.sensor.Position.Y)"
+                  stroke="Black"></line>
+        </svg>
+    }
     @foreach (var obj in currentState.Objects)
     {
 
@@ -72,7 +90,7 @@
     {
         <img class="draggable"
              src="@sensor.ImageSrc"
-             @onclick="@((sensor as NEASimulator.Models.Draggable).OnClick)"
+             @onclick="@((args) => SensorClick(sensor))"
              @onmousemove="@((sensor as NEASimulator.Models.Draggable).SetPositionToMouse)"
              style="position:absolute; @sensor.Style_Position" />
     }
@@ -84,6 +102,16 @@
              @onmousemove="@((logger as NEASimulator.Models.Draggable).SetPositionToMouse)"
              style="position:absolute; @logger.Style_Position"
              class="datalogger">
+
+            @if (currentState.Edges.Where(e => e.datalogger == logger && e.portnum == 0).Count() == 0)
+            {
+                <button style="margin-top: 10px;" @onclick="@((args) => MakeEdge(logger, 0))">+ A</button>
+            }
+            @if (currentState.Edges.Where(e => e.datalogger == logger && e.portnum == 1).Count() == 0)
+            {
+                <button style="margin-top: 60px;" @onclick="@((args) => MakeEdge(logger, 1))">+ B</button>
+            }
+
 
             <div class="datalogger inner">
                 <ul>
@@ -100,22 +128,57 @@
 
 @code {
 
+    [Parameter]
+    public Models.SaveState Preset { get; set; }
+
     private List<Models.AvailableApparatus> available = new List<Models.AvailableApparatus>();
 
     private Models.SaveState currentState = new Models.SaveState();
     private Models.SaveState savedState = new Models.SaveState();
 
     private bool paused = false;
+    private bool makingEdge = false;
+    private Models.Apparatus.DataLogger dataloggerToConnect;
+    private int portToConnect;
 
     private float accumulator = 0f;
     private System.Diagnostics.Stopwatch stopwatch;
 
+    private void MakeEdge(Models.Apparatus.DataLogger logger, int port)
+    {
+        makingEdge = true;
+        dataloggerToConnect = logger;
+        portToConnect = port;
+        logger.OnClick();
+    }
+
+    private void SensorClick(Interfaces.ISensor sensor)
+    {
+        if (makingEdge)
+        {
+            currentState.Edges.Add(new Models.Edge() { datalogger = dataloggerToConnect, sensor = sensor, portnum = portToConnect });
+            makingEdge = false;
+        }
+        else
+        {
+            if (sensor is Models.Draggable)
+            {
+                (sensor as Models.Draggable).OnClick();
+            }
+        }
+    }
 
     public void AddObject(MouseEventArgs e, string type)
     {
         NEASimulator.Interfaces.IDisplayObject obj;
         switch (type.ToUpper())
         {
+            case "DATALOGGER":
+                currentState.DataLoggers.Add(new Models.Apparatus.DataLogger(new System.Numerics.Vector2 { X = (float)e.ClientX, Y = (float)e.ClientY }));
+                return;
+            case "LIGHTGATE":
+                currentState.Sensors.Add(new Models.Apparatus.LightGate(new System.Numerics.Vector2 { X = (float)e.ClientX, Y = (float)e.ClientY }));
+                return;
             case "BALL":
                 obj = new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = (float)e.ClientX, Y = (float)e.ClientY }, paused);
                 break;
@@ -133,11 +196,12 @@
                 break;
         }
         currentState.Objects.Add(obj);
+
     }
 
     private void Clear()
     {
-        currentState.Objects.Clear();
+        currentState = new Models.SaveState();
     }
 
     private void Reset()
@@ -251,14 +315,11 @@
 
             stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-            currentState.Sensors.Add(new NEASimulator.Models.Apparatus.LightGate(new System.Numerics.Vector2(300, 300), false));
-            currentState.Sensors.Add(new NEASimulator.Models.Apparatus.LightGate(new System.Numerics.Vector2(500, 300), false));
+            currentState = Preset;
 
-            currentState.DataLoggers.Add(new Models.Apparatus.DataLogger(new System.Numerics.Vector2(400, 500), false));
+            Save();
 
-            currentState.Edges.Add(new Models.Edge() { datalogger = currentState.DataLoggers[0], sensor = currentState.Sensors[0], portnum = 0 });
-            currentState.Edges.Add(new Models.Edge() { datalogger = currentState.DataLoggers[0], sensor = currentState.Sensors[1], portnum = 1 });
-
+            paused = true;
         }
     }
 }

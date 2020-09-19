@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NEASimulator.Models.Apparatus
 {
-   class DataLogger : Draggable
+   public class DataLogger : Draggable
     {
         const int _numPorts = 2;
         public DataLogger(Vector2 startingpos, bool dragging=true)
@@ -16,7 +16,7 @@ namespace NEASimulator.Models.Apparatus
             Dragging = dragging;
 
             ImageSrc = "/DataLogger.png";
-            Size = new Vector2(200,170);
+            Size = new Vector2(320,160);
 
             CalculationData = new AccelerationCalculationData();
             PortData = new VelocityTimestampData[2];
@@ -110,6 +110,16 @@ namespace NEASimulator.Models.Apparatus
         public new DataLogger Clone()
         {
             return new DataLogger(this);
+        }
+
+        public bool IsConnected(int portNum)
+        {
+            if (portNum >= _numPorts)
+            {
+                return false;
+            }
+
+            return PortData[portNum] != null;
         }
     }
 }

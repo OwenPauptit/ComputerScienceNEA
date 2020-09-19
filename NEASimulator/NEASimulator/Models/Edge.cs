@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NEASimulator.Models
 {
-    struct Edge
+    public struct Edge
     {
 
         public DataLogger datalogger { get; set; }

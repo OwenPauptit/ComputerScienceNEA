@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NEASimulator.Models
 {
-    class Draggable : IDisplayObject // Any object that can be dragged by the user
+    public class Draggable : IDisplayObject // Any object that can be dragged by the user
     {
         public bool Dragging { get; set; }
         public string ImageSrc { get; set; }
