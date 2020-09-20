@@ -23,11 +23,11 @@ namespace NEASimulator.Models.Apparatus
             switch(type)
             {
                 case Type.Horizontal:
-                    ImageSrc = "/Plank.png";
+                    ImageSrc = "/media/Plank.png";
                     Size = new Vector2 { X = 300, Y = 20 };
                     break;
                 case Type.Vertical:
-                    ImageSrc = "/V_Plank.png";
+                    ImageSrc = "/media/V_Plank.png";
                     Size = new Vector2 { X = 20, Y = 300 };
                     break;
             }

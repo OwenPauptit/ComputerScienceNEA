@@ -14,7 +14,7 @@ namespace NEASimulator.Models.Apparatus
         {
             Data = new VelocityTimestampData();
 
-            ImageSrc = "/LightGate.png";
+            ImageSrc = "/media/LightGate.png";
             Position = startingpos;
             Size = new Vector2(41, 41);
             BoundingBox = new Rectangle()

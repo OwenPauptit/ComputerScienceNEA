@@ -14,7 +14,7 @@ namespace NEASimulator.Models.Apparatus
             Position = startingPos;
 
             //Temp
-            ImageSrc = "/RedBall.png";
+            ImageSrc = "/media/RedBall.png";
             Size = new Vector2 { X = 100, Y = 100};
             Velocity = new Vector2 { X = 0, Y = 0 };
             Acceleration = new Vector2 { X = 0, Y = Constants.gravity };

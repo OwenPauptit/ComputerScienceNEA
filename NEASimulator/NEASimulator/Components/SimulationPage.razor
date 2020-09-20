@@ -56,7 +56,7 @@
         {
             <li>
                 <button @onclick="@((args) => AddObject(args,item.Name))">
-                    <img src="@("Icon_" + item.Name + ".png")" />
+                    <img src="@("/media/Icons/Icon_" + item.Name + ".png")" />
                     @item.Name
                 </button>
             </li>
@@ -71,7 +71,7 @@
             <li>
                 <button @onclick="@((args) => ControlClick(item))">
                     @item
-                    <img src="@("Icon_" + item + ".png")" />
+                    <img src="@("/media/Icons/Icon_" + item + ".png")" />
                 </button>
             </li>
         }

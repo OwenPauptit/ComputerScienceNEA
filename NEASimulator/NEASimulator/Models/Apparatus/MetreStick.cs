@@ -12,7 +12,7 @@ namespace NEASimulator.Models.Apparatus
         public MetreStick(Vector2 startingpos, bool dragging=false)
         {
             Position = startingpos;
-            ImageSrc = "/MetreStick.png";
+            ImageSrc = "/media/MetreStick.png";
             Size = new Vector2(30, 500);
             Dragging = dragging;
 
