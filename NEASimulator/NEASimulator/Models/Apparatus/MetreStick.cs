@@ -9,10 +9,10 @@ namespace NEASimulator.Models.Apparatus
 {
     class MetreStick : Draggable
     {
-        public MetreStick(Vector2 startingpos, bool dragging=false)
+        public MetreStick(Vector2 startingpos, bool dragging=true)
         {
             Position = startingpos;
-            ImageSrc = "/media/MetreStick.png";
+            ImageSrc = "/media/50mStick.png";
             Size = new Vector2(30, 500);
             Dragging = dragging;
 
