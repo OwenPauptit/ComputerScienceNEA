@@ -43,86 +43,23 @@
 
 
 <div>
-    <div class="buttons">
-        <!--<button @onclick="@((args) => AddObject(args,"Ball"))">Add Ball</button>
-        <button @onclick="@((args) => AddObject(args,"Plank"))">Add Plank</button>
-        <button @onclick="@((args) => AddObject(args,"VPlank"))">Add VPlank</button>
-        <button @onclick="@((args) => AddObject(args,"MetreStick"))">Add MetreStick</button>-->
 
-        <button @onclick="PlayPause">@(paused?"Play":"Pause")</button>
-        <button @onclick="Clear">Clear</button>
-        <button @onclick="Save">Save Current State</button>
-        <button @onclick="Reset">Return To Saved State</button>
-    </div>
-
-    <br />
 
     @foreach (var edge in currentState.Edges)
     {
-        <svg height="1000" width="2000" style="position: absolute; left: 0; top: 0; z-index: -1">
-            <line x1="@(edge.datalogger.Position.X)"
-                  y1="@(edge.datalogger.Position.Y)"
-                  x2="@(edge.sensor.Position.X)"
-                  y2="@(edge.sensor.Position.Y)"
-                  stroke="Black"></line>
-        </svg>
+        <Edge edge="edge" />
     }
     @foreach (var obj in currentState.Objects)
     {
-
-        if (obj is NEASimulator.Models.Draggable)
-        {
-            <img class="draggable"
-                 src="@obj.ImageSrc"
-                 @onclick="@((obj as NEASimulator.Models.Draggable).OnClick)"
-                 @onmousemove="@((obj as NEASimulator.Models.Draggable).SetPositionToMouse)"
-                 style="position:absolute; @obj.Style_Position" />
-        }
-        else
-        {
-            <img class="draggable"
-                 src="@obj.ImageSrc"
-                 style="position:absolute; @obj.Style_Position" />
-        }
-
+        <DisplayObject obj="obj" Parent="this" />
     }
     @foreach (var sensor in currentState.Sensors)
     {
-        <img class="draggable"
-             src="@sensor.ImageSrc"
-             @onclick="@((args) => SensorClick(sensor))"
-             @onmousemove="@((sensor as NEASimulator.Models.Draggable).SetPositionToMouse)"
-             style="position:absolute; @sensor.Style_Position" />
+        <Sensor sensor="sensor" Parent="this" />
     }
     @foreach (var logger in currentState.DataLoggers)
     {
-        var displaydata = logger.GetDisplayData();
-
-        <div @onclick="@((logger as NEASimulator.Models.Draggable).OnClick)"
-             @onmousemove="@((logger as NEASimulator.Models.Draggable).SetPositionToMouse)"
-             style="position:absolute; @logger.Style_Position"
-             class="datalogger">
-
-            @if (currentState.Edges.Where(e => e.datalogger == logger && e.portnum == 0).Count() == 0)
-            {
-                <button style="margin-top: 10px;" @onclick="@((args) => MakeEdge(logger, 0))">+ A</button>
-            }
-            @if (currentState.Edges.Where(e => e.datalogger == logger && e.portnum == 1).Count() == 0)
-            {
-                <button style="margin-top: 60px;" @onclick="@((args) => MakeEdge(logger, 1))">+ B</button>
-            }
-
-
-            <div class="datalogger inner">
-                <ul>
-                    <li></li>
-                    <li>Velocity at A:            @(((float)displaydata.VelocityA).ToString("0.0000"))</li>
-                    <li>Velocity at B:            @(((float)displaydata.VelocityB).ToString("0.0000"))</li>
-                    <li>Time from A to B:         @(((float)displaydata.TimeDifference).ToString("0.0000"))</li>
-                    <li>Acceleration from A to B: @(((float)displaydata.Acceleration).ToString("0.0000"))</li>
-                </ul>
-            </div>
-        </div>
+        <DataLogger datalogger="logger" Parent="this" Edges="currentState.Edges" />
     }
 </div>
 
@@ -144,7 +81,7 @@
     private float accumulator = 0f;
     private System.Diagnostics.Stopwatch stopwatch;
 
-    private void MakeEdge(Models.Apparatus.DataLogger logger, int port)
+    public void MakeEdge(Models.Apparatus.DataLogger logger, int port)
     {
         makingEdge = true;
         dataloggerToConnect = logger;
@@ -152,7 +89,16 @@
         logger.OnClick();
     }
 
-    private void SensorClick(Interfaces.ISensor sensor)
+    public void RemoveEdge(Models.Apparatus.DataLogger logger, int port)
+    {
+        Models.Edge? edge = currentState.Edges.FirstOrDefault(e => e.datalogger == logger && e.portnum == port);
+        if (edge != null)
+        {
+            currentState.Edges.Remove(edge.Value);
+        }
+    }
+
+    public void SensorClick(Interfaces.ISensor sensor)
     {
         if (makingEdge)
         {
@@ -199,24 +145,24 @@
 
     }
 
-    private void Clear()
+    public void Clear()
     {
         currentState = new Models.SaveState();
     }
 
-    private void Reset()
+    public void Reset()
     {
         Clear();
         currentState = new Models.SaveState(savedState);
         this.StateHasChanged();
     }
 
-    private void Save()
+    public void Save()
     {
         savedState = new Models.SaveState(currentState);
     }
 
-    private void PlayPause()
+    public void PlayPause()
     {
         paused = !paused;
         if (!paused)

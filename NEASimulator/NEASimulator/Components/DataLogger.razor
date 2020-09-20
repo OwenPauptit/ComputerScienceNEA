@@ -1,0 +1,48 @@
+﻿@{var displaydata = datalogger.GetDisplayData(); }
+
+<div @onclick="@((datalogger as NEASimulator.Models.Draggable).OnClick)"
+     @onmousemove="@((datalogger as NEASimulator.Models.Draggable).SetPositionToMouse)"
+     style="position:absolute; @datalogger.Style_Position"
+     class="datalogger">
+
+    @if (Edges.Where(e => e.datalogger == datalogger && e.portnum == 0).Count() == 0)
+    {
+        <button style="margin-top: 10px;" @onclick="@((args) => Parent.MakeEdge(datalogger, 0))">+ A</button>
+    }
+    else
+    {
+        <button style="margin-top: 10px;" @onclick="@((args) => Parent.RemoveEdge(datalogger, 0))">- A</button>
+    }
+    @if (Edges.Where(e => e.datalogger == datalogger && e.portnum == 1).Count() == 0)
+    {
+        <button style="margin-top: 60px;" @onclick="@((args) => Parent.MakeEdge(datalogger, 1))">+ B</button>
+    }
+    else
+    {
+        <button style="margin-top: 60px;" @onclick="@((args) => Parent.RemoveEdge(datalogger, 1))">- B</button>
+    }
+
+
+    <div class="datalogger inner">
+        <ul>
+            <li></li>
+            <li>Velocity at A:            @(((float)displaydata.VelocityA).ToString("0.0000"))</li>
+            <li>Velocity at B:            @(((float)displaydata.VelocityB).ToString("0.0000"))</li>
+            <li>Time from A to B:         @(((float)displaydata.TimeDifference).ToString("0.0000"))</li>
+            <li>Acceleration from A to B: @(((float)displaydata.Acceleration).ToString("0.0000"))</li>
+        </ul>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public Models.Apparatus.DataLogger datalogger { get; set; }
+
+    [Parameter]
+    public Simulation Parent { get; set; }
+
+    [Parameter]
+    public List<Models.Edge> Edges { get; set; }
+
+}

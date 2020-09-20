@@ -1,0 +1,14 @@
+﻿
+<svg height="1000" width="2000" style="position: absolute; left: 0; top: 0; z-index: -1">
+    <line x1="@(edge.datalogger.Position.X)"
+          y1="@(edge.datalogger.Position.Y)"
+          x2="@(edge.sensor.Position.X)"
+          y2="@(edge.sensor.Position.Y)"
+          stroke="Black"></line>
+</svg>
+
+@code {
+    [Parameter]
+    public Models.Edge edge { get; set; }
+
+}

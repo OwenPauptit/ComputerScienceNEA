@@ -5,9 +5,24 @@
         overflow: hidden;
     }
 
+    .side-bar-left {
+        left: 0;
+    }
+        .side-bar-left ul li button img {
+            padding-right: 15px;
+        }
+
+    .side-bar-right {
+        right: 0;
+        text-align: right;
+    }
+        .side-bar-right ul li button img {
+            padding-left: 15px;
+        }
+
+
     .side-bar {
         position: fixed;
-        left: 0;
         top: 0;
         height: 100%;
         padding: 40px 30px 0px 20px;
@@ -33,12 +48,9 @@
                     border: none;
                 }
 
-                    .side-bar ul li button img {
-                        padding-right: 15px;
-                    }
 </style>
 
-<div class="side-bar">
+<div class="side-bar side-bar-left">
     <ul>
         @foreach (var item in Available)
         {
@@ -46,6 +58,20 @@
                 <button @onclick="@((args) => AddObject(args,item.Name))">
                     <img src="@("Icon_" + item.Name + ".png")" />
                     @item.Name
+                </button>
+            </li>
+        }
+    </ul>
+</div>
+
+<div class="side-bar side-bar-right">
+    <ul>
+        @foreach (var item in controls)
+        {
+            <li>
+                <button @onclick="@((args) => ControlClick(item))">
+                    @item
+                    <img src="@("Icon_" + item + ".png")" />
                 </button>
             </li>
         }
@@ -60,6 +86,7 @@
 @code{
 
     private Simulation sim;
+    private List<string> controls = new List<string>();
 
     [Parameter]
     public List<Models.AvailableApparatus> Available { get; set; }
@@ -73,6 +100,33 @@
         sim.Rerender();
 
     }
+
+    private void ControlClick(string type)
+    {
+        switch(type.ToUpper())
+        {
+            case "PLAY":
+                sim.PlayPause();
+                controls[controls.IndexOf(type)] = "Pause";
+                break;
+            case "PAUSE":
+                sim.PlayPause();
+                controls[controls.IndexOf(type)] = "Play";
+                break;
+            case "CLEAR":
+                sim.Clear();
+                break;
+            case "SAVE":
+                sim.Save();
+                break;
+            case "RESET":
+                sim.Reset();
+                break;
+            default:
+                break;
+        }
+    }
+
     protected override void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
@@ -88,6 +142,8 @@
                 Available.Add(new Models.AvailableApparatus { ImageSrc = "/V_PlankPreview.png", Name = "LightGate" });
                 this.StateHasChanged();
             }
+
+            controls = new List<string>() { "Play", "Clear", "Save", "Reset" };
         }
     }
 

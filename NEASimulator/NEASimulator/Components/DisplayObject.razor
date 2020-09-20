@@ -1,0 +1,22 @@
+﻿@if (obj is NEASimulator.Models.Draggable)
+        {
+<img class="draggable"
+     src="@obj.ImageSrc"
+     @onclick="@((obj as NEASimulator.Models.Draggable).OnClick)"
+     @onmousemove="@((obj as NEASimulator.Models.Draggable).SetPositionToMouse)"
+     style="position:absolute; @obj.Style_Position" />
+        }
+        else
+        {
+<img class="draggable"
+     src="@obj.ImageSrc"
+     style="position:absolute; @obj.Style_Position" />
+        }
+
+@code {
+    [Parameter]
+    public Interfaces.IDisplayObject obj { get; set; }
+
+    [Parameter]
+    public Simulation Parent { get; set; }
+}
