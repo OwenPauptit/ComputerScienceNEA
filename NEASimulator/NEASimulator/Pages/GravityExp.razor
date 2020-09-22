@@ -17,6 +17,10 @@
                 new List<Interfaces.IDisplayObject> {
                     new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 400, Y = 150 }, false),
                     new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 400, Y = 800 }, Models.Apparatus.Plank.Type.Horizontal, false),
+
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 1100, Y = 240 }, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 1100, Y = 800 }, Models.Apparatus.Plank.Type.Horizontal, false),
+                    new NEASimulator.Models.Apparatus.MetreStick(new System.Numerics.Vector2 { X = 1100, Y = 540}, false)
                     }
             );
 
@@ -37,6 +41,8 @@
                     new Models.Edge() { datalogger = preset.DataLoggers[0], sensor = preset.Sensors[1], portnum = 1 }
                     }
             );
+
+            preset.Stopwatches.Add(new Models.Apparatus.UserStopwatch(new System.Numerics.Vector2(1100, 100), false));
 
         }
     }

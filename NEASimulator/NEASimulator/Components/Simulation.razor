@@ -1,44 +1,6 @@
 ﻿
 @inject IJSRuntime JSRuntime;
 
-<style>
-    .draggable {
-        cursor: pointer
-    }
-
-    .datalogger {
-        width: max-content;
-        background: #fdc689;
-        border: 3px solid #f5a44c;
-        border-radius: 15px;
-        padding: 10px 10px 10px 10px;
-    }
-
-        .datalogger button {
-            position: absolute;
-            margin-left: -60px;
-            font-family: Consolas, Arial;
-        }
-
-        .datalogger.inner {
-            background: #3cb878;
-            border: 2px solid #464646;
-            border-radius: 0px;
-            padding: 0px 10px 0px 0px;
-        }
-
-    ul {
-        list-style: none;
-        padding-left: 10px;
-        font-family: Consolas, Arial;
-    }
-
-    .buttons {
-        position: fixed;
-        left: 15%;
-        bottom: 20px;
-    }
-</style>
 
 
 
@@ -60,6 +22,10 @@
     @foreach (var logger in currentState.DataLoggers)
     {
         <DataLogger datalogger="logger" Parent="this" Edges="currentState.Edges" />
+    }
+    @foreach (var stopwatch in currentState.Stopwatches)
+    {
+        <Stopwatch stopwatch="stopwatch" Parent="this" />
     }
 </div>
 
@@ -125,6 +91,9 @@
             case "LIGHTGATE":
                 currentState.Sensors.Add(new Models.Apparatus.LightGate(new System.Numerics.Vector2 { X = (float)e.ClientX, Y = (float)e.ClientY }));
                 return;
+            case "STOPWATCH":
+                currentState.Stopwatches.Add(new Models.Apparatus.UserStopwatch(new System.Numerics.Vector2 { X = (float)e.ClientX, Y = (float)e.ClientY }));
+                return;
             case "BALL":
                 obj = new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = (float)e.ClientX, Y = (float)e.ClientY }, paused);
                 break;
@@ -168,6 +137,14 @@
         if (!paused)
         {
             stopwatch.Restart();
+            foreach(var sw in currentState.Stopwatches)
+            {
+                if (sw.StartWithSimulation)
+                {
+                    sw.Start();
+                    sw.OnClick();
+                }
+            }
         }
     }
 

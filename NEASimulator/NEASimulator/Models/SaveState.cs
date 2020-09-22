@@ -15,6 +15,7 @@ namespace NEASimulator.Models
             Sensors = new List<ISensor>();
             DataLoggers = new List<DataLogger>();
             Edges = new List<Edge>();
+            Stopwatches = new List<UserStopwatch>();
         }
 
         public SaveState(SaveState s)
@@ -23,10 +24,12 @@ namespace NEASimulator.Models
             Sensors = new List<ISensor>();
             DataLoggers = new List<DataLogger>();
             Edges = new List<Edge>();
+            Stopwatches = new List<UserStopwatch>();
 
             Objects.AddRange(s.Objects.Select(i => i.Clone()));
             Sensors.AddRange(s.Sensors.Select(i => i.Clone()));
             DataLoggers.AddRange(s.DataLoggers.Select(i => i.Clone()));
+            Stopwatches.AddRange(s.Stopwatches.Select(i => i.Clone()));
 
             int index;
             Edge temp;
@@ -51,6 +54,8 @@ namespace NEASimulator.Models
         public List<ISensor> Sensors { get; set; }
         public List<DataLogger> DataLoggers {get; set;}
         public List<Edge> Edges { get; set; }
+
+        public List<UserStopwatch> Stopwatches { get; set; } // Will change to more generic
 
     }
 }

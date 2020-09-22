@@ -1,0 +1,28 @@
+﻿@{ var time = stopwatch.GetElapsedTime(); }
+
+    <div @onclick="@((stopwatch as NEASimulator.Models.Draggable).OnClick)"
+         @onmousemove="@((stopwatch as NEASimulator.Models.Draggable).SetPositionToMouse)"
+         style="position:absolute; @stopwatch.Style_Position"
+         class="stopwatch">
+
+        <div class="stopwatch inner">
+            <p>@time.ToString("0000.000")</p>
+        </div>
+
+        <button @onclick="stopwatch.Start">Start</button>
+        <button @onclick="stopwatch.Stop">Stop</button>
+        <button @onclick="stopwatch.Reset">Reset</button>
+        <br/>
+        <label>Start with Simulation?</label>
+        <input type="checkbox" @bind="stopwatch.StartWithSimulation" @onclick="stopwatch.OnClick"/>
+    </div> 
+
+@code {
+    [Parameter]
+    public Models.Apparatus.UserStopwatch stopwatch { get; set; }
+
+    [Parameter]
+    public Simulation Parent { get; set; }
+
+
+}
