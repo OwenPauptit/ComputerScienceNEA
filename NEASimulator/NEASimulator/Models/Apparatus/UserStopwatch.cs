@@ -34,6 +34,8 @@ namespace NEASimulator.Models.Apparatus
             Dragging = false;
             Style_Position = s.Style_Position;
 
+            StartWithSimulation = s.StartWithSimulation;
+
             stopwatch = new Stopwatch();
 
         }
