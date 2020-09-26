@@ -1,0 +1,66 @@
+﻿.draggable {
+    cursor: pointer
+}
+
+.datalogger {
+    width: max-content;
+    background: #fdc689;
+    border: 3px solid #f5a44c;
+    border-radius: 15px;
+    padding: 10px 10px 10px 10px;
+
+}
+
+    .datalogger button {
+        position: absolute;
+        margin-left: -60px;
+        font-family: Consolas, Arial;
+    }
+
+    .datalogger.inner {
+        background: #3cb878;
+        border: 2px solid #464646;
+        border-radius: 0px;
+        padding: 0px 10px 0px 0px;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 10px;
+        font-family: Consolas, Arial;
+    }
+
+.buttons {
+    position: fixed;
+    left: 15%;
+    bottom: 20px;
+}
+
+.stopwatch {
+    width: max-content;
+    background: #464646;
+    border:2px solid #808080;
+    border-radius: 10%;
+    padding: 10px 10px 10px 10px;
+}
+
+    .stopwatch.inner {
+        background: #AAAAAA;
+        border: 2px solid #808080;
+        border-radius: 0;
+        padding: 0px 5px 0px 5px;
+        margin: auto;
+    }
+
+        .stopwatch.inner p {
+            font-family: Consolas, Arial;
+        }
+
+    .stopwatch button {
+        margin-top: 5px;
+    }
+
+    .stopwatch label {
+        color: white;
+        padding-top: 3px;
+    }
