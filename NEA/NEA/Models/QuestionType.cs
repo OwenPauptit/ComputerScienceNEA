@@ -6,18 +6,13 @@ using System.Threading.Tasks;
 
 namespace NEA.Models
 {
-    public class Simulation
+    public class QuestionType
     {
-
-        public int SimulationID { get; set; }
-
+        [Required]
+        public int ID { get; set; }
         [Required]
         public string Name { get; set; }
-
-        public string PreviewImgSrc { get; set; }
-
-        public string Description { get; set; }
-
-        public ICollection<Question> Questions { get; set; }
+        
+        public string AnswerFormat { get; set; }
     }
 }

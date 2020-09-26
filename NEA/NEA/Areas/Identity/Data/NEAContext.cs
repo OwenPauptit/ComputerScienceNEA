@@ -21,6 +21,10 @@ namespace NEA.Models
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Simulation> Simulations { get; set; }
         public DbSet<StudentAssignment> StudentAssignments { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<QuestionType> QuestionTypes { get; set; }
+        public DbSet<StudentQuestion> StudentQuestions { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -33,6 +37,9 @@ namespace NEA.Models
             builder.Entity<Enrollment>().ToTable("Enrollment");
             builder.Entity<Simulation>().ToTable("Simulation");
             builder.Entity<StudentAssignment>().ToTable("StudentAssignment");
+            builder.Entity<StudentQuestion>().ToTable("StudentQuestion");
+            builder.Entity<Question>().ToTable("Question");
+            builder.Entity<QuestionType>().ToTable("QuestionType");
 
             builder.Entity<Enrollment>()
                 .HasKey(e => new { e.NEAUserId, e.ClassroomID });
@@ -40,9 +47,23 @@ namespace NEA.Models
                 .HasKey(c => new { c.ClassroomID, c.SimulationID });
             builder.Entity<StudentAssignment>()
                 .HasKey(s => new { s.UserID, s.SimulationID });
+            builder.Entity<Question>()
+                .HasKey(q => new { q.SimulationID, q.QIndex });
+            builder.Entity<StudentQuestion>()
+                .HasKey(s => new { s.SimulationID, s.QIndex, s.UserID });
+
+            builder.Entity<Question>()
+                .HasMany(q => q.StudentQuestions)
+                .WithOne(s => s.Question)
+                .HasForeignKey(s => new { s.SimulationID, s.QIndex });
 
             builder.Entity<Enrollment>()
                 .HasOne(e => e.NEAUser)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<StudentQuestion>()
+                .HasOne(e => e.Question)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
         }

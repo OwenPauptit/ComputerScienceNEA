@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NEA.Models;
 
 namespace NEA.Migrations
 {
     [DbContext(typeof(NEAContext))]
-    partial class NEAContextModelSnapshot : ModelSnapshot
+    [Migration("20200926110358_QuestionEntities")]
+    partial class QuestionEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -313,6 +315,7 @@ namespace NEA.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AnswerFormat")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -365,38 +368,6 @@ namespace NEA.Migrations
                     b.HasIndex("SimulationID");
 
                     b.ToTable("StudentAssignment");
-                });
-
-            modelBuilder.Entity("NEA.Models.StudentQuestion", b =>
-                {
-                    b.Property<int>("SimulationID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("QIndex")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Answer")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Correct")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("QuestionQIndex")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("QuestionSimulationID")
-                        .HasColumnType("int");
-
-                    b.HasKey("SimulationID", "QIndex", "UserID");
-
-                    b.HasIndex("UserID");
-
-                    b.HasIndex("QuestionSimulationID", "QuestionQIndex");
-
-                    b.ToTable("StudentQuestion");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -516,31 +487,6 @@ namespace NEA.Migrations
                         .WithMany("StudentAssignments")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("NEA.Models.StudentQuestion", b =>
-                {
-                    b.HasOne("NEA.Models.Simulation", "Simulation")
-                        .WithMany()
-                        .HasForeignKey("SimulationID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NEA.Areas.Identity.Data.NEAUser", "NEAUser")
-                        .WithMany("StudentQuestions")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NEA.Models.Question", null)
-                        .WithMany("StudentQuestions")
-                        .HasForeignKey("QuestionSimulationID", "QuestionQIndex");
-
-                    b.HasOne("NEA.Models.Question", "Question")
-                        .WithMany()
-                        .HasForeignKey("SimulationID", "QIndex")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -13,9 +13,11 @@ namespace NEA.Areas.Identity.Data
         [PersonalData]
         public string FirstName { get; set; }
 
+
         [PersonalData]
         public string LastName { get; set; }
 
         public ICollection<StudentAssignment> StudentAssignments { get; set; }
+        public ICollection<StudentQuestion> StudentQuestions { get; set; }
     }
 }

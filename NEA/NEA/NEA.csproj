@@ -43,6 +43,8 @@
     <Compile Remove="Migrations\20200814142147_FixingThings.Designer.cs" />
     <Compile Remove="Migrations\20200815120755_StringLengthClassroomID.cs" />
     <Compile Remove="Migrations\20200815120755_StringLengthClassroomID.Designer.cs" />
+    <Compile Remove="Migrations\20200926115657_StudentQModel.cs" />
+    <Compile Remove="Migrations\20200926115657_StudentQModel.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
@@ -54,5 +56,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Questions\" />
   </ItemGroup>
 </Project>
