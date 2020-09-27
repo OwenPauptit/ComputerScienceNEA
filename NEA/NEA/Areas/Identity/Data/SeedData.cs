@@ -172,7 +172,10 @@ namespace NEA.Areas.Identity.Data
                 
                 new Simulation
                 {
-                    Name = "PAG 1.1"
+                    Name = "PAG 1.1",
+                    PreviewImgSrc = "/media/SimulationPreviews/PAG-1-1.png",
+                    Description = "Dropping a steel ball bearing through light gates can be used to find the acceleration due to gravity. Recording the time taken for it to fall as you then change the distance between the gates allows a graph to be plotted the the value of 'g' determined."
+
                 },
 
                 new Simulation
@@ -260,6 +263,58 @@ namespace NEA.Areas.Identity.Data
                     DateCompleted = DateTime.Parse("16-7-2020")
                 }
 
+                );
+
+            context.SaveChanges();
+
+            context.QuestionTypes.AddRange(
+                new QuestionType
+                {
+                    Name = "Multiple Choice",
+                    AnswerFormat = "T/F/F/F"
+                },
+
+                new QuestionType
+                {
+                    Name = "TrueFalse",
+                    AnswerFormat = "Correct"
+                },
+
+                new QuestionType
+                {
+                    Name = "Calculation",
+                    AnswerFormat = "Correct/Lenience/ECF"
+                }
+                );
+            context.SaveChanges();
+
+            context.Questions.AddRange(
+                new Question
+                {
+                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 1.1").SimulationID,
+                    QIndex = 1,
+                    QuestionTypeID = context.QuestionTypes.Single(s => s.Name == "Multiple Choice").ID,
+                    QuestionString = "What is the SI unit of Gravitational Potential Energy?",
+                    AnswerString = "Kgm^2s^-2/ms^-2/J/kJ"
+                },
+
+                new Question
+                {
+                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 1.1").SimulationID,
+                    QIndex = 2,
+                    QuestionTypeID = context.QuestionTypes.Single(s => s.Name == "TrueFalse").ID,
+                    QuestionString = "True or False: Acceleration due to gravity is dependent on the mass of the object falling",
+                    AnswerString = "False"
+                },
+
+                new Question
+                {
+                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 1.1").SimulationID,
+                    QIndex = 3,
+                    QuestionTypeID = context.QuestionTypes.Single(s => s.Name == "Calculation").ID,
+                    QuestionString = "s = 10m, t = 1.4s, u = 0m/s. Find a: ",
+                    AnswerString = "10.2/0.5/null"
+                }
                 );
 
             context.SaveChanges();

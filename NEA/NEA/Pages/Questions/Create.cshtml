@@ -1,0 +1,68 @@
+﻿@page
+@model NEA.Pages.Questions.CreateModel
+
+@{
+    ViewData["Title"] = "Assignment Questions";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.Questions[0].Simulation.Name</h1>
+
+<h4>Assignment Questions</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @{ SelectList answers;}
+
+            @foreach (var question in Model.Questions)
+            {
+                switch (question.QuestionType.Name)
+                {
+                    case "Multiple Choice":
+                        answers = new SelectList(question.AnswerString.Split('/').OrderBy(x => x).ToList());
+
+                        <div class="form-group">
+                            <label class="control-label">@question.QIndex @(". ") @question.QuestionString</label>
+                            <select asp-for="StudentAnswers[question.QIndex-1]" class="form-control" asp-items="answers"></select>
+                        </div>
+
+                        break;
+                    case "TrueFalse":
+
+                        answers = new SelectList(new List<string>() { "True", "False" });
+
+                        <div class="form-group">
+                            <label class="control-label">@question.QIndex @(". ") @question.QuestionString</label>
+                            <select asp-for="StudentAnswers[question.QIndex-1]" class="form-control" asp-items="answers"></select>
+                        </div>
+
+                        break;
+
+                    case "Calculation":
+
+                        <div class="form-group">
+                            <label class="control-label">@question.QIndex @(". ") @question.QuestionString</label>
+                            <input asp-for="StudentAnswers[question.QIndex-1]" class="form-control"/>
+                        </div>
+                        break;
+                    default:
+                        break;
+                }
+            }
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" asp-route-simID="@Model.Questions[0].SimulationID" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="/Classes/Index">Back to Class List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }

@@ -1,17 +1,17 @@
 {
   "FilesToCompress": [
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\iXSJTpvUobw0eS-TD4ccDYhPjQZ1fvGM-BlhIZLhKdU=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\g_Erx0q0H9-xCWFhJEpWx3mWVqSDJmaWJBkW2mP5Cdw=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\Microsoft.AspNetCore.Components.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.AspNetCore.Components.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\ajliHkdFUnLqFkL0Ji1-H21og4gC7SjO-Ca9FaNJyTc=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\t6VO2L84SVM1TIRreH-mGc1sa6f9WfzOx0PlvElFj5A=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\Microsoft.AspNetCore.Components.Web.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.AspNetCore.Components.Web.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\gjoQH9_FsLvkQTFn5_t3_KUUTrbpRwzdnnVj-nQhvp4=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\HllQnFeqvHXgbFo2D2JDvFgc0kRyg9t5aJYau3n37gU=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\Microsoft.AspNetCore.Components.WebAssembly.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.AspNetCore.Components.WebAssembly.dll.gz"
     },
@@ -21,47 +21,47 @@
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.Bcl.AsyncInterfaces.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\2g-_TJANkv7yD19g7rvYODefDoiVBA6Iz9XHmRmyh_Q=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\3-aT5VTkFXi3ZwKM78ztL4I82fqAFLexOJeEnt8yTfs=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\Microsoft.Extensions.Configuration.Abstractions.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.Extensions.Configuration.Abstractions.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\otEBZsLQSIHfz_8VOlXxxgIaWq1l8cwZK__82Adfnvo=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\d-pEFCXjFzgzWiCInf5U-kdDnD4vkXMOmZ62uik6zkw=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\Microsoft.Extensions.Configuration.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.Extensions.Configuration.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\bw2w3i8UbMM6leW22LdhhJDHF7qCdqWh6CPizHqOlOY=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\NGW55AsV4KMAr8NOIDUdwArOO7rs4lya7m7yA0UD7xI=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\Microsoft.Extensions.Configuration.Json.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.Extensions.Configuration.Json.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\P8lQemMzlSuOC9WARlGm_dACH5LdOES0gmdJkEVbP3s=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\tk0US-DqGOsDU-WO0bH2Y3exaby-8oqIHsOhIxwEZHo=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\Microsoft.Extensions.DependencyInjection.Abstractions.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.Extensions.DependencyInjection.Abstractions.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\wXtWha1djTpxubkLVWh6TRcbUXIO5tGsVDcU1VN82c0=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\paEvMesiV0MsL3yKRK_dfuaUU0K25zaR8hFWxtbJgQY=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\Microsoft.Extensions.DependencyInjection.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.Extensions.DependencyInjection.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\eABgnMQDNJR_W_pvcdK7C9Ae3EZ9irZ8EDIXRgpNJ4w=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\OXzKQDH5cvQh8cIOpIlR6eAJYLiq0uoaIxQGQUx7NPQ=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\Microsoft.Extensions.Logging.Abstractions.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.Extensions.Logging.Abstractions.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\w8SfGqiD0lOXQ4w30AJQxDvTlH1XDBq5fg11lKGPiqE=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\nr7LYTniKrJCtZFfLf6jZpbuUb9ZzDfIu59d5Uw0r1Y=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\Microsoft.Extensions.Logging.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.Extensions.Logging.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\whIcCJhRL8yUoqgo_DgUpItiJVlKo4dRfP9rcipBn_Y=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\BDY3fUb28H4e-gOCmqEZe9RykFW5BmqjuNDEd93gSMU=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\Microsoft.Extensions.Options.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.Extensions.Options.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\bJbno65yn5s1auA1wV3nI_GOoWhHtQjxuN6yXfAHCRU=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\0Gd4VIBxFA7u9E3c4UhwmOp82FwuooJWQquBI9jG9ww=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\Microsoft.Extensions.Primitives.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.Extensions.Primitives.dll.gz"
     },
@@ -76,57 +76,57 @@
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.JSInterop.WebAssembly.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\ULYvUSvVxvVS74m3yzX5XFr6Msp9NJpkNrhvAac9bA0=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\7TqUhANmvKW3y2gojFCAuBqVgfYB5gpvTbv9jQu9txg=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\mscorlib.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/mscorlib.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\vfPr7t82qYI6h9GYNls8ByICnjmL3gsJgzWUgQ95Q4c=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\GrBa6G5F2qz1CNIFFyQ7GfIeUMzDQTeI2c9rrDCyoXI=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\NEASimulator.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/NEASimulator.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\SycwthTSdk4SmI_lNOENIWr6FhDeFL1mabtoqlqdNzE=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\XlpzakMqszIHJKbc1FBmVwWLdbdPbZQ8StZDufFj5fY=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\System.Core.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/System.Core.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\r6rspSvmzgmp3OxvyzL9us2v3Wd3zgPCLDwmcLCWw8s=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\XHcvvZhu4RAUj7BAEg1FzQF0mDJcbl29IwOOt2wwBpA=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\System.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/System.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\8g9rEMS3ZM6t38AvQlKjnuMEMZozmg2RkfyejufyKBc=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\9KLnb3110B2hlM9Xj7Y1I3xY08KPH8bpaJQktraOeps=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\System.Net.Http.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/System.Net.Http.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\X6JTEH6kMGWv5VzfB_OSugpeUaM0yD2XBLPHe-bG8Vo=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\u2i1L9qryF5cP7bvhJqmfqfeLkLMGmzzxaZfqk6nAi0=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\System.Net.Http.WebAssemblyHttpHandler.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/System.Net.Http.WebAssemblyHttpHandler.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\h13YJ8nsw1LjDnGUe8SdqCDDUedQo1bIFZKu6lIR74E=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\C-aSp6_lkisNcj8hIRXuQKM0J_cjL55hiSXIwgvMbIU=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\System.Numerics.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/System.Numerics.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\L1bKVDlwsiD7iSzH5XqycRZwqAD9c2Wf0Ikn3PB5qvg=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\6nl_QVNlW_VoWfq_okbByp6fPHWt6psDoM54vVjShd8=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\System.Runtime.CompilerServices.Unsafe.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/System.Runtime.CompilerServices.Unsafe.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\PD6mRIBwPSYod4f9KORVuiQFg3toR6ouIKn-Hdw11yg=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\EZvOibcpQJU0Kj5GxXL7b8UgpaBSNqFoaC-f5_Rdp8c=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\System.Text.Encodings.Web.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/System.Text.Encodings.Web.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\HpLC87SqT3gDDYYsoGJYDXcMdNq2ydlrR3VmhNtnbOk=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\ZzN-tCanjnBg9cLndqlYXD4G-gch8gnhcjY77ztZNbU=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\System.Text.Json.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/System.Text.Json.dll.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\9hUFUfgb6FTLPTbkNMQD4nrix3bHPJTn0gTEuTnCj9A=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\ZigyPjX6pSyWfzHN_BtllhVmfCqffMkUHOC-F9Shd1Q=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\linker\\WebAssembly.Bindings.dll",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/_bin\/WebAssembly.Bindings.dll.gz"
     },
@@ -151,7 +151,7 @@
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/blazor.webassembly.js.gz"
     },
     {
-      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\G1bIlz8ISc2JPSfCWTuCBzOW3G_V__rK0WKSaND0AwA=.hash",
+      "InputSource": "obj\\Release\\netstandard2.1\\integrity\\oZZo0JanLqMvm11tgONsuyvw_jWkTz1Tvs7HMXss3os=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Release\\netstandard2.1\\blazor\\blazor.boot.json",
       "Target": "obj\\Release\\netstandard2.1\\compressed\\_framework\/blazor.boot.json.gz"
     }

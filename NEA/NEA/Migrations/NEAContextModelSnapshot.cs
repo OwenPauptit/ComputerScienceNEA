@@ -384,6 +384,9 @@ namespace NEA.Migrations
                     b.Property<bool>("Correct")
                         .HasColumnType("bit");
 
+                    b.Property<string>("NEAUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int?>("QuestionQIndex")
                         .HasColumnType("int");
 
@@ -392,7 +395,7 @@ namespace NEA.Migrations
 
                     b.HasKey("SimulationID", "QIndex", "UserID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("NEAUserId");
 
                     b.HasIndex("QuestionSimulationID", "QuestionQIndex");
 
@@ -521,15 +524,13 @@ namespace NEA.Migrations
 
             modelBuilder.Entity("NEA.Models.StudentQuestion", b =>
                 {
+                    b.HasOne("NEA.Areas.Identity.Data.NEAUser", "NEAUser")
+                        .WithMany("StudentQuestions")
+                        .HasForeignKey("NEAUserId");
+
                     b.HasOne("NEA.Models.Simulation", "Simulation")
                         .WithMany()
                         .HasForeignKey("SimulationID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NEA.Areas.Identity.Data.NEAUser", "NEAUser")
-                        .WithMany("StudentQuestions")
-                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

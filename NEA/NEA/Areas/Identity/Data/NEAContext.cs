@@ -52,10 +52,10 @@ namespace NEA.Models
             builder.Entity<StudentQuestion>()
                 .HasKey(s => new { s.SimulationID, s.QIndex, s.UserID });
 
-            builder.Entity<Question>()
-                .HasMany(q => q.StudentQuestions)
-                .WithOne(s => s.Question)
-                .HasForeignKey(s => new { s.SimulationID, s.QIndex });
+            //builder.Entity<Question>()
+             //   .HasMany(q => q.StudentQuestions)
+              //  .WithOne(s => s.Question)
+               // .HasForeignKey(s => new { s.SimulationID, s.QIndex });
 
             builder.Entity<Enrollment>()
                 .HasOne(e => e.NEAUser)
@@ -66,6 +66,7 @@ namespace NEA.Models
                 .HasOne(e => e.Question)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

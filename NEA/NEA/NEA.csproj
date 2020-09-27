@@ -45,6 +45,10 @@
     <Compile Remove="Migrations\20200815120755_StringLengthClassroomID.Designer.cs" />
     <Compile Remove="Migrations\20200926115657_StudentQModel.cs" />
     <Compile Remove="Migrations\20200926115657_StudentQModel.Designer.cs" />
+    <Compile Remove="Migrations\20200927102058_StudentQARelationship.cs" />
+    <Compile Remove="Migrations\20200927102058_StudentQARelationship.Designer.cs" />
+    <Compile Remove="Migrations\20200927110024_SQCRUD.cs" />
+    <Compile Remove="Migrations\20200927110024_SQCRUD.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
@@ -56,8 +60,5 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Questions\" />
   </ItemGroup>
 </Project>

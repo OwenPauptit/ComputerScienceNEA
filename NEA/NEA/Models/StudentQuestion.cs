@@ -17,7 +17,6 @@ namespace NEA.Models
         public int QIndex { get; set; }
 
         [Required]
-        [ForeignKey("NEAUser")]
         public string UserID { get; set; }
 
         public string Answer { get; set; }
@@ -26,7 +25,6 @@ namespace NEA.Models
         public bool Correct { get; set; }
 
         public Simulation Simulation { get; set; }
-
         public Question Question { get; set; }
         public NEAUser NEAUser { get; set; }
     }
