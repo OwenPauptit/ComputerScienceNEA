@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NEA.Models;
 
 namespace NEA.Migrations
 {
     [DbContext(typeof(NEAContext))]
-    partial class NEAContextModelSnapshot : ModelSnapshot
+    [Migration("20201003123534_isCorrectEnum")]
+    partial class isCorrectEnum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -272,14 +274,9 @@ namespace NEA.Migrations
                     b.Property<string>("ClassroomID")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("NEAUserId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("NEAUserId", "ClassroomID");
 
                     b.HasIndex("ClassroomID");
-
-                    b.HasIndex("NEAUserId1");
 
                     b.ToTable("Enrollment");
                 });
@@ -495,10 +492,6 @@ namespace NEA.Migrations
                         .HasForeignKey("NEAUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("NEA.Areas.Identity.Data.NEAUser", null)
-                        .WithMany("Enrollments")
-                        .HasForeignKey("NEAUserId1");
                 });
 
             modelBuilder.Entity("NEA.Models.Question", b =>

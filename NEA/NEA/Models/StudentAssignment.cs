@@ -24,5 +24,6 @@ namespace NEA.Models
         public NEAUser NEAUser { get; set; }
         public Simulation Simulation { get; set; }
 
+
     }
 }

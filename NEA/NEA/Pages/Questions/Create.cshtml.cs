@@ -81,11 +81,11 @@ namespace NEA.Pages.Questions
                     UserID = UserManager.GetUserId(User),
                     SimulationID = simID.Value,
                     QIndex = i + 1,
-                    Correct = false
+                    isCorrect = AnswerType.Incorrect
                 };
 
                 var question = Questions.Single(q => q.QIndex == studentQuestion.QIndex);
-                var answerList = question.AnswerString.Split('/');
+                var answerList = question.AnswerString.Split(';');
 
                 switch (question.QuestionType.Name)
                 {
@@ -95,13 +95,14 @@ namespace NEA.Pages.Questions
                         if (studentQuestion.Answer == answerList[0])
                         {
                             score++;
-                            studentQuestion.Correct = true;
+                            studentQuestion.isCorrect = AnswerType.Correct;
                         }
 
                         break;
 
                     case "Calculation":
                         float answer, lenience, studentAnswer;
+                        float? temp;
 
                         if (!float.TryParse(answerList[0], out answer))
                         {
@@ -115,28 +116,34 @@ namespace NEA.Pages.Questions
                         {
                             lenience = 0f;
                         }
-                        if (answerList[2] == "null")
-                        {
-                            if (studentAnswer > answer - lenience && studentAnswer < answer + lenience)
+                        if (studentAnswer >= answer - lenience && studentAnswer <= answer + lenience)
                             {
                                 score++;
-                                studentQuestion.Correct = true;
+                                studentQuestion.isCorrect = AnswerType.Correct;
                             }
-                        }
-                        else
+                        else if (answerList[2] != null)
                         {
-                            break;
+                            temp = EvaluatePostFixExp(answerList[2]);
+                            if (temp != null)
+                            {
+                                answer = temp.Value;
+                                if (studentAnswer > answer - lenience && studentAnswer < answer + lenience)
+                                {
+                                    score++;
+                                    studentQuestion.isCorrect = AnswerType.ErrorCarriedForward;
+                                }
+                            }
                         }
 
                         break;
 
                 }
 
-                if (studentQuestion.Answer == Questions.Single(q => q.QIndex == studentQuestion.QIndex).AnswerString.Split('/')[0])
-                {
-                    score++;
-                    studentQuestion.Correct = true;
-                }
+                //if (studentQuestion.Answer == Questions.Single(q => q.QIndex == studentQuestion.QIndex).AnswerString.Split('/')[0])
+                //{
+                //    score++;
+                //    studentQuestion.Correct = true;
+                //}
 
                 var existigSQ = Context.StudentQuestions
                 .SingleOrDefault(m => m.UserID == UserManager.GetUserId(User)
@@ -179,7 +186,86 @@ namespace NEA.Pages.Questions
                 throw;
             }
 
-            return RedirectToPage("/Classes/Index");
+            return RedirectToPage("./Details",new { simID = simID.Value });
         }
+
+        private float? EvaluatePostFixExp(string exp)
+        {
+            Stack<float> stack = new Stack<float>();
+
+            List<string> operators = new List<string>() { "+", "-", "*", "/", "^" };
+
+            List<string> expression = exp.Split('|').ToList();
+
+            int index;
+
+            float operand1, operand2, result;
+
+            for (int i = 0; i < expression.Count(); i++)
+            {
+                if (operators.Contains(expression[i]))
+                {
+                    if (stack.Count() < 2)
+                    {
+                        return null;
+                    }
+                    operand2 = stack.Pop();
+                    operand1 = stack.Pop();
+
+                    switch (expression[i])
+                    {
+                        case "+":
+                            result = operand1 + operand2;
+                            break;
+                        case "-":
+                            result = operand1 - operand2;
+                            break;
+                        case "*":
+                            result = operand1 * operand2;
+                            break;
+                        case "/":
+                            result = operand1 / operand2;
+                            break;
+                        case "^":
+                            result = (float)Math.Pow(operand1, operand2);
+                            break;
+                        default:
+                            return null;
+                    }
+
+                    stack.Push(result);
+                }
+                else
+                {
+
+                    if (expression[i][0] == '#')
+                    {
+                        index = new int();
+                        if (!Int32.TryParse(expression[i].Substring(1), out index))
+                        {
+                            return null;
+                        }
+                        operand1 = new float();
+                        if (!float.TryParse(StudentAnswers[index - 1], out operand1))
+                        {
+                            return null;
+                        }
+                    }
+                    else
+                    {
+                        operand1 = new float();
+                        if (!float.TryParse(expression[i], out operand1))
+                        {
+                            return null;
+                        }
+                    }
+                    stack.Push(operand1);
+                }
+            }
+
+            return stack.Pop();
+        }
+
+
     }
 }

@@ -22,7 +22,7 @@
                 switch (question.QuestionType.Name)
                 {
                     case "Multiple Choice":
-                        answers = new SelectList(question.AnswerString.Split('/').OrderBy(x => x).ToList());
+                        answers = new SelectList(question.AnswerString.Split(';').OrderBy(x => x).ToList());
 
                         <div class="form-group">
                             <label class="control-label">@question.QIndex @(". ") @question.QuestionString</label>

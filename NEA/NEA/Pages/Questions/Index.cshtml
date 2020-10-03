@@ -18,7 +18,7 @@
                 @Html.DisplayNameFor(model => model.StudentQuestion[0].Answer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StudentQuestion[0].Correct)
+                @Html.DisplayNameFor(model => model.StudentQuestion[0].isCorrect)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.StudentQuestion[0].Simulation)
@@ -36,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.Answer)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Correct)
+                @Html.DisplayFor(modelItem => item.isCorrect)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Simulation.Name)

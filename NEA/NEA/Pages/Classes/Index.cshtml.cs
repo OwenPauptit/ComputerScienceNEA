@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace NEA.Pages.Classes
         public string ClassID { get; set; }
         public int SimulatorID { get; set; }
 
-        public async Task OnGetAsync(string classId, int? simId)
+        public async Task OnGetAsync(string classId, int? simId, bool? showDetails)
         {
             ClassroomData = new ClassroomIndexData();
             
@@ -52,8 +53,12 @@ namespace NEA.Pages.Classes
                     .Include(c => c.Enrollments)
                         .ThenInclude(c => c.NEAUser)
                             .ThenInclude(c => c.StudentAssignments)
+                    .Include(c => c.Enrollments)
+                        .ThenInclude(c => c.NEAUser)
+                            .ThenInclude(c => c.StudentQuestions)
                     .Include(c => c.ClassAssignments)
                         .ThenInclude(c => c.Simulation)
+                            .ThenInclude(c => c.Questions)
                     .Where(c => classIDs.Contains(c.ClassroomID))
                     .AsNoTracking()
                     .ToListAsync();
@@ -67,8 +72,12 @@ namespace NEA.Pages.Classes
                     .Include(c => c.Enrollments)
                         .ThenInclude(c => c.NEAUser)
                             .ThenInclude(c => c.StudentAssignments)
+                    .Include(c => c.Enrollments)
+                        .ThenInclude(c => c.NEAUser)
+                            .ThenInclude(c => c.StudentQuestions)
                     .Include(c => c.ClassAssignments)
                         .ThenInclude(c => c.Simulation)
+                            .ThenInclude(c => c.Questions)
                     .Where(c => c.UserID == UserManager.GetUserId(User))
                     .AsNoTracking()
                     .ToListAsync();
@@ -164,7 +173,17 @@ namespace NEA.Pages.Classes
 
                     ClassroomData.StudentAssignments = studentAssignments;
                 }
+
+                if (showDetails != null && showDetails == true)
+                {
+                    //ClassroomData.Questions = (from c in ClassroomData.Classrooms
+                      //                         where c.ClassAssignments.
+                        //                      select c.ClassAssignments)
+                }
+
             }
+
+
         }
     }
 }

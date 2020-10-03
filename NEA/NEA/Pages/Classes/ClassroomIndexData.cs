@@ -13,5 +13,8 @@ namespace NEA.Pages.Classes
         public IEnumerable<ClassAssignment> ClassAssignments { get; set; }
         public IEnumerable<StudentAssignmentIndexVM> StudentAssignments { get; set; }
 
+        public IEnumerable<Question> Questions { get; set; }
+        public IEnumerable<StudentQuestion> StudentQuestions { get; set; }
+
     }
 }

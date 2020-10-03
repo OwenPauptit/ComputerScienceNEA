@@ -8,6 +8,12 @@ using NEA.Areas.Identity.Data;
 
 namespace NEA.Models
 {
+    public enum AnswerType
+    {
+        Correct,
+        Incorrect,
+        ErrorCarriedForward
+    }
     public class StudentQuestion
     {
         [Required]
@@ -22,7 +28,7 @@ namespace NEA.Models
         public string Answer { get; set; }
 
         [Required]
-        public bool Correct { get; set; }
+        public AnswerType isCorrect { get; set; }
 
         public Simulation Simulation { get; set; }
         public Question Question { get; set; }

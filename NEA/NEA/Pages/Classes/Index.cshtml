@@ -161,6 +161,7 @@ Operations.Enroll)).Succeeded)
 
 @if (Model.ClassroomData.StudentAssignments != null)
 {
+
     @if (User.IsInRole(Authorization.Constants.StudentRole))
     {
         <h3>Your data for selected assignment</h3>
@@ -179,13 +180,14 @@ Operations.Enroll)).Succeeded)
             <th>Percentage</th>
             <th>Date Completed</th>
             @if ((await AuthorizationService.AuthorizeAsync
-                (User,
-                new StudentAssignment { UserID = UserManager.GetUserId(User) },
-                Operations.CompleteAssignment)).Succeeded)
+               (User,
+               new StudentAssignment { UserID = UserManager.GetUserId(User) },
+               Operations.CompleteAssignment)).Succeeded)
             {
                 <th></th>
             }
-        </tr>
+            <th></th>
+            </tr>
 
         @foreach (var item in Model.ClassroomData.StudentAssignments)
         {
@@ -203,9 +205,9 @@ Operations.Enroll)).Succeeded)
                     @Html.DisplayFor(modelItem => item.DateCompleted)
                 </td>
                 @if ((await AuthorizationService.AuthorizeAsync
-                 (User,
-                 new StudentAssignment { UserID = UserManager.GetUserId(User) },
-                 Operations.CompleteAssignment)).Succeeded)
+           (User,
+           new StudentAssignment { UserID = UserManager.GetUserId(User) },
+           Operations.CompleteAssignment)).Succeeded)
                 {
                     <td>
                         <a asp-page="/Simulations"
@@ -214,6 +216,11 @@ Operations.Enroll)).Succeeded)
                         </a>
                     </td>
                 }
+                <td>
+                    <a asp-page="./Index"
+                       asp-route-classId="@(Model.ClassroomData.Classrooms.ElementAt(0).ClassroomID)"
+                       asp-route-simId="@item.SimulationID">View Student Answers</a>
+                </td>
             </tr>
         }
     </table>
