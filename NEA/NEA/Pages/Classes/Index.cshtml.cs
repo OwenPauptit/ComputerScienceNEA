@@ -30,6 +30,7 @@ namespace NEA.Pages.Classes
 
         public string ClassID { get; set; }
         public int SimulatorID { get; set; }
+        public bool ShowDetails { get; set; }
 
         public async Task OnGetAsync(string classId, int? simId, bool? showDetails)
         {
@@ -176,12 +177,69 @@ namespace NEA.Pages.Classes
 
                 if (showDetails != null && showDetails == true)
                 {
-                    //ClassroomData.Questions = (from c in ClassroomData.Classrooms
-                      //                         where c.ClassAssignments.
-                        //                      select c.ClassAssignments)
+                    ShowDetails = showDetails.Value;
+
+                    ClassroomData.Questions = await Context.Questions
+                        .Where(s => s.SimulationID == SimulatorID)
+                        .AsNoTracking()
+                        .ToListAsync();
+
+                    List<NEAUser> students = await (from e in Context.Enrollments
+                                                    where e.ClassroomID == ClassID
+                                                    select e.NEAUser)
+                                                   .AsNoTracking()
+                                                   .ToListAsync();
+
+                    List<StudentQuestion> studentQuestions = await Context.StudentQuestions
+                        .Include(s => s.NEAUser)
+                            .ThenInclude(s => s.Enrollments)
+                        .Where(s => s.SimulationID == SimulatorID)
+                        .AsNoTracking()
+                        .ToListAsync();
+
+                    
+
+                    var studentQuestionsVM = new List<StudentQuestionVM>();
+
+                    foreach (var item in studentQuestions)
+                    {
+                        var student = students.Single(s => s.Id == item.UserID);
+
+                        var isAuthorized = await AuthorizationService.AuthorizeAsync(User, item, Operations.ViewStudentAssignment);
+
+                        if (!isAuthorized.Succeeded)
+                        {
+                            var enrollment = Context.Enrollments
+                                .Include(e => e.Classroom)
+                                .ThenInclude(e => e.Teacher)
+                                .AsNoTracking()
+                                .SingleOrDefault(e => e.NEAUserId == item.UserID && e.ClassroomID == ClassID);
+
+                            isAuthorized = await AuthorizationService.AuthorizeAsync(User, enrollment, Operations.ViewStudentAssignment);
+
+                            if (!isAuthorized.Succeeded)
+                            {
+                                continue;
+                            }
+                        }
+                        studentQuestionsVM.Add(
+                            new StudentQuestionVM
+                            {
+                                QIndex = item.QIndex,
+                                StudentName = student.FirstName + " " + student.LastName,
+                                Answer = item.Answer,
+                                isCorrect = item.isCorrect
+                            });
+
+                    }
+
+                    ClassroomData.StudentQuestions = studentQuestionsVM;
+
                 }
 
             }
+
+           
 
 
         }

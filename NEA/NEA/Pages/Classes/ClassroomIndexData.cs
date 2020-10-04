@@ -14,7 +14,7 @@ namespace NEA.Pages.Classes
         public IEnumerable<StudentAssignmentIndexVM> StudentAssignments { get; set; }
 
         public IEnumerable<Question> Questions { get; set; }
-        public IEnumerable<StudentQuestion> StudentQuestions { get; set; }
+        public IEnumerable<StudentQuestionVM> StudentQuestions { get; set; }
 
     }
 }

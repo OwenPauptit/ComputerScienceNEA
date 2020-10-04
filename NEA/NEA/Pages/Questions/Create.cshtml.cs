@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NEA.Areas.Identity.Data;
+using NEA.Authorization;
 using NEA.Models;
 
 namespace NEA.Pages.Questions
@@ -56,6 +57,7 @@ namespace NEA.Pages.Questions
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync(int? simID)
         {
+
             if (StudentAnswers == null)
             {
                 return NotFound();
@@ -83,6 +85,12 @@ namespace NEA.Pages.Questions
                     QIndex = i + 1,
                     isCorrect = AnswerType.Incorrect
                 };
+
+                var isAuthorized = await AuthorizationService.AuthorizeAsync(User, studentQuestion, Operations.CreateStudentAssignment);
+                if(!isAuthorized.Succeeded)
+                {
+                    return Forbid();
+                }
 
                 var question = Questions.Single(q => q.QIndex == studentQuestion.QIndex);
                 var answerList = question.AnswerString.Split(';');
@@ -172,19 +180,16 @@ namespace NEA.Pages.Questions
                     SimulationID = simID.Value
                 };
             }
+            else
+            {
+                Context.Remove(s);
+                await Context.SaveChangesAsync();
+            }
             s.DateCompleted = DateTime.Now.Date;
             s.Percentage = (int)(100 * score / Questions.Count());
 
-            Context.Attach(s).State = EntityState.Modified;
-
-            try
-            {
-                await Context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
+            Context.StudentAssignments.Add(s);
+            await Context.SaveChangesAsync();
 
             return RedirectToPage("./Details",new { simID = simID.Value });
         }

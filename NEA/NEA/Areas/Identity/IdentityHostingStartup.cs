@@ -52,6 +52,12 @@ namespace NEA.Areas.Identity
                 services.AddScoped<IAuthorizationHandler,
                          StudentAssignmentStudentAuthorizationHandler>();
 
+                services.AddScoped<IAuthorizationHandler,
+                         StudentDetailsTeacherAuthorizationHandler>();
+
+                services.AddScoped<IAuthorizationHandler,
+                         StudentQuestionStudentAuthorizationHandler>();
+
             });
         }
     }
