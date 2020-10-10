@@ -5,6 +5,20 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+<script>
+
+    copyurl = function () {
+        var url = window.location.href;
+        var temp = document.getElementById("urlcopyinput");
+        temp.value = url;
+        temp.select();
+        document.execCommand("copy");
+        temp.value = "";
+    };
+</script>
+
+<input id="urlcopyinput" value="" width="2" height="2" style="position: absolute; left: 0; top: 0; z-index: -1"/>
+
 <h1>Simulations</h1>
 
 <div class="sidebar">
@@ -23,25 +37,28 @@
 
 @if (Model.SelectedSimulation != null)
 {
-    <div class="main">
+<div class="main">
 
-        <br />
+    <br />
 
-        <h3>@Model.SelectedSimulation.Name</h3>
+    <h3>@Model.SelectedSimulation.Name</h3>
 
-        <br />
+    <br />
 
-        <img class="mx-auto" src="@Model.SelectedSimulation.PreviewImgSrc" />
+    <img class="mx-auto" src="@Model.SelectedSimulation.PreviewImgSrc" />
 
-        <br />
+    <br />
 
-        <p>@Model.SelectedSimulation.Description</p>
+    <p>@Model.SelectedSimulation.Description</p>
 
-        <a class="btn btn-primary" asp-page="/Questions/Create" asp-route-simID="@Model.SelectedSimulation.SimulationID">Go to Questions</a>
+    <a class="btn btn-primary" asp-page="/Questions/Create" asp-route-simID="@Model.SelectedSimulation.SimulationID">Go to Questions</a>
 
-        <a class="btn btn-primary" asp-page="#" asp-route-simID="@Model.SelectedSimulation.SimulationID">Go to Simulation</a>
+    <a class="btn btn-primary" asp-page="#">Go to Simulation</a>
+
+    <button class="btn btn-primary clipboard" onclick="copyurl()">Copy URL to clipboard</button>
 
 
-    </div>
+
+</div>
 }
 
