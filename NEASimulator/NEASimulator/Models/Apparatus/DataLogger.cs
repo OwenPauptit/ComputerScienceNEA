@@ -9,7 +9,7 @@ namespace NEASimulator.Models.Apparatus
 {
    public class DataLogger : Draggable
     {
-        const int _numPorts = 2;
+        private const int _numPorts = 2;
         public DataLogger(Vector2 startingpos, bool dragging=true)
         {
             Position = startingpos;
@@ -37,8 +37,8 @@ namespace NEASimulator.Models.Apparatus
             CalculationData = d.CalculationData;
         }
 
-        public AccelerationCalculationData CalculationData { get; set; }
-        public VelocityTimestampData[] PortData { get; set; }
+        private AccelerationCalculationData CalculationData { get; set; }
+        private VelocityTimestampData[] PortData { get; set; }
 
         public void ReceiveData(int portNumber, VelocityTimestampData data)
         {

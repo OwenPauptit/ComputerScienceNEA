@@ -9,7 +9,7 @@ namespace NEASimulator.Interfaces
 {
     public class Circle : iShape
     {
-        public float Radius { get; set; }
+        public float Radius { get; private set; }
 
         public Vector2 Position { get; set; }
 

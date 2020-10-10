@@ -1,7 +1,7 @@
 {
   "FilesToCompress": [
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\HTdXhcR_RooQABTPBSNPhF5_sy22tTSjbReehDXakyw=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\hgPDs5snFvRjhPPBL744O1k-swNuHOTjpEY9F_uZLVk=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\NEASimulator.dll",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/NEASimulator.dll.br"
     },
@@ -256,7 +256,7 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.JSInterop.WebAssembly.dll.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\72gJO7lKiKPw6uWiSrSUJhdONrOid_mnH6QnO2wErKA=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\6oxKih7A1PMKDM5w3Rpu6p7Lf-bQhh6hg1ynKQR0bsM=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\NEASimulator.pdb",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/NEASimulator.pdb.br"
     },
@@ -281,7 +281,7 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/blazor.webassembly.js.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\khxmL3GwHUXv3l0nH_j49vRsMIAZQlx-Aw3qZ4k7njs=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\Wi4QrLDIL9_olv06Hl0HN2fzMAaduWakLn4Seaxq67c=.hash",
       "Source": "C:\\Users\\owenp\\Git Hub Repositories\\ComputerScienceNEA\\NEASimulator\\NEASimulator\\obj\\Debug\\netstandard2.1\\blazor\\blazor.boot.json",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/blazor.boot.json.br"
     }
