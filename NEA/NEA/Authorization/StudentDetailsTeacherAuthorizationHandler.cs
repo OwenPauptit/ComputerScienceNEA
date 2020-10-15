@@ -31,7 +31,8 @@ namespace NEA.Authorization
 
 
             // If not asking to view questions, return 
-            if (requirement.Name != Constants.ViewStudentAssignmentOperationName)
+            if (requirement.Name != Constants.ViewStudentAssignmentOperationName &&
+                requirement.Name != Constants.OverrideStudentAssignmentOperationName)
             {
                 return Task.CompletedTask;
             }

@@ -280,6 +280,10 @@ Operations.Enroll)).Succeeded)
                     <th>
                         Answer
                     </th>
+                    @if (User.IsInRole(Constants.TeacherRole))
+                    {
+                        <th></th>
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -290,21 +294,30 @@ Operations.Enroll)).Succeeded)
                         continue;
                     }
                     var correct = item.isCorrect != AnswerType.Incorrect ? "table-success" : "table-danger";
-                    <tr class="@correct">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StudentName)
-                        </td>
-                        <td>
-                            @{
-                                var answer = item.Answer;
-                                if (item.isCorrect == AnswerType.ErrorCarriedForward)
-                                {
-                                    answer += " (Error Carried Forward)";
-                                }
+                <tr class="@correct">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentName)
+                    </td>
+                    <td>
+                        @{
+                            var answer = item.Answer;
+                            if (item.isCorrect == AnswerType.ErrorCarriedForward)
+                            {
+                                answer += " (Error Carried Forward)";
                             }
-                            @answer
+                        }
+                        @answer
+                    </td>
+                    @if (User.IsInRole(Constants.TeacherRole))
+                    {
+                        <td>
+                            <form asp-page-handler="Override" asp-route-qindex="@item.QIndex" asp-route-id="@item.UserId" asp-route-simid="@Model.SimulatorID" method="post">
+                                <input type="submit" value="override" class="nav-link"/>
+                            </form>
                         </td>
-                    </tr>
+
+                    }
+                </tr>
                 }
             </tbody>
         </table>

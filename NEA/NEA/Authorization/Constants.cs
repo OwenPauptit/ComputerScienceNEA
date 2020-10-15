@@ -34,6 +34,8 @@ namespace NEA.Authorization
             new OperationAuthorizationRequirement { Name = Constants.CreateStudentAssignmentOperationName };
         public static OperationAuthorizationRequirement ViewStudentAssignment =
             new OperationAuthorizationRequirement { Name = Constants.ViewStudentAssignmentOperationName };
+        public static OperationAuthorizationRequirement OverrideStudentAssignment =
+            new OperationAuthorizationRequirement { Name = Constants.OverrideStudentAssignmentOperationName };
     }
 
     public class Constants
@@ -54,7 +56,8 @@ namespace NEA.Authorization
         public static readonly string DeleteAssignmentOperationName = "DeleteAssignment";
         public static readonly string CompleteAssignmentOperationName = "CompleteAssignment";
 
-        public static readonly string CreateStudentAssignmentOperationName = "CreateStudentAssignment";
         public static readonly string ViewStudentAssignmentOperationName = "ViewStudentAssignment";
+        public static readonly string CreateStudentAssignmentOperationName = "CreateStudentAssignment";
+        public static readonly string OverrideStudentAssignmentOperationName = "OverrideStudentAssignment";
     }
 }

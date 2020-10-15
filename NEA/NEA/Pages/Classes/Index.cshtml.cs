@@ -32,6 +32,8 @@ namespace NEA.Pages.Classes
         public int SimulatorID { get; set; }
         public bool ShowDetails { get; set; }
 
+      
+
         public async Task OnGetAsync(string classId, int? simId, bool? showDetails)
         {
             ClassroomData = new ClassroomIndexData();
@@ -225,10 +227,12 @@ namespace NEA.Pages.Classes
                         studentQuestionsVM.Add(
                             new StudentQuestionVM
                             {
+                                UserId = student.Id,
                                 QIndex = item.QIndex,
                                 StudentName = student.FirstName + " " + student.LastName,
                                 Answer = item.Answer,
-                                isCorrect = item.isCorrect
+                                isCorrect = item.isCorrect,
+                                SimID = item.SimulationID
                             });
 
                     }
@@ -243,5 +247,57 @@ namespace NEA.Pages.Classes
 
 
         }
+
+        public async Task<IActionResult> OnPostOverride(string id, int? simid, int? qindex)
+        {
+            if(String.IsNullOrEmpty(id) || qindex == null || simid == null)
+            {
+                return RedirectToPage("./index");
+            }
+
+
+           // var id = stuquest.AuthorizeAccessToID(Context.Users.Single(u => u.Id == UserManager.GetUserId(User)), Context, classid);
+
+
+            /*if (String.IsNullOrEmpty(id))
+            {
+                return Page();
+            }*/
+
+            StudentQuestion studentQuestion = Context.StudentQuestions
+                .Where(s => s.UserID == id)
+                .Where(s => s.QIndex == qindex)
+                .SingleOrDefault(s => s.SimulationID == simid);
+
+            if (studentQuestion == null)
+            {
+                return RedirectToPage("./index");
+            }
+
+            //var isAuthorized = await AuthorizationService.AuthorizeAsync(User, studentQuestion, Operations.OverrideStudentAssignment);
+
+            //if (!isAuthorized.Succeeded)
+            //{
+              //  return Forbid();
+            //}
+
+            Context.StudentQuestions.Remove(studentQuestion);
+            Context.SaveChanges();
+
+            if (studentQuestion.isCorrect == AnswerType.Correct)
+            {
+                studentQuestion.isCorrect = AnswerType.Incorrect;
+            }
+            else
+            {
+                studentQuestion.isCorrect = AnswerType.Correct;
+            }
+
+            Context.StudentQuestions.Add(studentQuestion);
+            Context.SaveChanges();
+
+            return RedirectToPage("./index");
+        }
+
     }
 }
