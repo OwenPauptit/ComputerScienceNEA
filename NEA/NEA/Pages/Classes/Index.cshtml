@@ -27,7 +27,44 @@ Operations.Enroll)).Succeeded)
         <a asp-page="/Enrollments/Create">Enroll in new class</a>
     </p>
 }
-<table class="table">
+
+<div style="display: inline-block">
+    @foreach (var item in Model.ClassroomData.Classrooms)
+    {
+        var selected = (item.ClassroomID == Model.ClassID) ? "bg-blue" : "bg-brown";
+        <div class="classroom @selected">
+            <a asp-page="./Index" asp-route-classId="@item.ClassroomID">
+                @item.Name
+            </a>
+            <div>
+                @if (User.IsInRole(Authorization.Constants.StudentRole))
+                {
+                    <p>Teacher: @item.Teacher.LastName</p>
+                }
+                else
+                {
+                    <p>@item.Enrollments.Count() Students</p>
+                }
+                <ul>
+                    @if ((await AuthorizationService.AuthorizeAsync(User, item, Operations.EditClass)).Succeeded)
+                    {
+                        <li><a asp-page="./Edit" asp-route-id="@item.ClassroomID">Edit</a> | </li>
+                    }
+
+                    <li><a asp-page="./Details" asp-route-id="@item.ClassroomID">Details</a></li>
+
+                    @if ((await AuthorizationService.AuthorizeAsync(User, item, Operations.DeleteClass)).Succeeded)
+                    {
+
+                        <li> | <a asp-page="./Delete" asp-route-id="@item.ClassroomID">Delete</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+</div>
+
+<!--<table class="table">
     <thead>
         <tr>
             <th>Class Name</th>
@@ -88,15 +125,15 @@ Operations.Enroll)).Succeeded)
             </tr>
         }
     </tbody>
-</table>
+</table>-->
 
 @if (Model.ClassroomData.ClassAssignments != null)
 {
     <h3>Assignments from selected class</h3>
 
     @if ((await AuthorizationService.AuthorizeAsync(User,
-       new ClassAssignment { ClassroomID = Model.ClassID },
-       Operations.CreateAssignment)).Succeeded)
+ new ClassAssignment { ClassroomID = Model.ClassID },
+ Operations.CreateAssignment)).Succeeded)
     {
         <p>
             <a asp-page="/Assignments/Create" asp-route-classId="@Model.ClassID">Create New</a>
@@ -173,8 +210,7 @@ Operations.Enroll)).Succeeded)
     <a asp-page="./Index"
        asp-route-classId="@Model.ClassID"
        asp-route-simId="@Model.SimulatorID"
-       asp-route-showDetails="@true"
-       >Show answers to each question</a>
+       asp-route-showDetails="@true">Show answers to each question</a>
 
     <table class="table">
         <tr>
@@ -185,9 +221,9 @@ Operations.Enroll)).Succeeded)
             <th>Percentage</th>
             <th>Date Completed</th>
             @if ((await AuthorizationService.AuthorizeAsync
-              (User,
-              new StudentAssignment { UserID = UserManager.GetUserId(User) },
-              Operations.CompleteAssignment)).Succeeded)
+        (User,
+        new StudentAssignment { UserID = UserManager.GetUserId(User) },
+        Operations.CompleteAssignment)).Succeeded)
             {
                 <th></th>
             }
@@ -209,9 +245,9 @@ Operations.Enroll)).Succeeded)
                     @Html.DisplayFor(modelItem => item.DateCompleted)
                 </td>
                 @if ((await AuthorizationService.AuthorizeAsync
-          (User,
-          new StudentAssignment { UserID = UserManager.GetUserId(User) },
-          Operations.CompleteAssignment)).Succeeded)
+    (User,
+    new StudentAssignment { UserID = UserManager.GetUserId(User) },
+    Operations.CompleteAssignment)).Succeeded)
                 {
                     <td>
                         <a asp-page="/Simulations"
@@ -232,7 +268,7 @@ Operations.Enroll)).Succeeded)
     foreach (var question in Model.ClassroomData.Questions)
     {
         <label>@question.QIndex @(". ") @question.QuestionString</label>
-        <br/>
+        <br />
         <label>Correct Answer: @(question.AnswerString.Split(';')[0])</label>
 
         <table class="table">
@@ -259,7 +295,7 @@ Operations.Enroll)).Succeeded)
                             @Html.DisplayFor(modelItem => item.StudentName)
                         </td>
                         <td>
-                            @{ 
+                            @{
                                 var answer = item.Answer;
                                 if (item.isCorrect == AnswerType.ErrorCarriedForward)
                                 {

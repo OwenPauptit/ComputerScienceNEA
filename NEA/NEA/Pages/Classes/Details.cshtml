@@ -38,8 +38,8 @@ User, Model.Classroom, Operations.Unenroll)).Succeeded)
 }
 @if (User.IsInRole(Constants.TeacherRole))
 {
-    <input type="text" value="@(Request.Host + "/Enrollments/Create?id=" + Model.Classroom.ClassroomID) " id="copyEnrollLink" />
-    <button class="btn btn-xs btn-danger" onclick="copyEnrollLink()">Copy Enroll Link To Clipboard</button>
+    <input type="text" width="2" height="2" style="position:absolute; left: 0; top: 0; z-index: -1" value="@(Request.Host + "/Enrollments/Create?id=" + Model.Classroom.ClassroomID) " id="copyEnrollLink" />
+    <button class="btn btn-primary" onclick="copyEnrollLink()">Copy Enroll Link To Clipboard</button>
 }
 
 <div>
