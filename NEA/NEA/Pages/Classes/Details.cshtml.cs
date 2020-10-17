@@ -49,6 +49,8 @@ namespace NEA.Pages.Classes
                        select (e.NEAUser.LastName + ", " + e.NEAUser.FirstName))
                        .ToList();
 
+            Students.Sort();
+
             /*foreach (var e in enrollments)
             {
                 var isAuthorized = await AuthorizationService.AuthorizeAsync(User, e, Operations.ViewStudentAssignment);
