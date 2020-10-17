@@ -12,7 +12,9 @@ namespace NEA.Models
     {
         Correct,
         Incorrect,
-        ErrorCarriedForward
+        ErrorCarriedForward,
+        OverriddenCorrect,
+        OverriddenIncorrect
     }
     public class StudentQuestion
     {

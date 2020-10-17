@@ -32,7 +32,8 @@ namespace NEA.Pages.Classes
         public int SimulatorID { get; set; }
         public bool ShowDetails { get; set; }
 
-      
+        [BindProperty]
+        public StudentQuestion StudentQuestion { get; set; }
 
         public async Task OnGetAsync(string classId, int? simId, bool? showDetails)
         {
@@ -248,13 +249,19 @@ namespace NEA.Pages.Classes
 
         }
 
-        public async Task<IActionResult> OnPostOverride(string id, int? simid, int? qindex)
+        public async Task<IActionResult> OnPostOverride(string classid)
         {
-            if(String.IsNullOrEmpty(id) || qindex == null || simid == null)
-            {
-                return RedirectToPage("./index");
-            }
+            //if(String.IsNullOrEmpty(id) || qindex == null || simid == null|| classid == null)
 
+            StudentQuestion studentQuestion = Context.StudentQuestions
+                .SingleOrDefault(s => s.UserID == StudentQuestion.UserID
+                                 && s.QIndex == StudentQuestion.QIndex
+                                 && s.SimulationID == StudentQuestion.SimulationID);
+
+            if (studentQuestion == null)
+            {
+                return RedirectToPage("./index", new { classId = classid, simId = studentQuestion.SimulationID, showDetails = true });
+            }
 
            // var id = stuquest.AuthorizeAccessToID(Context.Users.Single(u => u.Id == UserManager.GetUserId(User)), Context, classid);
 
@@ -264,7 +271,7 @@ namespace NEA.Pages.Classes
                 return Page();
             }*/
 
-            StudentQuestion studentQuestion = Context.StudentQuestions
+            /*StudentQuestion studentQuestion = Context.StudentQuestions
                 .Where(s => s.UserID == id)
                 .Where(s => s.QIndex == qindex)
                 .SingleOrDefault(s => s.SimulationID == simid);
@@ -272,31 +279,41 @@ namespace NEA.Pages.Classes
             if (studentQuestion == null)
             {
                 return RedirectToPage("./index");
+            }*/
+
+            var enrollment = Context.Enrollments
+                .Include(e => e.Classroom)
+                .SingleOrDefault(e => e.NEAUserId == studentQuestion.UserID && e.ClassroomID == classid);
+
+            if (enrollment == null)
+            {
+                return RedirectToPage("./index", new { classId = classid, simId = studentQuestion.SimulationID, showDetails = true });
             }
 
-            //var isAuthorized = await AuthorizationService.AuthorizeAsync(User, studentQuestion, Operations.OverrideStudentAssignment);
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(User, enrollment, Operations.OverrideStudentAssignment);
 
-            //if (!isAuthorized.Succeeded)
-            //{
-              //  return Forbid();
-            //}
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
 
             Context.StudentQuestions.Remove(studentQuestion);
             Context.SaveChanges();
 
-            if (studentQuestion.isCorrect == AnswerType.Correct)
+            if (studentQuestion.isCorrect == AnswerType.Incorrect
+                || studentQuestion.isCorrect == AnswerType.OverriddenIncorrect)
             {
-                studentQuestion.isCorrect = AnswerType.Incorrect;
+                studentQuestion.isCorrect = AnswerType.OverriddenCorrect;
             }
             else
             {
-                studentQuestion.isCorrect = AnswerType.Correct;
+                studentQuestion.isCorrect = AnswerType.OverriddenIncorrect;
             }
 
             Context.StudentQuestions.Add(studentQuestion);
             Context.SaveChanges();
 
-            return RedirectToPage("./index");
+            return RedirectToPage("./index", new { classId = classid, simId = studentQuestion.SimulationID, showDetails = true});
         }
 
     }

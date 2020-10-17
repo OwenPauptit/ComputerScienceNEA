@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NEA.Areas.Identity.Data;
 using NEA.Models;
+using NEA.Authorization;
 
 namespace NEA.Pages.Classes
 {
@@ -24,6 +25,8 @@ namespace NEA.Pages.Classes
 
         public Classroom Classroom { get; set; }
 
+        public List<string> Students { get; set; }
+
         public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
@@ -35,6 +38,27 @@ namespace NEA.Pages.Classes
                 .Include(c => c.Teacher)
                 .Include(c => c.Enrollments)
                 .FirstOrDefaultAsync(m => m.ClassroomID == id);
+
+            var enrollments = await Context.Enrollments
+                .Include(e => e.Classroom)
+                .Include(e => e.NEAUser)
+                .Where(e => e.ClassroomID == id)
+                .ToListAsync();
+
+            Students = (from e in enrollments
+                       select (e.NEAUser.LastName + ", " + e.NEAUser.FirstName))
+                       .ToList();
+
+            /*foreach (var e in enrollments)
+            {
+                var isAuthorized = await AuthorizationService.AuthorizeAsync(User, e, Operations.ViewStudentAssignment);
+
+                if (isAuthorized.Succeeded)
+                {
+                    Students.Add(e.NEAUser.LastName + ", " + e.NEAUser.FirstName);
+                }
+            }*/
+
 
             if (Classroom == null)
             {

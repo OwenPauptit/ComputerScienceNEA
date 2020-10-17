@@ -39,7 +39,7 @@ namespace NEA.Authorization
 
             // Teachers can view student assignments of students who are in their classroom
             if (context.User.IsInRole(Constants.TeacherRole) &&
-                resource.Classroom.Teacher.Id == _userManager.GetUserId(context.User))
+                resource.Classroom.UserID == _userManager.GetUserId(context.User))
             {
                 context.Succeed(requirement);
             }

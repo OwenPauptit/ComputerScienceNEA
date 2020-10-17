@@ -24,6 +24,21 @@
         <dd class="col-sm-10">
             @Model.Classroom.Enrollments.Count()
         </dd>
+        <dt class="col-sm-2">
+            Student List
+        </dt>
+        <dd class="col-sm-10">
+            <table>
+                    @foreach (var student in Model.Students)
+                    {
+                        <tr>
+                            <td>
+                                @student
+                            </td>
+                        </tr>
+                    }
+            </table>
+        </dd>
     </dl>
 </div>
 
@@ -41,6 +56,8 @@ User, Model.Classroom, Operations.Unenroll)).Succeeded)
     <input type="text" width="2" height="2" style="position:absolute; left: 0; top: 0; z-index: -1" value="@(Request.Host + "/Enrollments/Create?id=" + Model.Classroom.ClassroomID) " id="copyEnrollLink" />
     <button class="btn btn-primary" onclick="copyEnrollLink()">Copy Enroll Link To Clipboard</button>
 }
+
+<br />
 
 <div>
     @if ((await AuthorizationService.AuthorizeAsync(User, Model.Classroom, Operations.EditClass)).Succeeded)
