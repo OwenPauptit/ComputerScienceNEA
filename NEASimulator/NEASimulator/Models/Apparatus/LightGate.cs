@@ -73,11 +73,11 @@ namespace NEASimulator.Models.Apparatus
 
         public override void SetPositionToMouse(MouseEventArgs e)
         {
-            if (Dragging)
-            {
+            //if (Dragging)
+            //{
                 Position = new Vector2 { X = (float)e.ClientX, Y = (float)e.ClientY };
                 SetStyle();
-            }
+            //}
 
             SetBoundingBox();
 

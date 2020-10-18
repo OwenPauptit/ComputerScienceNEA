@@ -1,8 +1,9 @@
 ﻿
 <img class="draggable"
+     draggable="true"
         src="@sensor.ImageSrc"
         @onclick="@((args) => Parent.SensorClick(sensor))"
-        @onmousemove="@((sensor as NEASimulator.Models.Draggable).SetPositionToMouse)"
+         @ondragend="@((sensor as NEASimulator.Models.Draggable).SetPositionToMouse)"
         style="position:absolute; @sensor.Style_Position" />
 
 @code {

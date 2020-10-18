@@ -1,9 +1,10 @@
 ﻿@{var displaydata = datalogger.GetDisplayData(); }
 
 <div @onclick="@((datalogger as NEASimulator.Models.Draggable).OnClick)"
-     @onmousemove="@((datalogger as NEASimulator.Models.Draggable).SetPositionToMouse)"
+         @ondragend="@((datalogger as NEASimulator.Models.Draggable).SetPositionToMouse)"
      style="position:absolute; @datalogger.Style_Position"
-     class="datalogger">
+     class="datalogger"
+     draggable="true">
 
     @if (Edges.Where(e => e.datalogger == datalogger && e.portnum == 0).Count() == 0)
     {

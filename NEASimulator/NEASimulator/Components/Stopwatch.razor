@@ -1,9 +1,10 @@
 ﻿@{ var time = stopwatch.GetElapsedTime(); }
 
     <div @onclick="@((stopwatch as NEASimulator.Models.Draggable).OnClick)"
-         @onmousemove="@((stopwatch as NEASimulator.Models.Draggable).SetPositionToMouse)"
+         @ondragend="@((stopwatch as NEASimulator.Models.Draggable).SetPositionToMouse)"
          style="position:absolute; @stopwatch.Style_Position"
-         class="stopwatch">
+         class="stopwatch"
+         draggable="true">
 
         <div class="stopwatch inner">
             <p>@time.ToString("0000.000")</p>
