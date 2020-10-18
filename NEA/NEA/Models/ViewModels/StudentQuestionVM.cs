@@ -12,10 +12,10 @@ namespace NEA.Models.ViewModels
     public class StudentQuestionVM
     {
         public string UserId { get; set; } //TODO: need to make get private
-        public int QIndex { get; set; }
+        public int? QIndex { get; set; }
         public string StudentName { get; set; }
         public string Answer { get; set; }
-        public int SimID { get; set; }
+        public int? SimID { get; set; }
         public AnswerType isCorrect { get; set; }
 
         public string AuthorizeAccessToID(NEAUser teacher, NEAContext context, string classID)

@@ -28,7 +28,7 @@ Operations.Enroll)).Succeeded)
     </p>
 }
 
-<div style="display: inline-block">
+<div>
     @foreach (var item in Model.ClassroomData.Classrooms)
     {
         var selected = (item.ClassroomID == Model.ClassID) ? "bg-blue" : "bg-brown";
@@ -140,7 +140,52 @@ Operations.CreateAssignment)).Succeeded)
         </p>
     }
 
-    <table class="table">
+    @foreach (var item in Model.ClassroomData.ClassAssignments)
+    {
+
+        var selected = item.SimulationID == Model.SimulatorID ? "bg-blue" : "bg-brown";
+
+        <div class="assignment @selected">
+            <div>
+                <a asp-page="./Index"
+                   asp-route-classId="@item.ClassroomID"
+                   asp-route-simId="@item.SimulationID">@item.Simulation.Name</a>
+                <text>Date Set: @Html.DisplayFor(modelItem => item.DateSet)</text>
+                <text>Date Due: @Html.DisplayFor(modelItem => item.DateDue)</text>
+                <ul>
+                    @if ((await AuthorizationService.AuthorizeAsync(User, item, Operations.EditAssignment)).Succeeded)
+                    {
+                        <li>
+                            <a asp-page="/Assignments/Edit"
+                               asp-route-classId="@item.ClassroomID"
+                               asp-route-simId="@item.SimulationID">Edit</a> |
+                        </li>
+                    }
+
+                    <li>
+                        <a asp-page="/Assignments/Details"
+                           asp-route-classId="@item.ClassroomID"
+                           asp-route-simId="@item.SimulationID">Details</a>
+                    </li>
+
+                    @if ((await AuthorizationService.AuthorizeAsync(User, item, Operations.DeleteAssignment)).Succeeded)
+                    {
+
+                        <li>
+                            |
+                            <a asp-page="/Assignments/Delete"
+                               asp-route-classId="@item.ClassroomID"
+                               asp-route-simId="@item.SimulationID">Delete</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <br />
+    }
+
+    <!--<table class="table">
         <tr>
             <th></th>
             <th>Simulation Name</th>
@@ -193,12 +238,13 @@ Operations.CreateAssignment)).Succeeded)
                 </td>
             </tr>
         }
-    </table>
+    </table>-->
 }
 
 @if (Model.ClassroomData.StudentAssignments != null)
 {
-
+    <br />
+    <br />
     @if (User.IsInRole(Authorization.Constants.StudentRole))
     {
         <h3>Your data for selected assignment</h3>
@@ -221,9 +267,9 @@ Operations.CreateAssignment)).Succeeded)
             <th>Percentage</th>
             <th>Date Completed</th>
             @if ((await AuthorizationService.AuthorizeAsync
-       (User,
-       new StudentAssignment { UserID = UserManager.GetUserId(User) },
-       Operations.CompleteAssignment)).Succeeded)
+ (User,
+ new StudentAssignment { UserID = UserManager.GetUserId(User) },
+ Operations.CompleteAssignment)).Succeeded)
             {
                 <th></th>
             }
@@ -245,9 +291,9 @@ Operations.CreateAssignment)).Succeeded)
                     @Html.DisplayFor(modelItem => item.DateCompleted)
                 </td>
                 @if ((await AuthorizationService.AuthorizeAsync
-   (User,
-   new StudentAssignment { UserID = UserManager.GetUserId(User) },
-   Operations.CompleteAssignment)).Succeeded)
+(User,
+new StudentAssignment { UserID = UserManager.GetUserId(User) },
+Operations.CompleteAssignment)).Succeeded)
                 {
                     <td>
                         <a asp-page="/Simulations"
@@ -263,7 +309,38 @@ Operations.CreateAssignment)).Succeeded)
 
 @if (Model.ShowDetails)
 {
+    <br />
+    <br />
+
     <h3>Student Question Data</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Key:
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-success">
+                <td>
+                    Question was answered correctly
+                </td>
+            </tr>
+            <tr class="table-danger">
+                <td>
+                    Question was answered incorrectly
+                </td>
+            </tr>
+            <tr class="table-warning">
+                <td>
+                    Question has not been answered
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
 
     foreach (var question in Model.ClassroomData.Questions)
     {
@@ -293,7 +370,24 @@ Operations.CreateAssignment)).Succeeded)
                     {
                         continue;
                     }
-                    var correct = item.isCorrect != AnswerType.Incorrect && item.isCorrect != AnswerType.OverriddenIncorrect ? "table-success" : "table-danger";
+
+                    var correct = "";
+                    switch (item.isCorrect)
+                    {
+                        case AnswerType.Correct:
+                        case AnswerType.OverriddenCorrect:
+                        case AnswerType.ErrorCarriedForward:
+                            correct = "table-success";
+                            break;
+                        case AnswerType.Incorrect:
+                        case AnswerType.OverriddenIncorrect:
+                            correct = "table-danger";
+                            break;
+                        default:
+                            correct = "table-warning";
+                            break;
+                    }
+
                     <tr class="@correct">
                         <td>
                             @Html.DisplayFor(modelItem => item.StudentName)
@@ -314,29 +408,43 @@ Operations.CreateAssignment)).Succeeded)
                         </td>
                         @if (User.IsInRole(Constants.TeacherRole))
                         {
-                            <td>
-                                <form asp-page-handler="Override" asp-route-classid="@Model.ClassID" method="post">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                    <div class="form-group invisible">
-                                        <input type="hidden" asp-for="StudentQuestion.UserID" value="@item.UserId" />
-                                    </div>
-                                    <div class="form-group invisible">
-                                        <input type="hidden" asp-for="StudentQuestion.SimulationID" value="@item.SimID" />
-                                    </div>
-                                    <div class="form-group invisible">
-                                        <input type="hidden" asp-for="StudentQuestion.QIndex" value="@item.QIndex" />
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="submit" value="override" class="btn btn-primary" />
-                                    </div>
-                                </form>
-                            </td>
+                            @if (item.isCorrect != AnswerType.Unanswered)
+                            {
+                                <td>
+                                    <form asp-page-handler="Override" asp-route-classid="@Model.ClassID" method="post">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group invisible">
+                                            <input type="hidden" asp-for="StudentQuestion.UserID" value="@item.UserId" />
+                                        </div>
+                                        <div class="form-group invisible">
+                                            <input type="hidden" asp-for="StudentQuestion.SimulationID" value="@item.SimID" />
+                                        </div>
+                                        <div class="form-group invisible">
+                                            <input type="hidden" asp-for="StudentQuestion.QIndex" value="@item.QIndex" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" value="override" class="btn btn-primary" />
+                                        </div>
+                                    </form>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <br />
+                                    <br />
+                                    <br />
+                                </td>
+                            }
 
                         }
                     </tr>
                 }
             </tbody>
         </table>
+
+        <br />
+        <br />
     }
 }
 

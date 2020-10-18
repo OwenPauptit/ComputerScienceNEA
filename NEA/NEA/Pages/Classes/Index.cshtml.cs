@@ -204,37 +204,57 @@ namespace NEA.Pages.Classes
 
                     var studentQuestionsVM = new List<StudentQuestionVM>();
 
-                    foreach (var item in studentQuestions)
+                    
+
+                    foreach (var student in students)
                     {
-                        var student = students.Single(s => s.Id == item.UserID);
+                        var thisStudentsQuestions = studentQuestions.Where(s => s.UserID == student.Id);
 
-                        var isAuthorized = await AuthorizationService.AuthorizeAsync(User, item, Operations.ViewStudentAssignment);
-
-                        if (!isAuthorized.Succeeded)
+                        foreach(var question in ClassroomData.Questions)
                         {
-                            var enrollment = Context.Enrollments
-                                .Include(e => e.Classroom)
-                                .ThenInclude(e => e.Teacher)
-                                .AsNoTracking()
-                                .SingleOrDefault(e => e.NEAUserId == item.UserID && e.ClassroomID == ClassID);
 
-                            isAuthorized = await AuthorizationService.AuthorizeAsync(User, enrollment, Operations.ViewStudentAssignment);
+                            var studentQuestion = thisStudentsQuestions.SingleOrDefault(s => s.QIndex == question.QIndex);
+
+                            if (studentQuestion == null)
+                            {
+                                studentQuestion = new StudentQuestion
+                                {
+                                    QIndex = question.QIndex,
+                                    SimulationID = SimulatorID,
+                                    Answer = "",
+                                    isCorrect = AnswerType.Unanswered
+                                };
+                            }
+
+                            var isAuthorized = await AuthorizationService.AuthorizeAsync(User, studentQuestion, Operations.ViewStudentAssignment);
 
                             if (!isAuthorized.Succeeded)
                             {
-                                continue;
+                                var enrollment = Context.Enrollments
+                                    .Include(e => e.Classroom)
+                                    .ThenInclude(e => e.Teacher)
+                                    .AsNoTracking()
+                                    .SingleOrDefault(e => e.NEAUserId == student.Id && e.ClassroomID == ClassID);
+
+                                isAuthorized = await AuthorizationService.AuthorizeAsync(User, enrollment, Operations.ViewStudentAssignment);
+
+                                if (!isAuthorized.Succeeded)
+                                {
+                                    continue;
+                                }
                             }
+                            studentQuestionsVM.Add(
+                                new StudentQuestionVM
+                                {
+                                    UserId = student.Id,
+                                    QIndex = studentQuestion.QIndex,
+                                    StudentName = student.FirstName + " " + student.LastName,
+                                    Answer = studentQuestion.Answer,
+                                    isCorrect = studentQuestion.isCorrect,
+                                    SimID = SimulatorID
+                                });
+
                         }
-                        studentQuestionsVM.Add(
-                            new StudentQuestionVM
-                            {
-                                UserId = student.Id,
-                                QIndex = item.QIndex,
-                                StudentName = student.FirstName + " " + student.LastName,
-                                Answer = item.Answer,
-                                isCorrect = item.isCorrect,
-                                SimID = item.SimulationID
-                            });
 
                     }
 
@@ -258,7 +278,7 @@ namespace NEA.Pages.Classes
                                  && s.QIndex == StudentQuestion.QIndex
                                  && s.SimulationID == StudentQuestion.SimulationID);
 
-            if (studentQuestion == null)
+            if (studentQuestion == null || studentQuestion.isCorrect == AnswerType.Unanswered)
             {
                 return RedirectToPage("./index", new { classId = classid, simId = studentQuestion.SimulationID, showDetails = true });
             }
@@ -299,6 +319,7 @@ namespace NEA.Pages.Classes
 
             Context.StudentQuestions.Remove(studentQuestion);
             Context.SaveChanges();
+
 
             if (studentQuestion.isCorrect == AnswerType.Incorrect
                 || studentQuestion.isCorrect == AnswerType.OverriddenIncorrect)

@@ -14,7 +14,8 @@ namespace NEA.Models
         Incorrect,
         ErrorCarriedForward,
         OverriddenCorrect,
-        OverriddenIncorrect
+        OverriddenIncorrect,
+        Unanswered
     }
     public class StudentQuestion
     {
