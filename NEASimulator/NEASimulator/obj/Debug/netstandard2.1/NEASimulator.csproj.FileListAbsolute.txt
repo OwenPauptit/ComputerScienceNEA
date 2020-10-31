@@ -722,6 +722,6 @@ C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEASimulator\NEASimulator
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\Razor\Components\Edge.razor.g.cs
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\RazorDeclaration\Components\Stopwatch.razor.g.cs
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\Razor\Components\Stopwatch.razor.g.cs
-C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\87sPGvBn3oZG7yyIHgvD-jK1xuLT_uGnSmiaT9OAHO4=.hash
-C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\NRir-hM_Q6qCEo-LeS-IYabNU4YNW23w_goe_m-mMUw=.hash
-C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\iBPkb_4UPTtG536jEgtpq3j4qFJOJvktK0CjniRxZfg=.hash
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\bzJQYy8CZT0Brk9utfPymby47iy4ltH2uHrUfzSV6GA=.hash
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\5LiNNkTFGHzT7H8bC-3Ox7v1CLy61OdfShfN_jk_wXk=.hash
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEASimulator\NEASimulator\obj\Debug\netstandard2.1\integrity\o67F-e-uAEYRZ_7E8yXtrrTjiBQMqmg4ovdcr5xYDVk=.hash

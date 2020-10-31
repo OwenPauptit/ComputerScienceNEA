@@ -146,6 +146,16 @@
                     sw.OnClick();
                 }
             }
+        }else
+        {
+            foreach (var sw in currentState.Stopwatches)
+            {
+                if (sw.StartWithSimulation)
+                {
+                    sw.Stop();
+                    sw.OnClick();
+                }
+            }
         }
     }
 
