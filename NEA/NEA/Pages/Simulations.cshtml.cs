@@ -12,6 +12,7 @@ using NEA.Models;
 
 namespace NEA.Pages
 {
+    [AllowAnonymous]
     public class SimulationsModel : DI_BasePageModel
     {
         public SimulationsModel(

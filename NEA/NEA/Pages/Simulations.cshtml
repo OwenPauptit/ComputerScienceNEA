@@ -54,7 +54,7 @@
 
     <a class="btn btn-primary" asp-page="/Questions/Create" asp-route-simID="@Model.SelectedSimulation.SimulationID">Go to Questions</a>
 
-    <a class="btn btn-primary" asp-page="#">Go to Simulation</a>
+    <a class="btn btn-primary" href=@("https://" + $"simulator-physsim.azurewebsites.net/{Model.SelectedSimulation.Name.Replace('.','-').Replace(" ",string.Empty).ToLower()}")>Go to Simulation</a>
 
     <button class="btn btn-primary clipboard" onclick="copyurl()">Copy URL to clipboard</button>
 

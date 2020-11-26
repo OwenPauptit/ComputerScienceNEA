@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2020-11-15T13:11:56.1871712Z"
+    }
+  },
+  "parameters": {
+    "resourceGroup": {
+      "Type": "resourceGroup",
+      "Value": "NEAPhysSimGroup"
+    },
+    "subscriptionId": {
+      "Type": "subscription",
+      "Value": "ac7d11dc-3217-4219-aebb-2b000ce1ae52"
+    }
+  }
+}

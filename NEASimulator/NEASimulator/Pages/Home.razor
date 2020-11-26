@@ -1,0 +1,62 @@
+﻿@page "/home"
+
+
+<div class="main" @onmousemove="Play">
+    <Simulation @ref="sim" Preset="preset" />
+</div>
+
+
+@code{
+
+    private Models.SaveState preset = new Models.SaveState();
+    private List<Models.AvailableApparatus> available = new List<Models.AvailableApparatus>();
+    private Simulation sim;
+    private bool paused = true;
+
+    private void Play()
+    {
+        if (paused)
+        {
+            paused = false;
+            sim.PlayPause();
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            preset.Objects.AddRange(
+                new List<Interfaces.IDisplayObject> {
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 110, Y = 50 }, false),
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 210, Y = 50 }, false),
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 310, Y = 50 }, false),
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 410, Y = 50 }, false),
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 510, Y = 50 }, false),
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 160, Y = 150 }, false),
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 260, Y = 150 }, false),
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 360, Y = 150 }, false),
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 460, Y = 150 }, false),
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 210, Y = 250 }, false),
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 310, Y = 250 }, false),
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 410, Y = 250 }, false),
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 260, Y = 350 }, false),
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 360, Y = 350 }, false),
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 310, Y = 450 }, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 200, Y = 700 }, Models.Apparatus.Plank.Type.Horizontal, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 300, Y = 700 }, Models.Apparatus.Plank.Type.Horizontal, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 500, Y = 700 }, Models.Apparatus.Plank.Type.Horizontal, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 40, Y = 560 }, Models.Apparatus.Plank.Type.Vertical, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 40, Y = 350 }, Models.Apparatus.Plank.Type.Vertical, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 650, Y = 560 }, Models.Apparatus.Plank.Type.Vertical, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 650, Y = 350 }, Models.Apparatus.Plank.Type.Vertical, false),
+
+                }
+            );
+
+
+
+        }
+    }
+}

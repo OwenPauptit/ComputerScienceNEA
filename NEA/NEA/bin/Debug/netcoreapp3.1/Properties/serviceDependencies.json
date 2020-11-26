@@ -3,9 +3,6 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "NEAContextConnection"
-    },
-    "secrets1": {
-      "type": "secrets"
     }
   }
 }

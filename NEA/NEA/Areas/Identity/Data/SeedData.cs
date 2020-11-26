@@ -20,15 +20,15 @@ namespace NEA.Areas.Identity.Data
 
                 var generator = new RandomNameGenerator();
 
-                for (int i = 1; i < 5; i++)
+                for (int i = 1; i < 20; i++)
                 {
-                    var sID = await EnsureUser(serviceProvider, testUserPW, $"student{i}@nea.com", generator);
+                    var sID = await EnsureUser(serviceProvider, testUserPW, $"student{i}@physsim.com", generator);
                     await EnsureRole(serviceProvider, sID, Constants.StudentRole);
 
                 }
-                for (int i = 1; i < 4; i++)
+                for (int i = 1; i < 3; i++)
                 {
-                    var tID = await EnsureUser(serviceProvider, testUserPW, $"teacher{i}@nea.com", generator);
+                    var tID = await EnsureUser(serviceProvider, testUserPW, $"teacher{i}@physsim.com", generator);
                     await EnsureRole(serviceProvider, tID, Constants.TeacherRole);
                 }
 
@@ -52,119 +52,91 @@ namespace NEA.Areas.Identity.Data
 
                 new Classroom
                 {
-                    UserID = context.Users.Single(u => u.UserName == "teacher1@nea.com").Id,
-                    Name = "Mathematics",
+                    UserID = context.Users.Single(u => u.UserName == "teacher1@physsim.com").Id,
+                    Name = "12A Physics",
                 },
 
                 new Classroom
                 {
-                    UserID = context.Users.Single(u => u.UserName == "teacher2@nea.com").Id,
-                    Name = "Geography",
+                    UserID = context.Users.Single(u => u.UserName == "teacher2@physsim.com").Id,
+                    Name = "12B Physics",
                 },
 
                 new Classroom
                 {
-                    UserID = context.Users.Single(u => u.UserName == "teacher3@nea.com").Id,
-                    Name = "English",
+                    UserID = context.Users.Single(u => u.UserName == "teacher1@physsim.com").Id,
+                    Name = "13B Physics",
                 },
 
                 new Classroom
                 {
-                    UserID = context.Users.Single(u => u.UserName == "teacher1@nea.com").Id,
-                    Name = "Computer Science",
+                    UserID = context.Users.Single(u => u.UserName == "teacher2@physsim.com").Id,
+                    Name = "13A Physics",
                 },
 
                 new Classroom
                 {
-                    UserID = context.Users.Single(u => u.UserName == "teacher2@nea.com").Id,
-                    Name = "Physics",
-                },
-
-                new Classroom
-                {
-                    UserID = context.Users.Single(u => u.UserName == "teacher3@nea.com").Id,
-                    Name = "Chemistry",
+                    UserID = context.Users.Single(u => u.UserName == "teacher1@physsim.com").Id,
+                    Name = "11A Physics",
                 }
+
                 );
 
             context.SaveChanges();
 
-            context.Enrollments.AddRange(
-                
-                new Enrollment
+            for (int i = 1; i < 20; i++)
+            {
+                if (i < 6)
                 {
-                    NEAUserId = context.Users.Single(u => u.UserName == "student1@nea.com").Id,
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "Mathematics").ClassroomID,
-                    
-                },
+                    context.Enrollments.Add(
+                        new Enrollment
+                        {
+                            NEAUserId = context.Users.Single(u => u.UserName == $"student{i}@physsim.com").Id,
+                            ClassroomID = context.Classrooms.Single(c => c.Name == "13A Physics").ClassroomID
 
-                new Enrollment
-                {
-                    NEAUserId = context.Users.Single(u => u.UserName == "student1@nea.com").Id,
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "Physics").ClassroomID
-                },
-
-                new Enrollment
-                {
-                    NEAUserId = context.Users.Single(u => u.UserName == "student1@nea.com").Id,
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "Chemistry").ClassroomID
-                },
-
-                new Enrollment
-                {
-                    NEAUserId = context.Users.Single(u => u.UserName == "student2@nea.com").Id,
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "English").ClassroomID
-                },
-
-                new Enrollment
-                {
-                    NEAUserId = context.Users.Single(u => u.UserName == "student2@nea.com").Id,
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "Geography").ClassroomID
-                },
-
-                new Enrollment
-                {
-                    NEAUserId = context.Users.Single(u => u.UserName == "student2@nea.com").Id,
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "Mathematics").ClassroomID
-                },
-
-                new Enrollment
-                {
-                    NEAUserId = context.Users.Single(u => u.UserName == "student3@nea.com").Id,
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "Computer Science").ClassroomID
-                },
-
-                new Enrollment
-                {
-                    NEAUserId = context.Users.Single(u => u.UserName == "student3@nea.com").Id,
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "Physics").ClassroomID
-                },
-
-                new Enrollment
-                {
-                    NEAUserId = context.Users.Single(u => u.UserName == "student3@nea.com").Id,
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "Chemistry").ClassroomID
-                },
-
-                new Enrollment
-                {
-                    NEAUserId = context.Users.Single(u => u.UserName == "student4@nea.com").Id,
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "Physics").ClassroomID
-                },
-
-                new Enrollment
-                {
-                    NEAUserId = context.Users.Single(u => u.UserName == "student4@nea.com").Id,
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "Geography").ClassroomID
-                },
-
-                new Enrollment
-                {
-                    NEAUserId = context.Users.Single(u => u.UserName == "student4@nea.com").Id,
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "Mathematics").ClassroomID
+                        });
                 }
+                if (4 <= i && i < 10)
+                {
+                    context.Enrollments.Add(
+                        new Enrollment
+                        {
+                            NEAUserId = context.Users.Single(u => u.UserName == $"student{i}@physsim.com").Id,
+                            ClassroomID = context.Classrooms.Single(c => c.Name == "13B Physics").ClassroomID
 
-                );
+                        });
+                }
+                else if (10 <= i && i < 14)
+                {
+                    context.Enrollments.Add(
+                           new Enrollment
+                           {
+                               NEAUserId = context.Users.Single(u => u.UserName == $"student{i}@physsim.com").Id,
+                               ClassroomID = context.Classrooms.Single(c => c.Name == "12A Physics").ClassroomID
+
+                           });
+                }
+                if (12 <= i && i < 18)
+                {
+                    context.Enrollments.Add(
+                        new Enrollment
+                        {
+                            NEAUserId = context.Users.Single(u => u.UserName == $"student{i}@physsim.com").Id,
+                            ClassroomID = context.Classrooms.Single(c => c.Name == "12B Physics").ClassroomID
+
+                        });
+                }
+                else if (18 <= i)
+                {
+                    context.Enrollments.Add(
+                        new Enrollment
+                        {
+                            NEAUserId = context.Users.Single(u => u.UserName == $"student{i}@physsim.com").Id,
+                            ClassroomID = context.Classrooms.Single(c => c.Name == "11A Physics").ClassroomID
+
+                        });
+                }
+            }
 
             context.SaveChanges();
 
@@ -174,8 +146,16 @@ namespace NEA.Areas.Identity.Data
                 {
                     Name = "PAG 1.1",
                     PreviewImgSrc = "/media/SimulationPreviews/PAG-1-1.png",
-                    Description = "Dropping a steel ball bearing through light gates can be used to find the acceleration due to gravity. Recording the time taken for it to fall as you then change the distance between the gates allows a graph to be plotted the the value of 'g' determined."
+                    Description = "Dropping a ball through light gates can be used to find the acceleration due to gravity. Recording the time taken for it to fall as you then change the distance between the gates allows a graph to be plotted the the value of 'g' dete" +
+                    "rmined."
 
+                },
+
+                new Simulation
+                {
+                    Name = "Projectile Motion",
+                    PreviewImgSrc = "/media/SimulationPreviews/ProjectileMotion.png",
+                    Description = "The purpose of this experiment is to predict and verify the range and the time-of-flight of a projectile launched at an angle."
                 },
 
                 new Simulation
@@ -195,7 +175,7 @@ namespace NEA.Areas.Identity.Data
                 
                 new ClassAssignment
                 {
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "Physics").ClassroomID,
+                    ClassroomID = context.Classrooms.Single(c => c.Name == "13A Physics").ClassroomID,
                     SimulationID = context.Simulations.Single(s => s.Name == "PAG 1.1").SimulationID,
                     DateDue = DateTime.Parse("09-09-2020"),
                     DateSet = DateTime.Parse("14-07-2020")
@@ -203,65 +183,50 @@ namespace NEA.Areas.Identity.Data
 
                 new ClassAssignment
                 {
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "Physics").ClassroomID,
-                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 2.2").SimulationID,
+                    ClassroomID = context.Classrooms.Single(c => c.Name == "13B Physics").ClassroomID,
+                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 1.1").SimulationID,
+                    DateDue = DateTime.Parse("09-09-2020"),
+                    DateSet = DateTime.Parse("14-07-2020")
+                },
+
+                new ClassAssignment
+                {
+                    ClassroomID = context.Classrooms.Single(c => c.Name == "12B Physics").ClassroomID,
+                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 1.1").SimulationID,
+                    DateDue = DateTime.Parse("09-09-2020"),
+                    DateSet = DateTime.Parse("14-07-2021")
+                },
+
+                new ClassAssignment
+                {
+                    ClassroomID = context.Classrooms.Single(c => c.Name == "11A Physics").ClassroomID,
+                    SimulationID = context.Simulations.Single(s => s.Name == "Projectile Motion").SimulationID,
                     DateDue = DateTime.Parse("13-10-2020"),
                     DateSet = DateTime.Parse("23-08-2020")
                 },
 
                 new ClassAssignment
                 {
-                    ClassroomID = context.Classrooms.Single(c => c.Name == "Physics").ClassroomID,
-                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 3.3").SimulationID,
+                    ClassroomID = context.Classrooms.Single(c => c.Name == "12A Physics").ClassroomID,
+                    SimulationID = context.Simulations.Single(s => s.Name == "Projectile Motion").SimulationID,
+                    DateDue = DateTime.Parse("27-09-2020"),
+                    DateSet = DateTime.Parse("16-08-2020")
+                },
+
+                new ClassAssignment
+                {
+                    ClassroomID = context.Classrooms.Single(c => c.Name == "13B Physics").ClassroomID,
+                    SimulationID = context.Simulations.Single(s => s.Name == "Projectile Motion").SimulationID,
                     DateDue = DateTime.Parse("27-09-2020"),
                     DateSet = DateTime.Parse("16-08-2020")
                 }
+
 
                 );
 
             context.SaveChanges();
 
             context.StudentAssignments.AddRange(
-
-                new StudentAssignment
-                {
-                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 1.1").SimulationID,
-                    UserID = context.Users.Single(u => u.UserName == "student1@nea.com").Id,
-                    Percentage = 98,
-                    DateCompleted = DateTime.Parse("06-12-2019")
-                },
-
-                new StudentAssignment
-                {
-                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 2.2").SimulationID,
-                    UserID = context.Users.Single(u => u.UserName == "student1@nea.com").Id,
-                    Percentage = 74,
-                    DateCompleted = DateTime.Parse("23-4-2020")
-                },
-
-                new StudentAssignment
-                {
-                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 3.3").SimulationID,
-                    UserID = context.Users.Single(u => u.UserName == "student1@nea.com").Id,
-                    Percentage = 87,
-                    DateCompleted = DateTime.Parse("08-08-2020")
-                },
-
-                new StudentAssignment
-                {
-                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 2.2").SimulationID,
-                    UserID = context.Users.Single(u => u.UserName == "student3@nea.com").Id,
-                    Percentage = 32,
-                    DateCompleted = DateTime.Parse("16-7-2020")
-                },
-
-                new StudentAssignment
-                {
-                    SimulationID = context.Simulations.Single(s => s.Name == "PAG 3.3").SimulationID,
-                    UserID = context.Users.Single(u => u.UserName == "student3@nea.com").Id,
-                    Percentage = 36,
-                    DateCompleted = DateTime.Parse("16-7-2020")
-                }
 
                 );
 
@@ -295,7 +260,7 @@ namespace NEA.Areas.Identity.Data
                     QIndex = 1,
                     QuestionTypeID = context.QuestionTypes.Single(s => s.Name == "Multiple Choice").ID,
                     QuestionString = "What is the SI unit of Gravitational Potential Energy?",
-                    AnswerString = "Kgm^2s^-2/ms^-2/J/kJ"
+                    AnswerString = "Kgm^2s^-2;ms^-2;J/kJ"
                 },
 
                 new Question
@@ -313,9 +278,59 @@ namespace NEA.Areas.Identity.Data
                     QIndex = 3,
                     QuestionTypeID = context.QuestionTypes.Single(s => s.Name == "Calculation").ID,
                     QuestionString = "s = 10m, t = 1.4s, u = 0m/s. Find a: ",
-                    AnswerString = "10.2/0.5/null"
+                    AnswerString = "10.2;0.5;null"
+                },
+
+
+                new Question
+                {
+                    SimulationID = context.Simulations.Single(s => s.Name == "Projectile Motion").SimulationID,
+                    QIndex = 1,
+                    QuestionTypeID = context.QuestionTypes.Single(s => s.Name == "Calculation").ID,
+                    QuestionString = "Run the simuation. What is the height of the bottom of the ball when it hits the post?",
+                    AnswerString = "11.4;0.2;null"
+                },
+
+                new Question
+                {
+                    SimulationID = context.Simulations.Single(s => s.Name == "Projectile Motion").SimulationID,
+                    QIndex = 2,
+                    QuestionTypeID = context.QuestionTypes.Single(s => s.Name == "Calculation").ID,
+                    QuestionString = "Immediately after the ball hits the post, it travels at an angle of 48.1° with the horizontal. Using the data logger and light gate,"
+                    + " what is the x component of the initial velocity?",
+                    AnswerString = "4.72;0.05;null"
+                },
+
+                new Question
+                {
+                    SimulationID = context.Simulations.Single(s => s.Name == "Projectile Motion").SimulationID,
+                    QIndex = 3,
+                    QuestionTypeID = context.QuestionTypes.Single(s => s.Name == "Calculation").ID,
+                    QuestionString = "Run the simulation and use the stopwatch to time from when the ball first hits the post to when the ball hits the floor. What is this time?",
+                    AnswerString = "1.7;0.3;null"
+                },
+
+                new Question
+                {
+                    SimulationID = context.Simulations.Single(s => s.Name == "Projectile Motion").SimulationID,
+                    QIndex = 4,
+                    QuestionTypeID = context.QuestionTypes.Single(s => s.Name == "Calculation").ID,
+                    QuestionString = "What is the horizontal distance from the post to where the ball hits the ground?",
+                    AnswerString = "8.20;0.05;#2|#3|*"
+                },
+
+                new Question
+                {
+                    SimulationID = context.Simulations.Single(s => s.Name == "Projectile Motion").SimulationID,
+                    QIndex = 5,
+                    QuestionTypeID = context.QuestionTypes.Single(s => s.Name == "Calculation").ID,
+                    QuestionString = "What is the bottom of the ball's maximum height above the ground after it hits the post?",
+                    AnswerString = "11.67;0.05;null"
                 }
+
                 );
+
+
 
             context.SaveChanges();
         }

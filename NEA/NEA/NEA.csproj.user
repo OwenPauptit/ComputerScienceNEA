@@ -13,5 +13,6 @@
     <WebStackScaffolding_DbContextTypeFullName>NEA.Models.NEAContext</WebStackScaffolding_DbContextTypeFullName>
     <RazorPage_SelectedScaffolderID>RazorPageScaffolder</RazorPage_SelectedScaffolderID>
     <RazorPage_SelectedScaffolderCategoryPath>root/RazorPage</RazorPage_SelectedScaffolderCategoryPath>
+    <NameOfLastUsedPublishProfile>Classroom-PhysSim - Web Deploy</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

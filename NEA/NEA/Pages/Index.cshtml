@@ -7,3 +7,26 @@
 <div class="text-center">
     <h1 class="display-4">Welcome to PhysSim!</h1>
 </div>
+
+<div style="display:block; text-align: center">
+    <object type="text/html" data=""
+            width="" height=""
+            id="simWebsite"
+            style="overflow: hidden;">
+    </object>
+</div>
+
+<script type="text/javascript">
+    if (window.innerWidth <= 800) {
+        var obj = document.getElementById("simWebsite");
+        obj.data = "https://simulator-physsim.azurewebsites.net/mobilehome";
+        obj.width = "340";
+        obj.height = "500";
+    }
+    else {
+        var obj = document.getElementById("simWebsite");
+        obj.data = "https://simulator-physsim.azurewebsites.net/home";
+        obj.width = "700";
+        obj.height = "700";
+    }
+</script>

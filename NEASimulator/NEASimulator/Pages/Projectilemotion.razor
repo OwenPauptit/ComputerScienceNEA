@@ -1,0 +1,52 @@
+﻿@page "/projectilemotion"
+
+<SimulationPage Preset="preset" Available="available" />
+
+
+@code{
+
+    private Models.SaveState preset = new Models.SaveState();
+    private List<Models.AvailableApparatus> available = new List<Models.AvailableApparatus>();
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            preset.Objects.AddRange(
+                new List<Interfaces.IDisplayObject> {
+                    new NEASimulator.Models.Apparatus.Ball(new System.Numerics.Vector2 { X = 400, Y = 50 }, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 370, Y = 370 }, Models.Apparatus.Plank.Type.Vertical, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 370, Y = 670 }, Models.Apparatus.Plank.Type.Vertical, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 530, Y = 800 }, Models.Apparatus.Plank.Type.Horizontal, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 800, Y = 800 }, Models.Apparatus.Plank.Type.Horizontal, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 950, Y = 800 }, Models.Apparatus.Plank.Type.Horizontal, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 1200, Y = 800 }, Models.Apparatus.Plank.Type.Horizontal, false),
+                    new NEASimulator.Models.Apparatus.Plank(new System.Numerics.Vector2 { X = 1350, Y = 670 }, Models.Apparatus.Plank.Type.Vertical, false),
+
+                    new NEASimulator.Models.Apparatus.MetreStick(new System.Numerics.Vector2 { X = 330, Y = 540}, false),
+                    new NEASimulator.Models.Apparatus.MetreStick(new System.Numerics.Vector2 { X = 330, Y = 40}, false)
+                        }
+            );
+
+            preset.Sensors.AddRange(
+                new List<Interfaces.ISensor>
+                {
+                    new NEASimulator.Models.Apparatus.LightGate(new System.Numerics.Vector2(370, 235), false)
+                        }
+            );
+
+            preset.DataLoggers.Add(new Models.Apparatus.DataLogger(new System.Numerics.Vector2(900, 100), false));
+
+            preset.Edges.AddRange(
+            new List<Models.Edge>
+            {
+                    new Models.Edge() { datalogger = preset.DataLoggers[0], sensor = preset.Sensors[0], portnum = 0 }
+            }
+        );
+
+            preset.Stopwatches.Add(new Models.Apparatus.UserStopwatch(new System.Numerics.Vector2(1200, 250), false));
+
+        }
+    }
+}

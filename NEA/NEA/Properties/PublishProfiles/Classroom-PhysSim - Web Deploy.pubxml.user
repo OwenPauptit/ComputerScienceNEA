@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAd2QDip7s8kyb1cHFmpgMPwAAAAACAAAAAAAQZgAAAAEAACAAAABuCY/zEyJkVsWUfn+0Mw/hk2oeicPAzaT09oufCH2PJAAAAAAOgAAAAAIAACAAAABQrRPXYP59dRdRTc7c603IQW3I5PErLq0SirvU0rvIfYAAAACo3C+xfJUUaeMXTuSjmY55ZdXZo0HwPmCemy5wHPYlsSMfC7TnVdgScu4M6ST2AliJT3ldRKiM9RLSvU2vcj3HCZRwMchh2sU6Bxr4u0JOU+OMurk2oUvvi6pf2wvTg63pBb7JB37r3J5PzLdg7B1TPFjbazt2ffRnHBUudnN1YEAAAACJL+1SBgrkhMdFOJk6kQQZSE9Y1ZRzOavf6VrYKHftuRQFJ+IXdDnA/ohxlduVacfwYuRCHKQ4MXT8RcrM/Th3</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="NEAContextConnection">
+      <Value>Data Source=tcp:classroom-physsim-dbserver.database.windows.net,1433%3bInitial Catalog=Classroom-PhysSim-DB%3bUser Id=owen%40classroom-physsim-dbserver%3bPassword=A3s3l%40physsim1602</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="NEA.Models.NEAContext">
+      <Value>Data Source=tcp:classroom-physsim-dbserver.database.windows.net,1433%3bInitial Catalog=Classroom-PhysSim-DB%3bUser Id=owen%40classroom-physsim-dbserver%3bPassword=A3s3l%40physsim1602</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

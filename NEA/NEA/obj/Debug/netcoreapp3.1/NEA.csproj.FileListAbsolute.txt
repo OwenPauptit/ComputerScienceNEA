@@ -161,9 +161,6 @@ C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcore
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\_LoginPartial.cshtml.g.cs
-C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\NEA.csproj.CoreCompileInputs.cache
-C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\NEA.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\NEA.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\bin\Debug\netcoreapp3.1\Microsoft.Data.Sqlite.dll
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Sqlite.dll
@@ -204,3 +201,16 @@ C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcore
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\Questions\Details.cshtml.g.cs
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\Questions\Edit.cshtml.g.cs
 C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\Razor\Pages\Questions\Index.cshtml.g.cs
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.AzureKeyVault.HostingStartup.dll
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\bin\Debug\netcoreapp3.1\Microsoft.Azure.KeyVault.dll
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\bin\Debug\netcoreapp3.1\Microsoft.Azure.KeyVault.WebKey.dll
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\bin\Debug\netcoreapp3.1\Microsoft.Azure.Services.AppAuthentication.dll
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.AzureKeyVault.dll
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\bin\Debug\netcoreapp3.1\Microsoft.Rest.ClientRuntime.dll
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\bin\Debug\netcoreapp3.1\Microsoft.Rest.ClientRuntime.Azure.dll
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\NEA.csproj.CoreCompileInputs.cache
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\NEA.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\obj\Debug\netcoreapp3.1\NEA.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\owenp\Git Hub Repositories\ComputerScienceNEA\NEA\NEA\bin\Debug\netcoreapp3.1\Properties\serviceDependencies.Classroom-PhysSim - Web Deploy.json

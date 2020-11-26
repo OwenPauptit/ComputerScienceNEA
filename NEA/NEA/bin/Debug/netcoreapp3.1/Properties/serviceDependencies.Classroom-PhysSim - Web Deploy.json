@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroup')]/providers/Microsoft.Sql/servers/classroom-physsim-dbserver/databases/Classroom-PhysSim-DB",
+      "type": "mssql.azure",
+      "connectionId": "NEAContextConnection",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
